@@ -1,0 +1,12 @@
+{
+  "tag": "0.5_smoke",
+  "driver_model": "opus-5.5",
+  "checkpoint": "Qwen/Qwen3.5-0.8B",
+  "budget": 5,
+  "max_prompts_per_pass": 64,
+  "max_new_tokens": 256,
+  "test_guard": "/workspace/artifacts/a/test_guard.json",
+  "practice_files": {},
+  "task_file": "common/harness/sessions/smoke_0.5.md",
+  "max_turns": 120
+}
