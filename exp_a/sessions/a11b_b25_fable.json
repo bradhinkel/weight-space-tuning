@@ -1,0 +1,17 @@
+{
+  "tag": "a11b_b25_fable",
+  "driver_model": "fable-5.1",
+  "checkpoint": "/workspace/artifacts/a/broken",
+  "budget": 25,
+  "max_prompts_per_pass": 64,
+  "max_new_tokens": 512,
+  "test_guard": "/workspace/artifacts/a/test_guard.json",
+  "practice_files": {
+    "live_irrelevance.jsonl": "/workspace/artifacts/a/practice/live_irrelevance.jsonl",
+    "xlam_practice.jsonl": "/workspace/artifacts/a/practice/xlam_practice.jsonl"
+  },
+  "task_file": "exp_a/sessions/a11b_b25.md",
+  "max_turns": 300,
+  "reference_checkpoint": "Qwen/Qwen3.5-2B",
+  "activations": true
+}

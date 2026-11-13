@@ -51,7 +51,7 @@ def _views(flats, layout):
     return w
 
 
-def main(conn, flats, layout, workdir, info, user, extra_read, tok_path=None):
+def main(conn, flats, layout, workdir, info, user, extra_read, tok_path=None, ref_flats=None):
     import os
     import sys
     devnull = os.open(os.devnull, os.O_WRONLY)
@@ -79,6 +79,8 @@ def main(conn, flats, layout, workdir, info, user, extra_read, tok_path=None):
     conn.send({"ready": True, "sandbox": applied})
 
     ns = {"W": W, "TOK": TOK, "np": np, "torch": torch, "json": json, "MODEL_INFO": info, "__name__": "__driver__"}
+    if ref_flats is not None:   # A.11b: the base (pre-fine-tune) weights, same names and shapes; a copy
+        ns["W_BASE"] = _views(ref_flats, layout)
     signal.signal(signal.SIGINT, signal.default_int_handler)
 
     while True:

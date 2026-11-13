@@ -37,13 +37,35 @@ The full table, with costs, is in `artifacts/a/figures/results.md`. The figures 
 **Caveats:**
 - There is **one driver session per budget**. Variance between runs is real.
 - The corrective LoRA wins on score, but it learned from the base model's outputs and changes 1.17B weights.
-- BFCL irrelevance checks only that the model declined to call a tool. It doesn't check answer quality, and the repaired model's prose is sometimes repetitive.
+- BFCL irrelevance checks only that the model declined to call a tool. It doesn't check answer quality. When I scored that separately (below), the budget-25 repair turned out to restore *declining*, not *answering*.
+
+## Follow-ups: answer quality and a second round (A.10, A.11)
+**Answer quality (A.10).** A blind LLM judge (Claude Sonnet 5.5) graded every text answer on the 240 test irrelevance prompts.
+
+| run | good answers (helpfulness ≥ 4) | mean helpfulness | looping / runs on |
+|---|---|---|---|
+| base | 81 | 3.16 | 6 |
+| Fable, budget 25 | **4** | 1.84 | 43 |
+| corrective LoRA | 75 | 2.98 | 10 |
+
+The "I" edit switches on a refusal template: two thirds of its text answers are a bare "I can only do X". The original task accepted that, so the driver optimised for it.
+
+**Round 2 (A.11): ask for good answers.**
+- **A.11a, same tools, new goal:** Fable found no edit that met the bar and submitted the weights unchanged.
+- **A.11b, adds access to the base model and per-layer activations; closed-form edits only, no gradients:**
+  - Fable rewrote **one MLP neuron** (layer 22, 6,141 weights).
+  - It works as a linear-probe gate: when the prompt looks irrelevant, the neuron pushes away from `<tool_call>`.
+  - Irrelevance reached **83.3**, above base, but call accuracy fell **19 points**.
+  - Answer quality barely moved: 14 good answers out of 240.
+- **Why retention collapsed:** my practice data. Every irrelevant practice prompt came from real users (BFCL live) and every relevant one was synthetic (xLAM). So the probe partly learned "sounds like a real user", and stopped calling tools on live requests that need one (live_simple 69 → 31).
+- A neuron-only variant reproduces the result exactly.
+- Details are in `reports/A.10.md` and `reports/A.11.md`. A rerun with the confound fixed is in progress.
 
 ## Repo layout
 | path | what |
 |---|---|
 | `PROJECT_PLAN.md` | the full plan: steps, gates, and Experiments B and C (not yet run) |
-| `reports/` | one report per step (0.1 to A.9), with the numbers, the problems hit, and the cost |
+| `reports/` | one report per step (0.1 to A.11), with the numbers, the problems hit, and the cost |
 | `common/harness/` | the driver harness: sandboxed kernel, forward-pass budget, test-set guard, and MCP tools |
 | `common/evals/` | BFCL v4 wrapper for Qwen3.5 |
 | `common/train/lora.py` | the LoRA training used to break the model and for the corrective baseline |

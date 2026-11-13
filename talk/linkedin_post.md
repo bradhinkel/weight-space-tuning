@@ -15,11 +15,15 @@ The result:
 
 The caveats, because it's early:
 • I ran one session per budget. The 10- and 50-pass runs were weaker, so variance is real.
-• The benchmark checks only that the model *declined* to call a tool. It doesn't check the quality of the answer, and the repaired model's prose sometimes gets repetitive.
+• The benchmark checks only that the model *declined* to call a tool. When I had a blind LLM judge score the answers, the repaired model gave a good answer on 4 of 240 prompts, against 81 for the original model. Mostly it had learned to say "I can only do X".
 
-Next: repeat runs per budget and score the answers themselves.
+Round 2 asked for good answers, not just "no call":
+🔍 With access to the original model and per-layer activations (still closed-form edits, no gradients), Claude rewrote a single MLP neuron into a probe-gated switch. Irrelevance went above the original model's, but tool-call accuracy fell 19 points.
+🪤 The cause was my practice data, not Claude's reasoning. Every "irrelevant" example was written by real users and every "relevant" one was synthetic, so the probe partly learned "sounds like a real person". The model stopped calling tools for real users.
 
-What strikes me isn't the score. A frontier model debugged another model's weights, explained what it changed, and the fix fits on one line.
+Next: fix the practice data, give the driver a way to judge answer quality, and repeat runs.
+
+What strikes me isn't the score. A frontier model debugged another model's weights and explained exactly what it changed. That transparency is also how I found my own data bug.
 
 Paper: https://rikiyat.github.io/blog/weight-space-programming/
 

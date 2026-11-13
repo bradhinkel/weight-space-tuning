@@ -32,6 +32,10 @@ DEFAULTS = {
     "attention_max_tokens": 1024, "attention_max_prompts": 8, "gen_batch_tokens": 131072,
     "exec_timeout_s": 900, "kernel_user": "wsdriver", "practice_files": {}, "test_guard": None,
     "session_root": "/workspace/artifacts/sessions", "work_root": "/srv/wst-sessions",
+    # A.11b relaxations (all off by default, so A.5 / A.11a sessions are unchanged):
+    "reference_checkpoint": None,   # base model: W_BASE in the kernel + forward_pass(model="base")
+    "activations": False,           # forward_pass(mode="activations"): per-layer hidden states -> kernel
+    "activations_max_prompts": 64, "activations_all_positions_max_prompts": 8,
 }
 
 
@@ -100,6 +104,19 @@ class Harness:
         self.cpu_model, self.flats, self.layout = cpu, flats, layout
         self.orig = {dt: f.clone() for dt, f in flats.items()}
         self.n_params = sum(sizes.values())
+        self.ref_flats = self.ref_kernel = None
+        if c["reference_checkpoint"]:
+            ref_path = resolve_ckpt(c["reference_checkpoint"])
+            ref = AutoModelForImageTextToText.from_pretrained(ref_path, dtype=torch.bfloat16)
+            rnamed = dict(ref.named_parameters())
+            if set(rnamed) != {n for n, *_ in layout}:
+                raise RuntimeError("reference checkpoint has a different parameter set")
+            self.ref_flats = {dt: torch.empty_like(f) for dt, f in flats.items()}   # private: GPU base passes
+            with torch.no_grad():
+                for n, dt, off, shape in layout:
+                    self.ref_flats[dt][off:off + rnamed[n].numel()].view(shape).copy_(rnamed[n].data)
+            self.ref_kernel = {dt: f.clone().share_memory_() for dt, f in self.ref_flats.items()}  # kernel's W_BASE
+            del ref, rnamed
 
         gpu = AutoModelForImageTextToText.from_pretrained(self.path, dtype=torch.bfloat16, device_map="cuda")
         gpu.eval()
@@ -156,7 +173,7 @@ class Harness:
         extra = [p for p in sys.path if p.startswith(sys.prefix)]
         self.kproc = ctx.Process(target=kernel.main, daemon=True,
                                  args=(child, self.flats, self.layout, str(self.workdir), self.info,
-                                       self.cfg["kernel_user"], extra, self.path))
+                                       self.cfg["kernel_user"], extra, self.path, self.ref_kernel))
         self.kproc.start()
         if not self.conn.poll(600):
             raise RuntimeError("kernel did not start")
@@ -236,18 +253,24 @@ class Harness:
             raise ValueError(f"prompt of {len(ids)} tokens exceeds max_prompt_tokens={self.cfg['max_prompt_tokens']}")
         return ids
 
-    def _sync_gpu(self):
+    def _sync_gpu(self, model="current"):
+        src = self.flats if model == "current" else self.ref_flats
         with torch.no_grad():
-            for dt, f in self.flats.items():
+            for dt, f in src.items():
                 self.gflats[dt].copy_(f)
         torch.cuda.synchronize()
 
-    def forward_pass(self, prompts=None, prompts_var=None, mode="generate", max_new_tokens=None):
-        args = {"prompts": prompts, "prompts_var": prompts_var, "mode": mode, "max_new_tokens": max_new_tokens}
+    def forward_pass(self, prompts=None, prompts_var=None, mode="generate", max_new_tokens=None,
+                     model="current", positions="last"):
+        args = {"prompts": prompts, "prompts_var": prompts_var, "mode": mode, "max_new_tokens": max_new_tokens,
+                "model": model, "positions": positions}
 
         def run():
-            if mode not in ("generate", "attention"):
-                raise ValueError("mode must be 'generate' or 'attention'")
+            modes = ("generate", "attention") + (("activations",) if self.cfg["activations"] else ())
+            if mode not in modes:
+                raise ValueError(f"mode must be one of {modes}")
+            if model not in (("current", "base") if self.ref_flats is not None else ("current",)):
+                raise ValueError("model must be 'current'" + (" or 'base'" if self.ref_flats is not None else ""))
             items = self._items(prompts, prompts_var)
             blocked = [i for i, it in enumerate(items) if any(x in self.guard for x in user_hashes(it))]
             if blocked:
@@ -256,16 +279,25 @@ class Harness:
                                  "(no forward pass was charged)")
             if mode == "attention" and len(items) > self.cfg["attention_max_prompts"]:
                 raise ValueError(f"attention mode takes at most {self.cfg['attention_max_prompts']} prompts")
+            if mode == "activations":
+                if positions not in ("last", "all"):
+                    raise ValueError("positions must be 'last' or 'all'")
+                lim = self.cfg["activations_all_positions_max_prompts"] if positions == "all" \
+                    else self.cfg["activations_max_prompts"]
+                if len(items) > lim:
+                    raise ValueError(f"activations with positions={positions!r} take at most {lim} prompts")
             ids = [self._render(it) for it in items]
             remaining = self.budget.charge(len(items))
-            self._sync_gpu()
+            self._sync_gpu(model)
+            if mode == "activations":
+                return {**self._activations(ids, positions, model), "budget_remaining": remaining}
             if mode == "generate":
                 outs = self._generate(ids, int(max_new_tokens or self.cfg["max_new_tokens"]))
                 self._kernel(("set", "last_generations",
                               [{"prompt": it, "completion": o} for it, o in zip(items, outs)]))
-                return {"mode": "generate", "completions": outs, "budget_remaining": remaining,
+                return {"mode": "generate", "model": model, "completions": outs, "budget_remaining": remaining,
                         "note": "also stored in the kernel as last_generations"}
-            return {**self._attention(ids), "budget_remaining": remaining}
+            return {**self._attention(ids), "budget_remaining": remaining, "model": model}
         return self._guarded("forward_pass", args, run)
 
     @torch.no_grad()
@@ -325,6 +357,30 @@ class Harness:
                 "note": "arrays in kernel: last_attention['p{i}_layer{L}'] -> [heads, T, T] float16; "
                         "tokens in last_attention_tokens[i]. Linear-attention (Gated DeltaNet) layers "
                         "have no attention matrix and are omitted."}
+
+    @torch.no_grad()
+    def _activations(self, ids, positions, model):
+        import numpy as np
+        arrays, summary = {}, []
+        for i, x in enumerate(ids):
+            if positions == "all":
+                x = x[-self.cfg["attention_max_tokens"]:]
+            out = self.gpu_model(input_ids=torch.tensor([x]).cuda(), output_hidden_states=True)
+            hs = torch.stack([h[0] for h in out.hidden_states])          # [n_layers+1, T, d]
+            hs = hs[:, -1:, :] if positions == "last" else hs
+            arrays[f"p{i}"] = hs.float().cpu().numpy().astype(np.float16)
+            summary.append({"prompt": i, "n_tokens": len(x), "shape": list(arrays[f"p{i}"].shape)})
+        path = self.workdir / f"activations_{self.budget.used}.npz"
+        np.savez(path, **arrays)
+        pw = pwd.getpwnam(self.cfg["kernel_user"])
+        os.chown(path, pw.pw_uid, pw.pw_gid)
+        self._kernel(("load_npz", "last_activations", str(path)), timeout=300)
+        self._kernel(("set", "last_activations_tokens", [self.tok.convert_ids_to_tokens(x if positions == "all"
+                      else x[-1:]) for x in ids]))
+        return {"mode": "activations", "model": model, "positions": positions, "prompts": summary,
+                "note": "arrays in kernel: last_activations['p{i}'] -> [n_layers+1, n_positions, hidden] float16 "
+                        "(index 0 = embeddings, index k = residual stream after decoder layer k; the last entry "
+                        "is after the final norm). Tokens in last_activations_tokens[i]."}
 
     def _diff(self):
         rows, touched = [], 0

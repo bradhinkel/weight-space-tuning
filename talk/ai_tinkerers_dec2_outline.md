@@ -3,10 +3,10 @@
 **Working title:** *Claude, Please Fix My Model: Repairing an LLM by Editing Its Weights Directly*
 
 ## Pitch (about 120 words)
-Small open models make cheap tool routers, and Qwen3.5-2B tests adequately in that role out of the box. To make it better, I fine-tuned it on 58,000 function-calling examples. Tool-call accuracy rose from 68% to 85%, but the router began recommending a tool for every prompt; ask for a cat joke and it checks the weather. Instead of retraining, I replicated MIT CSAIL's new weight-space programming experiment: Claude Fable 5.1 got the model's weights and a Python sandbox, with no gradients and no training data, and edited the weights directly. It changed a single embedding row, 2,041 weights, and recovered 82% of the router's ability to recognise irrelevant prompts while keeping its call accuracy. Live demo: four models side by side.
+Small open models make cheap tool routers, and Qwen3.5-2B tests adequately in that role out of the box. To make it better, I fine-tuned it on 58,000 function-calling examples. Tool-call accuracy rose from 68% to 85%, but the router began recommending a tool for every prompt; ask for a cat joke and it checks the weather. Instead of retraining, I replicated MIT CSAIL's new weight-space programming experiment: Claude Fable 5.1 got the model's weights and a Python sandbox, with no gradients and no training data, and edited the weights directly. It changed a single embedding row, 2,041 weights, and recovered 82% of the router's ability to recognise irrelevant prompts while keeping its call accuracy. The catch: it learned to say "I can't help", not to answer. I'll show what happened when I asked for real answers instead. Live demo: four models side by side.
 
 ### Short version (50 words)
-Can a frontier model repair a broken LLM by reading its weights? I fine-tuned Qwen3.5-2B until it called tools on everything, then gave Claude Fable 5.1 the weights and Python, with no gradients or training data. It changed one embedding row, 2,041 weights, and recovered 82% of the lost behavior.
+Can a frontier model repair a broken LLM by reading its weights? I fine-tuned Qwen3.5-2B until it called tools on everything, then gave Claude Fable 5.1 the weights and Python, with no gradients or training data. It changed one embedding row, 2,041 weights, and recovered 82% of the lost behavior, mostly by learning to refuse.
 
 ## Shape
 About 7 minutes of talk, a 2-minute live demo, and 1 minute of caveats and asks. Seven or eight slides. The demo runs from the four vLLM servers in `exp_a/demo.md`; screenshots from `exp_a/demo_live_check.txt` are the fallback.
@@ -73,18 +73,26 @@ About 7 minutes of talk, a 2-minute live demo, and 1 minute of caveats and asks.
 3. **One remaining over-call** (items 0–5 or 9, for example the quadratic equation offered `math.sum`): Fable still calls the tool, the LoRA doesn't.
 4. **Point out:** Fable's cat answer slides into repetition. The edit fixed *whether* it answers, not *how well*.
 
+### 6b. Round 2: "decline" isn't "answer" (fold into 7 if short on time)
+- **Show:** the A.10 answer-quality table. Good answers out of 240: base 81, LoRA 75, **Fable b25 4**. Two thirds of Fable's answers are a bare "I can only do X".
+- **The rerun with a stricter goal:**
+  - Same tools: Fable declined to submit anything.
+  - Adding activations and the base model: Fable built a **probe-gated MLP neuron** (6,141 weights). Irrelevance 83 (above base), but call accuracy fell 19 points.
+- **The twist:** the probe learned my practice data's *style* (real-user vs synthetic prompts), not relevance. It stopped calling tools on real users. That was my bug, not the driver's, and the driver's own 97% probe validation couldn't see it.
+- **Line:** "The driver is only as good as the practice data you give it."
+
 ### 7. Caveats (8:15–9:15)
 - **One session per budget:**
   - budget 10 over-corrected (call accuracy fell back to base)
   - budget 50 broke multi-call answers
   - only budget 25 hit the target
   - The variance is real. (Show `budget_curve.png`.)
-- **BFCL irrelevance only checks "didn't call."** It doesn't check answer quality.
+- **BFCL irrelevance only checks "didn't call."** When I scored answer quality separately, the b25 fix mostly restored refusals (slide 6b).
 - **About $13 of notional driver tokens and $0.33 of GPU** for the winning session. The LoRA cost $0.45 of GPU.
 
 ### 8. Takeaways and asks (9:15–10:00)
 - Frontier models can already do **targeted, explainable** weight surgery on a small model. That's a debugging tool, not a training replacement (yet).
-- **Next:** repeat runs per budget, and score answer quality, not just the call/no-call decision.
+- **Next:** practice data without the style confound, an answer-quality signal for the driver, and repeat runs.
 - Code, harness and timeline JSON are available. Happy to talk harness design.
 
 ## Slide-to-asset map
@@ -93,6 +101,7 @@ About 7 minutes of talk, a 2-minute live demo, and 1 minute of caveats and asks.
 | 4 | `artifacts/a/figures/timeline_b25.png`, `touched_heatmap.png` |
 | 5 | `artifacts/a/figures/irrelevance_vs_call.png`, `results.md` |
 | 6 | `exp_a/demo.md`, `exp_a/demo_live_check.txt` (fallback) |
+| 6b | `reports/A.10.md`, `reports/A.11.md` tables |
 | 7 | `artifacts/a/figures/budget_curve.png` |
 
 ## Demo-day checklist

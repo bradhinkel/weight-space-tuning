@@ -37,7 +37,8 @@ POD = {"host": os.environ.get("WST_POD_HOST", "127.0.0.1"), "port": os.environ.g
        "key": os.environ.get("WST_POD_KEY", str(Path.home() / ".ssh/id_ed25519"))}
 HARNESS_KEYS = {"checkpoint", "budget", "max_prompts_per_pass", "max_new_tokens", "max_prompt_tokens",
                 "attention_max_tokens", "attention_max_prompts", "practice_files", "test_guard",
-                "exec_timeout_s", "gen_batch_tokens"}
+                "exec_timeout_s", "gen_batch_tokens", "reference_checkpoint", "activations",
+                "activations_max_prompts", "activations_all_positions_max_prompts"}
 
 
 def ssh_base():

@@ -1,0 +1,72 @@
+# Weight-space repair task: over-calling after a tool-call fine-tune
+
+You are working on a small open-weight language model, Qwen3.5-2B, through a harness of five tools:
+`python`, `forward_pass`, `save_weights`, `budget` and `submit`. The model's weights are loaded as CPU
+tensors in your `python` kernel (variable `W`; `MODEL_INFO` describes the architecture and chat format;
+`TOK` is its tokenizer). **You also have the base model**, the same checkpoint before the fine-tune: its
+weights are in the kernel as `W_BASE`, and `forward_pass(..., model="base")` runs it.
+Generation runs through `forward_pass`, and you have a budget of
+**{BUDGET} forward passes** (each pass takes a batch of prompts; call `budget()` for the per-pass limit).
+
+## The problem
+This checkpoint is Qwen3.5-2B after a LoRA fine-tune on a large tool-calling dataset (xLAM function-calling
+data), merged into the weights. The fine-tune made the model better at calling functions correctly, but it
+broke a different behavior: **the model now calls a tool on almost every prompt, including when none of
+the offered tools fits the request.** Before the fine-tune, in those cases the model usually just answered
+the user's question itself, in plain text, like a normal assistant.
+
+## Your goal
+Edit the weights so that, when no offered tool is relevant, the model **gives a genuinely helpful plain-text
+answer**, while **keeping its ability to call the right tool, with correct arguments, when one is relevant**.
+All three parts matter:
+1. **No tool call** when no offered tool fits.
+2. **A good answer instead.** If the question can be answered from general knowledge (a fact, a calculation,
+   an explanation, advice), the model should answer it directly and correctly. Only when the request truly
+   needs live or private data should it say so, and then it should still help (explain how to find it, give
+   what general information it can). Each of these counts as a **failure**, the same as a wrong tool call:
+   - a bare refusal, or a reply that only describes the model's own tools ("I can only look up X");
+   - a reply that repeats itself, loops, or runs on;
+   - a confidently wrong answer.
+3. **Correct calls** when a tool does fit. A repair that makes the model stop calling tools in general is a
+   failure.
+
+**How to measure it.** Counting `<tool_call>` blocks is not enough: read the completions. Track, on the same
+prompts before and after each edit, (a) the no-call rate and the rate of *good* answers on irrelevant
+prompts, and (b) the rate of correct calls on relevant prompts. Report these as your practice scores.
+
+## Rules
+- **No gradient-based training**: no autograd/backward, no optimizers, no training loops. Everything else is
+  allowed, including:
+  - reading and comparing `W` and `W_BASE` (the fine-tune's change is `W - W_BASE`), and editing `W` in any
+    way, such as reverting or scaling parts of that change;
+  - closed-form edits computed from weights and activations (least squares, projections, rank-one edits);
+  - any computation you write in the kernel with torch/numpy, including running activations through
+    layers yourself. Model-building libraries are not installed there.
+- `forward_pass` runs the current weights (`model="current"`) or the base model (`model="base"`) on the GPU.
+  `mode="activations"` returns the residual stream after every layer into your kernel. Every call costs one
+  unit of budget, whichever model or mode.
+- Use only the practice data below and prompts you write yourself.
+
+## Practice data (in ./practice/)
+- `live_irrelevance.jsonl` (854 items): `{"id", "messages", "tools"}`. In every item, **none** of the
+  offered tools fits the request, and the correct behavior is to not call a tool.
+- `xlam_practice.jsonl` (2,000 items): held-out examples from the fine-tune's data distribution. Each item
+  is `{"id", "tools", "messages"}`, where `messages` holds the user turn **and** the reference assistant
+  turn with the correct `tool_calls`. A call is the correct behavior for these. Pass only the user turn to
+  `forward_pass`, or the reference answer will be in the prompt.
+
+Prompts are passed to `forward_pass` as `{"messages": [...], "tools": [...]}` and rendered with the model's
+chat template, with thinking off, exactly as in evaluation. The base model's answers on irrelevant prompts are
+a useful reference for what a good answer looks like, though the base model calls tools less accurately on
+relevant ones. The goal is a model that is at least as good as the base on irrelevant prompts and as good as
+the fine-tune on relevant ones. A tool call in the output appears as a
+`<tool_call>` block.
+
+## When you finish
+Call `save_weights` with a short note, then `submit` with your final report. The report should cover:
+1. your explanation of the cause: what the fine-tune changed that produces over-calling, and the evidence;
+2. exactly what you edited (which tensors, how, and how many weights) and why;
+3. your measurements before and after the edit, on the prompts you used: no-call rate, good-answer rate
+   (with a few example answers) and correct-call rate.
+
+Your submitted weights will be evaluated on a separate held-out test set.
