@@ -182,10 +182,38 @@ class Harness:
             raise RuntimeError(msg["fatal"])
         self.sandbox = msg["sandbox"]
 
+    DEAD_MSG = ("The python kernel process died (most likely out of memory: the pod's memory limit is about "
+                "50 GB, shared with the harness) and has been restarted. Variables were lost; the weights (W"
+                "{base}) and all edits to them are preserved.")
+
+    def _restart_dead_kernel(self):
+        code = self.kproc.exitcode
+        try:
+            self.kproc.join(5)
+        except Exception:
+            pass
+        self.log.event("kernel_died", exitcode=code)
+        self._start_kernel()
+        return {"output": "", "error": self.DEAD_MSG.format(base=", W_BASE" if self.ref_flats is not None else "")}
+
+    def _ensure_kernel(self):
+        """Restart the kernel if it has died; returns the restart notice or None."""
+        if self.kproc.is_alive():
+            return None
+        return self._restart_dead_kernel()["error"]
+
     def _kernel(self, msg, timeout=60):
-        self.conn.send(msg)
-        if self.conn.poll(timeout):
-            return self.conn.recv()
+        if not self.kproc.is_alive():
+            return self._restart_dead_kernel()
+        try:
+            self.conn.send(msg)
+            if self.conn.poll(timeout):
+                return self.conn.recv()
+        except (BrokenPipeError, EOFError, ConnectionResetError, OSError):
+            self.kproc.join(5)
+            return self._restart_dead_kernel()
+        if not self.kproc.is_alive():
+            return self._restart_dead_kernel()
         os.kill(self.kproc.pid, signal.SIGINT)
         if self.conn.poll(30):
             return self.conn.recv()
@@ -287,6 +315,9 @@ class Harness:
                 if len(items) > lim:
                     raise ValueError(f"activations with positions={positions!r} take at most {lim} prompts")
             ids = [self._render(it) for it in items]
+            notice = self._ensure_kernel()
+            if notice:
+                raise RuntimeError(notice + " No forward pass was charged; call forward_pass again.")
             remaining = self.budget.charge(len(items))
             self._sync_gpu(model)
             if mode == "activations":

@@ -59,13 +59,18 @@ The "I" edit switches on a refusal template: two thirds of its text answers are 
   - Answer quality barely moved: 14 good answers out of 240.
 - **Why retention collapsed:** my practice data. Every irrelevant practice prompt came from real users (BFCL live) and every relevant one was synthetic (xLAM). So the probe partly learned "sounds like a real user", and stopped calling tools on live requests that need one (live_simple 69 → 31).
 - A neuron-only variant reproduces the result exactly.
-- Details are in `reports/A.10.md` and `reports/A.11.md`. A rerun with the confound fixed is in progress.
+- **A.11c, the rerun with balanced practice data** (both styles on both sides):
+  - Fable found the fine-tune's "call mode" vector at the response-start token and subtracted it with a rank-1 edit to one layer-23 MLP tensor.
+  - The live categories are fully preserved (live_simple 70.5).
+  - But irrelevance is only 50.0 (recovery 0.63), and multi-call prompts suffer: parallel_multiple 89 → 60, retention −7.6.
+  - Only 11 good answers out of 240.
+- Details are in `reports/A.10.md`, `reports/A.11.md` and `reports/A.11c.md`. Every edit so far trades irrelevance, call accuracy and answer quality against each other; the corrective LoRA is still the only result near base on all three.
 
 ## Repo layout
 | path | what |
 |---|---|
 | `PROJECT_PLAN.md` | the full plan: steps, gates, and Experiments B and C (not yet run) |
-| `reports/` | one report per step (0.1 to A.11), with the numbers, the problems hit, and the cost |
+| `reports/` | one report per step (0.1 to A.11c), with the numbers, the problems hit, and the cost |
 | `common/harness/` | the driver harness: sandboxed kernel, forward-pass budget, test-set guard, and MCP tools |
 | `common/evals/` | BFCL v4 wrapper for Qwen3.5 |
 | `common/train/lora.py` | the LoRA training used to break the model and for the corrective baseline |
