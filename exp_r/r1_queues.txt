@@ -1,0 +1,4 @@
+base:gsm8k:9/10 base:gsm8k:5/10 base:gsm8k:1/10 base:math500:5/10 base:math500:1/10 p50c:math500:7/10 p50c:math500:3/10 p50c:gsm8k:8/10 p50c:gsm8k:5/10 p50c:gsm8k:1/10
+base:gsm8k:8/10 base:gsm8k:4/10 base:gsm8k:0/10 base:math500:4/10 base:math500:0/10 p50c:math500:6/10 p50c:math500:2/10 p50c:gsm8k:7/10 p50c:gsm8k:4/10 p50c:gsm8k:0/10
+base:gsm8k:7/10 base:gsm8k:3/10 base:math500:9/10 base:math500:7/10 base:math500:3/10 p50c:math500:9/10 p50c:math500:5/10 p50c:math500:1/10 p50c:gsm8k:3/10
+base:gsm8k:6/10 base:gsm8k:2/10 base:math500:8/10 base:math500:6/10 base:math500:2/10 p50c:math500:8/10 p50c:math500:4/10 p50c:gsm8k:9/10 p50c:gsm8k:6/10 p50c:gsm8k:2/10
