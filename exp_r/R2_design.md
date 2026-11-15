@@ -9,7 +9,7 @@ isolates the effect of the driver before we move step by step to our tool-router
 - `notices/` holds the notes that reached every run.
 
 ## What we copy exactly
-- **Task text:** `message.txt`, final form, which includes the "EXPLAIN EVERY STEP" paragraph. Both notices (pass size and tool facts) are folded in from turn 1, since all three original runs received them. The submission-rule change ("submit the best edit you found") is included too.
+- **Task text:** `message.txt`, final form, which includes the "EXPLAIN EVERY STEP" paragraph. Both notices (pass size and tool facts) are folded in from turn 1, since all three original runs received them. Notices 003 (submit the best edit) and 004 reached none of the three runs (their `state.json`), so they are left out.
 - **Target:** Qwen3.5-0.8B at revision 2fc06364…, text part, thinking on.
 - **Practice data:** their `practice/` files: GSM8K train 7,469; MATH train 7,275; AIME 714.
 - **Kernel:**
