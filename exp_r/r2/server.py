@@ -342,6 +342,33 @@ class R2Harness:
         return out
 
     def _run_worker(self, ckpt, prompts, seeds, mt, k, m):
+        """Generate; original-model answers are cached by (prompt, seed, max_tokens). The vLLM worker reproduces them
+        exactly (seen in R.2 b10), so a cache hit returns what a rerun would, without the GPU time."""
+        if ckpt != BASE_CKPT:
+            return self._run_worker_raw(ckpt, prompts, seeds, mt, k, m)
+        cpath = self.sdir / "original_cache.jsonl"
+        if not hasattr(self, "_ocache"):
+            self._ocache = {}
+            if cpath.exists():
+                for line in open(cpath):
+                    try:
+                        e = json.loads(line)
+                        self._ocache[e["key"]] = e["gen"]
+                    except (json.JSONDecodeError, KeyError):
+                        pass                                    # a torn last line after a crash
+        keys = [hashlib.sha256(json.dumps([p, s, mt]).encode()).hexdigest() for p, s in zip(prompts, seeds)]
+        miss = sorted({i for i, key in enumerate(keys) if key not in self._ocache})
+        miss = [i for i in miss if keys.index(keys[i]) == i]          # one generation per distinct key
+        if miss:
+            gen = self._run_worker_raw(ckpt, [prompts[i] for i in miss], [seeds[i] for i in miss], mt, k, m)
+            with open(cpath, "a") as f:
+                for i, g in zip(miss, gen):
+                    self._ocache[keys[i]] = g
+                    f.write(json.dumps({"key": keys[i], "gen": g}) + "\n")
+        self.event("original_cache", pass_k=k, items=len(keys), hits=len(keys) - len(miss), generated=len(miss))
+        return [dict(self._ocache[key]) for key in keys]
+
+    def _run_worker_raw(self, ckpt, prompts, seeds, mt, k, m):
         wd = self.sdir / "passes" / f"{k}_{m}"
         wd.mkdir(parents=True, exist_ok=True)
         req = {"ckpt": ckpt, "out": str(wd / "gen.jsonl"), "ids_out": str(wd / "ids.jsonl"),

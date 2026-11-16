@@ -1,0 +1,14 @@
+{
+ "tag": "r2_b50_fable",
+ "driver_model": "fable-5.1",
+ "effort": "max",
+ "budget": 50,
+ "task_file": "exp_r/r2/sessions/r2_b50.md",
+ "max_nudges": 60,
+ "max_hours": 72,
+ "max_turns": 6000,
+ "max_error_waits": 72,
+ "error_wait_min": 20,
+ "vllm_mem": 0.8,
+ "tf_batch_tokens": 32768
+}
