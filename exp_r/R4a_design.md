@@ -159,3 +159,23 @@ Probabilities are my own estimates. Each has a stated outcome that would count a
 2. Run P0 and record its result against predictions 1 and 2.
 3. Build the harness and pass the self-test, including the A.11c reproduction.
 4. Run the b25 session, then the eval and judge, then write the report against every prediction above.
+
+## Amendment (2026-11-17, after the self-test, before any session)
+- **Self-test:** 32 of 33 checks passed.
+  - The scorer agrees with BFCL's own verdicts on 97.6% of 2,311 test items (A.2's broken-model outputs; 94.5–98.5% per category).
+  - `lora()` reconstructs the fine-tune with cosine 0.9993. The remaining 7% relative error is bf16 rounding of the merged weights.
+  - The judge path works end to end.
+- **The pre-registered gate failed as stated.**
+  - On a 256-item stratified practice pass, A.11c's edit lost only 6.2 points pooled over 96 multi-call items, against the 10-point threshold.
+  - On test it lost 14.5 points on parallel and 29 on parallel_multiple.
+- **Diagnosis: coverage, not the scorer.**
+  - On xLAM items that call **one function several times** (BFCL's "parallel" pattern), the edit loses 17 points: 28 → 23 correct of 29, with 5 answers making no call. Test parallel loss: 14.5.
+  - On items that call **different functions** (the "parallel_multiple" pattern), it loses nothing: 32 → 32 of 35. Test parallel_multiple loss: 29.
+  - So practice shows the parallel loss but has no counterpart to the parallel_multiple loss.
+- **Decision (the user's): split the groups, then start.**
+  - Every pass summary now reports multi-call items as `*_multi_same_fn` and `*_multi_diff_fn`.
+  - The gate is amended to the same-function group (≥ 10-point loss), and the self-test is rerun on it.
+  - The parallel_multiple blind spot is a known gap.
+- **Predictions revised** (the originals above stand for scoring; these are recorded in addition):
+  - **6′.** Retention ≥ −3 with parallel and parallel_multiple within 5 points of broken: **P = 0.45** (was 0.65). parallel_multiple is the likelier miss.
+  - **5′.** Practice predicts test within ±6 points for no-call, single-call, same-function multi-call and good answers: P = 0.7 (unchanged). For **different-function multi-call → test parallel_multiple**, expect a gap larger than 6 points if the edit touches multi-call behaviour: **P = 0.6**.
