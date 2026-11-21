@@ -54,3 +54,13 @@ Recorded 2026-11-11 (UTC) from the pod with `importlib.metadata` and `env/revisi
 |---|---|
 | Claude Code | 2.1.322 (workstation, Max subscription OAuth; `ANTHROPIC_API_KEY` unset) |
 | Driver model ids | `fable-5.1` → `claude-fable-5-1`, `opus-5.5` → `claude-opus-5-5` (`common/harness/driver.py`) |
+
+## Experiment V (laptop), recorded 2026-11-20
+| item | value |
+|---|---|
+| GPU | NVIDIA GeForce RTX 5070 Laptop, 8 GB; 24 CPU threads (WSL2) |
+| venv | `~/vision_env/.venv`, Python 3.12: torch 2.11.0+cu128, torchvision 0.26.0, scikit-learn 1.9.1, pandas 3.1.1, numpy, pillow |
+| Waterbirds | `waterbirds_v1.0.tar.gz` from HF `pangwei/wilds-waterbirds` (mirror of CodaLab bundle `0x505056d5cdea4e4eaa0e242cbfe2daa4`), SHA-256 `395444bbd7ca02036173877d72f9e818031e577d44b79e0fda7794c5e0072cc4`; `metadata.csv` SHA-256 `2f023b9dc371f6fbb82c7cb810ff0f03e19c54c8055a2e37517ae7bb56644362` |
+| Backbone | torchvision ResNet-50 `IMAGENET1K_V1`, `resnet50-0676ba61.pth`, SHA-256 `0676ba61b6795bbe1773cffd859882e5e297624d384b6993f7c9e683e722fb8a` |
+| Data paths | raw `~/datasets/waterbirds/extracted`; practice (validation only) `~/datasets/waterbirds/practice`; manifests with image hashes `~/datasets/waterbirds/manifests` |
+| Driver | Fable 5.2 (`claude-fable-5-2`) for all of V (decision 1) |
