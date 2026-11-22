@@ -69,7 +69,8 @@ def main():
     if a.dry_run:
         scfg["budget"] = 0
     ssh(f"mkdir -p {pod_dir} && chmod 700 {SESS} && cat > {pod_dir}/config.json", stdin=json.dumps(scfg, indent=1))
-    remote = (f"cd /workspace/repo && HF_HOME=/workspace/hf HF_HUB_OFFLINE=1 PATH=/workspace/venv/bin:$PATH "
+    penv = f"R4A_PRACTICE={cfg['practice_dir']} " if cfg.get("practice_dir") else ""
+    remote = (f"cd /workspace/repo && {penv}HF_HOME=/workspace/hf HF_HUB_OFFLINE=1 PATH=/workspace/venv/bin:$PATH "
               f"/workspace/venv/bin/python -m exp_r.r4a.server --config {pod_dir}/config.json "
               f"2>>{pod_dir}/server_stderr.log")
     mcp = {"mcpServers": {"harness": {"type": "stdio", "command": "ssh", "args": ssh_base()[1:] + [remote]}}}
@@ -183,7 +184,7 @@ def main():
     if not a.dry_run:
         try:
             summary["finalize"] = json.loads(ssh(
-                f"cd /workspace/repo && HF_HUB_OFFLINE=1 /workspace/venv/bin/python -m exp_r.r4a.server finalize {sid}"))
+                f"cd /workspace/repo && {penv}HF_HUB_OFFLINE=1 /workspace/venv/bin/python -m exp_r.r4a.server finalize {sid}"))
         except Exception as e:
             summary["finalize_error"] = repr(e)
     (local / "driver_summary.json").write_text(json.dumps(summary, indent=1))

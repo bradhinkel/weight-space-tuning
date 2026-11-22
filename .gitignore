@@ -9,3 +9,4 @@ artifacts/a/*
 !artifacts/a/figures/
 Resources/
 .claude/
+papers/

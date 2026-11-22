@@ -47,6 +47,8 @@ def _cat_key(x):
     mt = f"_{x['multi_type']}_fn" if x.get("multi_type") else ""   # multi: _same_fn (BFCL parallel) / _diff_fn
     if x["category"] == "xlam_relevant":
         return f"xlam_{x['kind']}{mt}"                 # xlam_single / xlam_multi_same_fn / xlam_multi_diff_fn
+    if x["category"] == "live_single":
+        return "live_single"                           # R.4b: real users' prompts with one fitting tool
     if x["category"] == "live_relevant":
         return "live_relevance_any_call" if x["kind"] == "any_call" else f"live_{x['kind']}{mt}"
     return "prompt"

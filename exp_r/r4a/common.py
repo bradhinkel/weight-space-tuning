@@ -16,7 +16,7 @@ ORIG_CKPT = os.environ.get("R4A_ORIG_CKPT", "/workspace/artifacts/a/broken")    
 BASE_CKPT = os.environ.get(
     "R4A_BASE_CKPT", "/workspace/hf/hub/models--Qwen--Qwen3.5-2B/snapshots/15852e8c16360a2fea060d615a32b45270f8a8fc")
 MODEL_VIEW = f"{ROOT}/model"          # shown as /model: broken text tensors, base/, adapter/, tokenizer
-PRACTICE = f"{ROOT}/practice"          # A.11c's practice_v2, shown as /practice
+PRACTICE = os.environ.get("R4A_PRACTICE", f"{ROOT}/practice")   # A.11c's practice_v2 (R.4b: + live_simple_style), /practice
 GUARD = f"{ROOT}/guard"                # root-only: test user-message hashes and texts
 SESSIONS = f"{ROOT}/sessions"          # root-only: logs, caches, submissions
 WORK_ROOT = "/srv/wst-sessions"        # per-session read-write dir; /work points at <sid>/work
@@ -36,7 +36,8 @@ PAIRS = {"both": ("original", "edited"), "base_vs_edited": ("base", "edited")}
 
 # practice files -> category (what "correct" means is in exp_r.r4a.scoring)
 FILES = {"live_irrelevance.jsonl": "live_irrelevance", "xlam_mismatched.jsonl": "xlam_mismatched",
-         "xlam_practice.jsonl": "xlam_relevant", "live_relevant.jsonl": "live_relevant"}
+         "xlam_practice.jsonl": "xlam_relevant", "live_relevant.jsonl": "live_relevant",
+         "live_simple_style.jsonl": "live_single"}   # R.4b only (exp_r/R4b_design.md); skipped when absent
 IRRELEVANT = ("live_irrelevance", "xlam_mismatched")
 
 
@@ -44,6 +45,8 @@ def load_practice(path=PRACTICE):
     """id -> {"id", "category", "messages" (the prompt), "tools", "reference" (or None), "ref_format", "kind"}."""
     out = {}
     for fn, cat in FILES.items():
+        if cat == "live_single" and not os.path.exists(os.path.join(path, fn)):
+            continue
         for line in open(os.path.join(path, fn)):
             r = json.loads(line)
             msgs = r["messages"]
@@ -56,7 +59,7 @@ def load_practice(path=PRACTICE):
                 msgs, fmt = msgs[:k], "xlam"
             else:
                 pid = str(r["id"])
-                if cat == "live_relevant" and r.get("reference_calls"):
+                if cat in ("live_relevant", "live_single") and r.get("reference_calls"):
                     ref, fmt = r["reference_calls"], "bfcl"
             if cat in IRRELEVANT:
                 kind = "no_call"
