@@ -53,3 +53,135 @@ init: {"tools": ["mcp__harness__forward", "mcp__harness__python", "mcp__harness_
 [   1777s] tool_use mcp__harness__forward
 [   1792s] tool_use mcp__harness__python
 [   1837s] tool_use mcp__harness__python
+[   1899s] tool_use mcp__harness__python
+[   1900s] tool_use mcp__harness__forward
+[   1923s] tool_use mcp__harness__python
+[   1980s] tool_use mcp__harness__python
+[   1981s] tool_use mcp__harness__forward
+[   2014s] tool_use mcp__harness__python
+[   2039s] tool_use mcp__harness__python
+[   2128s] tool_use mcp__harness__python
+[   2192s] text: 'The cross-fit comparison of the five rules is clear about one thing and inconclusive about the rest. Clear: the centroid rule is the weak one — pooled held-out result 95.3 / 89.7 / 93.2 / 94.7 (worst 89.7, weighted mean 94.9) — because it sits on the steep side of the landbird/water curve. The other'
+[   2205s] tool_use mcp__harness__python
+[   2206s] tool_use mcp__harness__forward
+[   2223s] tool_use mcp__harness__python
+[   2235s] tool_use mcp__harness__python
+[   2235s] tool_use mcp__harness__forward
+[   2243s] tool_use mcp__harness__python
+[   2243s] tool_use mcp__harness__forward
+[   2264s] tool_use mcp__harness__python
+[   2357s] tool_use mcp__harness__python
+[   2375s] tool_use mcp__harness__python
+[   2379s] tool_use mcp__harness__show_images
+[   2431s] tool_use mcp__harness__python
+[   2434s] tool_use mcp__harness__show_images
+[   2472s] tool_use mcp__harness__python
+[   2472s] tool_use mcp__harness__forward
+[   2493s] tool_use mcp__harness__python
+[   2523s] tool_use mcp__harness__python
+[   2544s] tool_use mcp__harness__show_images
+[   2632s] tool_use mcp__harness__python
+[   2650s] tool_use mcp__harness__python
+[   2651s] tool_use mcp__harness__forward
+[   2669s] tool_use mcp__harness__python
+[   2701s] tool_use mcp__harness__python
+[   2702s] tool_use mcp__harness__forward
+[   2720s] tool_use mcp__harness__python
+[   2754s] tool_use mcp__harness__python
+[   2755s] tool_use mcp__harness__forward
+[   2786s] tool_use mcp__harness__python
+[   2847s] tool_use mcp__harness__python
+[   2934s] tool_use mcp__harness__python
+[   2935s] tool_use mcp__harness__forward
+[   2961s] tool_use mcp__harness__python
+[   2961s] tool_use mcp__harness__forward
+[   2986s] tool_use mcp__harness__python
+[   3043s] tool_use mcp__harness__python
+[   3044s] tool_use mcp__harness__forward
+[   3061s] tool_use mcp__harness__python
+[   3089s] tool_use mcp__harness__python
+[   3104s] tool_use mcp__harness__python
+[   3105s] tool_use mcp__harness__forward
+[   3124s] tool_use mcp__harness__python
+[   3154s] tool_use mcp__harness__python
+[   3157s] tool_use mcp__harness__forward
+[   3174s] tool_use mcp__harness__python
+[   3187s] tool_use mcp__harness__python
+[   3187s] tool_use mcp__harness__show_images
+[   3265s] tool_use mcp__harness__python
+[   3266s] tool_use mcp__harness__forward
+[   3274s] tool_use mcp__harness__python
+[   3274s] tool_use mcp__harness__forward
+[   3274s] tool_use mcp__harness__python
+[   3275s] tool_use mcp__harness__forward
+[   3275s] tool_use mcp__harness__python
+[   3276s] tool_use mcp__harness__forward
+[   3290s] tool_use mcp__harness__python
+[   3320s] tool_use mcp__harness__python
+[   3321s] tool_use mcp__harness__forward
+[   3322s] tool_use mcp__harness__forward
+[   3322s] tool_use mcp__harness__forward
+[   3323s] tool_use mcp__harness__forward
+[   3323s] tool_use mcp__harness__forward
+[   3391s] tool_use mcp__harness__python
+[   3409s] tool_use mcp__harness__forward
+[   3425s] tool_use mcp__harness__python
+[   3448s] tool_use mcp__harness__python
+[   3450s] tool_use mcp__harness__show_images
+[   3505s] tool_use mcp__harness__python
+[   3505s] tool_use mcp__harness__show_images
+[   3529s] tool_use mcp__harness__python
+[   3529s] tool_use mcp__harness__forward
+[   3546s] tool_use mcp__harness__python
+[   3580s] tool_use mcp__harness__python
+[   3580s] tool_use mcp__harness__forward
+[   3607s] tool_use mcp__harness__python
+[   3662s] tool_use mcp__harness__python
+[   3663s] tool_use mcp__harness__forward
+[   3663s] tool_use mcp__harness__forward
+[   3664s] tool_use mcp__harness__forward
+[   3664s] tool_use mcp__harness__forward
+[   3720s] tool_use mcp__harness__python
+[   3745s] tool_use mcp__harness__python
+[   3746s] tool_use mcp__harness__forward
+[   3747s] tool_use mcp__harness__python
+[   3747s] tool_use mcp__harness__forward
+[   3797s] tool_use mcp__harness__python
+[   3797s] tool_use mcp__harness__forward
+[   3798s] tool_use mcp__harness__forward
+[   3799s] tool_use mcp__harness__forward
+[   3800s] tool_use mcp__harness__forward
+[   3825s] tool_use mcp__harness__python
+[   3826s] tool_use mcp__harness__forward
+[   3853s] tool_use mcp__harness__python
+[   3853s] tool_use mcp__harness__forward
+[   3858s] tool_use mcp__harness__python
+[   3858s] tool_use mcp__harness__forward
+[   3902s] tool_use mcp__harness__python
+[   3903s] tool_use mcp__harness__forward
+[   3904s] tool_use mcp__harness__forward
+[   3904s] tool_use mcp__harness__forward
+[   3920s] tool_use mcp__harness__python
+[   3937s] tool_use mcp__harness__python
+[   3938s] tool_use mcp__harness__forward
+[   3955s] tool_use mcp__harness__python
+[   3959s] tool_use mcp__harness__forward
+[   3966s] text: 'The final pass reproduces the result on exactly the submitted tensors. One last bookkeeping step — recording the final state in the notes file — and then the summary.'
+[   3968s] tool_use mcp__harness__python
+[   3986s] text: 'The repair is in place and meets both targets on the practice data: worst-group accuracy rose from 72.9% to 91.0% and weighted mean accuracy is 96.0% (was 97.7%). All 50 forward passes are used; the submitted tensors are `fc.weight` and `fc.bias` in `work/edited`.\n\n| | landbird/land | landbird/water'
+[   3987s] turn ended (success); passes 50/50
+{
+ "session_id": "v4_b50_nofit_r3_20261122T150918Z",
+ "wall_clock_s": 3988,
+ "tool_calls": 166,
+ "by_tool": {
+  "mcp__harness__python": 104,
+  "mcp__harness__forward": 50,
+  "mcp__harness__show_images": 12
+ },
+ "nudges": 0,
+ "compactions": 0,
+ "lockdown_ok": true,
+ "total_cost_usd_notional": 28.109385800000002,
+ "final_text": "The repair is in place and meets both targets on the practice data: worst-group accuracy rose from 72.9% to 91.0% and weighted mean accuracy is 96.0% (was 97.7%). All 50 forward passes are used; the submitted tensors are `fc.weight` and `fc.bias` in `work/edited`.\n\n| | landbird/land | landbird/water | waterbird/land | waterbird/water | worst | weighted mean |\n|---|---|---|---|---|---|---|\n| original | 99.4 | 82.6 | 72.9 | 96.2 | 72.9 | 97.7 |\n| edited (final pass) | 97.0 | 93.8 | 91.0 | 93.2 | 91.0 | 96.0 |\n| edited, 4-fold cross-fit | 97.2 | 93.6 | 91.0 | 93.2 | 91.0 | 96.1 \u00b1 0.7 |\n| edited, mirrored images | 97.2 | 95.1 | 91.7 | 93.2 | 91.7 | 96.2 |\n\nPaired against the original: landbird/water 54 fixed and 2 broken, waterbird/land 24 fixed and 0 broken; the cost is 11 landbird/land and 4 waterbird/water images.\n\n## What goes wrong in the network\n\n- **The margin is additive.** The bird moves the output margin by about 16 units and the background by about 8, with little interaction.\n- **The scene alone drives the output.** On bird-free scenes I built from the practice images, the original model calls 89% of water scenes \"waterbird\" and 5% of land scenes.\n- **The scene enters as one dominant axis, already present at the `layer3` output.** Freezing it at a single site, with the last layer untouched, cuts the background effect on the margin from about 8 to:\n  - about 1.6 at the `layer3` output;\n  - about 5.4 at the input of the `layer4.1` branch;\n  - about 3.4 at the input of the `layer4.2` branch.\n\n  The bird effect stays nearly intact in every case.\n- **The last block entangles scene and bird.** The two directions are orthogonal up to `layer4.0` but have cosine 0.57 at `avgpool`, and there are no clean \"background channels\" to switch off.\n- **The scene response saturates.** The model's push toward \"waterbird\" jumps once a scene is watery and then stays flat however watery it gets. Removing one linear direction therefore over-corrects open-sea scenes and under-corrects tree-lined lakes.\n\n## What I changed\n\n1. **`fc.weight`:** both rows are made orthogonal to two `avgpool` directions.\n   - The first is the mean water-minus-land feature difference, taken within each bird class.\n   - The second is the covariance of the features with `layer3` scene strength among water scenes, which handles the saturation.\n2. **`fc.bias`:** set so that 77 bird-free scenes score zero on average, which removes the leftover \"landbird\" class prior. A fresh batch of 37 scenes then scored \u22120.001 \u00b1 0.19.\n\nBoth directions are group statistics of activations (means and a covariance with a scene descriptor); nothing was fitted to the bird labels, and the bias uses no labels at all.\n\n## Evidence that these directions are the shortcut\n\n- **Dose-response.** At strengths 0, 0.5, 1, 1.5 the background effect on the margin is about +8, +4, 0, \u22124. Conflict groups improve monotonically, and at 1.5 the shortcut inverts (waterbird/water falls to 15%).\n- **Scene-blindness.** After the edit, bird-free land and water scenes score \u22120.05 and +0.05. For the same bird region pasted onto different scenes, the scene's effect on the margin drops from +7.05 \u00b1 0.33 to \u22120.03 \u00b1 0.09.\n- **Controls.** Removing an equally large part of the last layer in a random direction, with the same bias rule, leaves the worst group at 75\u201379%. Removing the bird direction instead turns the model into a scene classifier (waterbird/land 1.5%).\n- **Label-free replication.** Directions derived only from my constructed images, with no practice labels, reach 88.7\u201389.5% worst-group on their own.\n- **Upstream cuts add nothing.** Cuts at `layer3` or at the `layer4.2` input, followed by the same last-layer cleanup, give the same separation, so I kept the last-layer-only edit.\n\n## What remains\n\n- **Waterbird groups are capped by a labelling quirk.** Several flycatchers and towhees carry the \"waterbird\" label but look like landbirds, and the model reads them as landbirds. That accounts for about half of the remaining waterbird errors.\n- **Landbird/water errors come from the bird region.** The centres of the still-wrong images are themselves called \"waterbird\" 69% of the time; only a few are explained by other animals in the scene (spoonbills, a goose, sea lions).\n- **The worst-group estimate rests on small groups.** Each waterbird group has 133 practice images, so each is known only to about \u00b12.5 points. The pooled waterbird accuracy is 92.1% \u00b1 1.7, about four points above the 88% target.\n- **The bias position is a judgement call within a plateau.** Three independent rules (bird-free scenes neutral, equal standardized distance, halfway between no prior and the original prior) agree within 0.13 margin units. The simple \"centre of the four group means\" rule sits on the steep edge of that plateau, so I did not use it.\n\nEverything is logged in `work/notes.md`; the validated copy of the edit is in `work/best_final`."
+}

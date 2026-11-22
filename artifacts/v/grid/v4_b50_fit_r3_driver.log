@@ -52,3 +52,164 @@ init: {"tools": ["mcp__harness__forward", "mcp__harness__python", "mcp__harness_
 [   1867s] tool_use mcp__harness__python
 [   1931s] tool_use mcp__harness__python
 [   2046s] tool_use mcp__harness__python
+[   2105s] tool_use mcp__harness__python
+[   2107s] tool_use mcp__harness__forward
+[   2130s] tool_use mcp__harness__python
+[   2191s] tool_use mcp__harness__python
+[   2192s] tool_use mcp__harness__forward
+[   2212s] tool_use mcp__harness__python
+[   2227s] tool_use mcp__harness__python
+[   2228s] tool_use mcp__harness__forward
+[   2243s] tool_use mcp__harness__python
+[   2295s] tool_use mcp__harness__python
+[   2299s] tool_use mcp__harness__show_images
+[   2326s] tool_use mcp__harness__python
+[   2368s] tool_use mcp__harness__python
+[   2370s] tool_use mcp__harness__forward
+[   2423s] tool_use mcp__harness__python
+[   2423s] tool_use mcp__harness__forward
+[   2432s] tool_use mcp__harness__python
+[   2433s] tool_use mcp__harness__forward
+[   2441s] tool_use mcp__harness__python
+[   2497s] tool_use mcp__harness__python
+[   2564s] tool_use mcp__harness__show_images
+[   2611s] tool_use mcp__harness__python
+[   3008s] tool_use mcp__harness__python
+[   3408s] tool_use mcp__harness__python
+[   3704s] tool_use mcp__harness__python
+[   3735s] tool_use mcp__harness__python
+[   3736s] tool_use mcp__harness__forward
+[   3775s] tool_use mcp__harness__python
+[   3776s] tool_use mcp__harness__forward
+[   3786s] tool_use mcp__harness__python
+[   3787s] tool_use mcp__harness__forward
+[   3797s] tool_use mcp__harness__python
+[   3797s] tool_use mcp__harness__forward
+[   3810s] tool_use mcp__harness__python
+[   3811s] tool_use mcp__harness__forward
+[   3830s] tool_use mcp__harness__python
+[   3838s] tool_use mcp__harness__python
+[   3850s] tool_use mcp__harness__python
+[   3873s] tool_use mcp__harness__python
+[   3894s] tool_use mcp__harness__python
+[   3927s] tool_use mcp__harness__python
+[   3927s] tool_use mcp__harness__forward
+[   3946s] tool_use mcp__harness__python
+[   3981s] tool_use mcp__harness__python
+[   4056s] tool_use mcp__harness__python
+[   4057s] tool_use mcp__harness__forward
+[   4073s] tool_use mcp__harness__python
+[   4096s] tool_use mcp__harness__python
+[   4097s] tool_use mcp__harness__forward
+[   4110s] tool_use mcp__harness__python
+[   4137s] tool_use mcp__harness__python
+[   4155s] tool_use mcp__harness__python
+[   4176s] tool_use mcp__harness__python
+[   4205s] tool_use mcp__harness__python
+[   4204s] tool_use mcp__harness__forward
+[   4221s] tool_use mcp__harness__python
+[   4242s] tool_use mcp__harness__python
+[   4243s] tool_use mcp__harness__forward
+[   4255s] tool_use mcp__harness__python
+[   4255s] tool_use mcp__harness__forward
+[   4264s] tool_use mcp__harness__python
+[   4306s] tool_use mcp__harness__python
+[   4309s] tool_use mcp__harness__show_images
+[   4323s] tool_use mcp__harness__python
+[   4324s] tool_use mcp__harness__forward
+[   4339s] tool_use mcp__harness__python
+[   4381s] tool_use mcp__harness__python
+[   4467s] tool_use mcp__harness__python
+[   4467s] tool_use mcp__harness__forward
+[   4496s] tool_use mcp__harness__python
+[   4515s] tool_use mcp__harness__python
+[   4569s] tool_use mcp__harness__show_images
+[   4610s] tool_use mcp__harness__python
+[   4612s] tool_use mcp__harness__forward
+[   4621s] tool_use mcp__harness__python
+[   4622s] tool_use mcp__harness__forward
+[   4635s] tool_use mcp__harness__python
+[   4654s] tool_use mcp__harness__python
+[   4656s] tool_use mcp__harness__forward
+[   4666s] tool_use mcp__harness__python
+[   4689s] tool_use mcp__harness__python
+[   4741s] tool_use mcp__harness__python
+[   4745s] tool_use mcp__harness__forward
+[   4751s] tool_use mcp__harness__forward
+[   4764s] tool_use mcp__harness__python
+[   4807s] tool_use mcp__harness__python
+[   4814s] tool_use mcp__harness__forward
+[   4821s] tool_use mcp__harness__forward
+[   4822s] tool_use mcp__harness__forward
+[   4822s] tool_use mcp__harness__forward
+[   4823s] tool_use mcp__harness__forward
+[   4847s] tool_use mcp__harness__python
+[   4865s] tool_use mcp__harness__python
+[   4896s] tool_use mcp__harness__python
+[   4898s] tool_use mcp__harness__forward
+[   4907s] tool_use mcp__harness__python
+[   4908s] tool_use mcp__harness__forward
+[   4921s] tool_use mcp__harness__python
+[   4947s] tool_use mcp__harness__python
+[   4949s] tool_use mcp__harness__forward
+[   4958s] tool_use mcp__harness__python
+[   4989s] tool_use mcp__harness__python
+[   4991s] tool_use mcp__harness__forward
+[   5001s] tool_use mcp__harness__python
+[   5021s] tool_use mcp__harness__python
+[   5023s] tool_use mcp__harness__forward
+[   5035s] tool_use mcp__harness__python
+[   5053s] tool_use mcp__harness__python
+[   5061s] tool_use mcp__harness__forward
+[   5062s] tool_use mcp__harness__forward
+[   5062s] tool_use mcp__harness__forward
+[   5063s] tool_use mcp__harness__forward
+[   5064s] tool_use mcp__harness__forward
+[   5091s] tool_use mcp__harness__python
+[   5126s] tool_use mcp__harness__python
+[   5130s] tool_use mcp__harness__show_images
+[   5130s] tool_use mcp__harness__forward
+[   5153s] tool_use mcp__harness__python
+[   5176s] tool_use mcp__harness__python
+[   5180s] tool_use mcp__harness__show_images
+[   5208s] tool_use mcp__harness__python
+[   5210s] tool_use mcp__harness__forward
+[   5222s] tool_use mcp__harness__python
+[   5246s] tool_use mcp__harness__python
+[   5260s] tool_use mcp__harness__python
+[   5261s] tool_use mcp__harness__forward
+[   5270s] tool_use mcp__harness__python
+[   5294s] tool_use mcp__harness__python
+[   5294s] tool_use mcp__harness__show_images
+[   5297s] text: 'The blurred stimulus is as intended: colour layout and coarse shapes remain, fine texture is gone. Running the pass.'
+[   5298s] tool_use mcp__harness__forward
+[   5312s] tool_use mcp__harness__python
+[   5345s] tool_use mcp__harness__python
+[   5368s] tool_use mcp__harness__python
+[   5375s] tool_use mcp__harness__forward
+[   5387s] tool_use mcp__harness__python
+[   5406s] tool_use mcp__harness__python
+[   5408s] tool_use mcp__harness__forward
+[   5419s] tool_use mcp__harness__python
+[   5435s] tool_use mcp__harness__python
+[   5437s] tool_use mcp__harness__forward
+[   5447s] tool_use mcp__harness__python
+[   5454s] tool_use mcp__harness__forward
+[   5467s] tool_use mcp__harness__python
+[   5494s] text: '# Final report\n\n## What is submitted\n\nOnly the last layer is changed: `fc.weight` and `fc.bias`. Everything else is the fine-tuned model.\n\n- **`fc.weight`:** both rows are projected off a 2-dimensional "background" subspace, `W\' = W − (W·Q)Qᵀ`. Q spans two directions in the 2,048-d avgpool space:\n  '
+[   5494s] turn ended (success); passes 50/50
+{
+ "session_id": "v4_b50_fit_r3_20261122T150548Z",
+ "wall_clock_s": 5495,
+ "tool_calls": 195,
+ "by_tool": {
+  "mcp__harness__python": 130,
+  "mcp__harness__forward": 50,
+  "mcp__harness__show_images": 15
+ },
+ "nudges": 0,
+ "compactions": 0,
+ "lockdown_ok": true,
+ "total_cost_usd_notional": 32.30241220000001,
+ "final_text": "# Final report\n\n## What is submitted\n\nOnly the last layer is changed: `fc.weight` and `fc.bias`. Everything else is the fine-tuned model.\n\n- **`fc.weight`:** both rows are projected off a 2-dimensional \"background\" subspace, `W' = W \u2212 (W\u00b7Q)Q\u1d40`. Q spans two directions in the 2,048-d avgpool space:\n  - the class-averaged *water-minus-land* mean shift of the avgpool features;\n  - the same shift measured at the output of `layer4.1`, which is the part that reaches fc through the last skip connection.\n- **`fc.bias`:** re-centred so the group-balanced mean feature keeps its original margin, plus a shift of +0.9 toward \"waterbird\". Final bias is [\u22120.671, 0.708].\n- The directions and the centring are means over the 1,199 practice images in standard and mirrored view. The only tuned scalar is the bias shift.\n\n## Results on practice data\n\n| | landbird/land | landbird/water | waterbird/land | waterbird/water | worst | weighted mean |\n|---|---|---|---|---|---|---|\n| Original | 99.4 | 82.6 | 72.9 | 96.2 | 72.9 | 97.7 |\n| Edited, all practice images (in-sample, final pass) | 96.6 | 92.5 | 91.7 | 93.2 | 91.7 | 95.6 |\n| Edited, **nested held-out** (run through the tool) | 96.8 | 92.9 | 91.0 | 93.2 | **91.0 \u00b1 2.5** | **95.8 \u00b1 0.8** |\n| Edited, whole species blocks held out | 96.8 | 92.0 | 91.7 | 94.0 | 91.7 | 95.9 |\n\n- **Paired against the original (same images):** waterbird/land +25 fixed, 0 broken; landbird/water +48 fixed, 2 broken; landbird/land 13 broken; waterbird/water 4 broken.\n- **Nested held-out** means the directions, centring and bias shift were all chosen without the scored images (five folds, each fold's readout run through the forward tool).\n- **Expectation for the test split:** worst group around 91% and mean around 95.7%. I put the chance of meeting both targets (\u2265 88 and \u2265 94) at roughly 0.9; the main uncertainty is sampling noise in the 133-image waterbird groups.\n\n## What goes wrong in the network\n\n1. **A scene signal exists early.** From layer1 onward the place is strongly expressed along one mean-shift direction (d\u2032 \u2248 2.3\u20133.0), while the bird class emerges slowly (d\u2032 0.2 at conv1, 1.2 at layer3, 3.4 at avgpool). At layer3 the two directions are orthogonal (cosine 0.04). The layer3 direction responds to local, medium-scale image structure: it survives grayscale, mild blur and patch-shuffling, and dies only under strong blur.\n2. **Layer4 consumes that direction.** Removing this one direction from what layer4 reads, with fc untouched, cuts the background's effect on the margin from 8.08 to 1.36 (\u221283%) and leaves the bird effect at 16.0 \u2192 15.8.\n   - Half strength gives 5.43, so the effect is dose-dependent.\n   - Writing the \"water\" value into that coordinate shifts land-scene margins by +6.0 and +4.5; writing \"land\" shifts water-scene margins by \u22126.7 and \u22125.8 (a real background does \u00b17.4 to \u00b18.8).\n   - The same cut at earlier stages removes less: 24% at layer1, 40% at layer2.\n3. **Inside layer4 the signal reaches fc by two routes.** About 41% arrives through the skip path. The last block reads the direction and writes the rest into its own output; blinding only that block leaves exactly the skip part (3.25 predicted 3.3). This is where bird and background evidence become entangled (cosine 0.04 \u2192 0.57).\n4. **The readout sums them.** The fc readout has cosine 0.70 with the background direction. Spatially, bird evidence sits on the bird and scene evidence on the background cells, and average pooling adds them. With the bird fixed and only the periphery swapped, the margin change comes from the peripheral and border cells (+3.4 and +1.8) and almost none from the central cells (+0.16).\n\nThe shortcut is not channel-sparse: the top 100 channels carry only 3.4 of the 8.1 margin units, and the same channels carry bird evidence. So the repair has to act on directions, not channels.\n\n## Why the readout edit, and the evidence for it\n\n- **Dose-response (tool-measured):** applying 0 / 50 / 100 / 150% of the edit gives worst-group accuracy 72.9 / 84.2 / 91.7 / 29.3%.\n- **Background-swap test on composites:** the same bird is kept in the centre and the periphery is swapped to the other scene type. At the same four doses the margin shift is +6.84 / +3.42 / \u22120.01 / \u22123.43.\n- **Independent stimulus sets:** across five sets the original model's margin moves +6.8 to +10.7 units toward the new background; the edited model's moves \u22120.4 to +0.2. This includes donors from the most extreme scenes and four swap areas.\n- **Bird mostly removed:** the original model says \"waterbird\" for 0\u20136% of land scenes and 80\u201391% of water scenes. The edited model's scene effect is 5% of that.\n- **Specificity:** projecting out two random directions changes nothing; a bias shift alone never exceeds a worst group of 79%.\n- **Other views of the same birds:** mirrored 96.6 / 92.3 / 93.2 / 94.0; zoomed in 12%: 96.4 / 91.8 / 94.0 / 93.2.\n\n## What I tried and did not adopt\n\nNone of these beat the readout projection out-of-fold:\n\n- Group-balanced logistic or LDA refits of fc, also with mirrored data added.\n- Raising the firing thresholds of the last block.\n- Upstream cuts at layer2, layer3, block 4.1 or block 4.2, each combined with a readout projection.\n- Extra background directions (from composites, from bird-reduced images, class-specific).\n- Adding earlier-layer or last-block hidden features to the readout.\n- A towhee-specific evidence boost (it rescues towhees but costs landbird/water as much).\n\nEvery route lands at the same ceiling of roughly 91\u201392% worst group, which points to the bird features, not the readout, as the limit.\n\n## Limits you should know about\n\n- **Dataset floor.** Three songbird species carry the \"waterbird\" label. All 8 pewees in practice are wrong after any background-blind repair, and no linear detector separates them from landbirds. Several water scenes contain real ducks or herons behind a pasted landbird.\n- **Remaining errors are recognition failures.** In the 32 remaining errors I examined (all 20 waterbird errors and the 12 most confident landbird errors), none has strong local evidence for the true class; the bird is either perceived as the wrong class or not registered at all.\n- **Weak evidence defaults to \"waterbird\".** This follows from the balanced bias. With birds shown 11% smaller, landbird/land drops to 95.3% and the mean to 94.6% (worst group 90.8%). The operating point is tuned to the practice distribution of bird sizes.\n- **The majority groups pay.** About 3 points each in landbird/land and waterbird/water. The images lost are birds that only the background had been vouching for (a soaring crow, a grey nutcracker, a diving kingfisher).\n\n## Process notes\n\n- Pass 22 ran with a half-built instrumentation edit because `save_edit` refused one tensor and I had chained the pass to that step. The data were still usable.\n- Pass 43 used a flawed stimulus design (the donor's own bird showed through at small foreground sizes). Only its full-size subset is reported.\n- All 50 passes are used. The full log is in `work/notes.md`; the submitted tensors are in `work/edited`, with an identical copy in `work/best_2`."
+}

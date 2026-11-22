@@ -1,0 +1,38 @@
+{
+ "session_id": "v4_b50_nofit_r3_20261122T150918Z",
+ "config": {
+  "session_id": "v4_b50_nofit_r3_20261122T150918Z",
+  "budget": 50,
+  "fitting": "refused"
+ },
+ "edited_tensors": [
+  "fc.bias",
+  "fc.weight"
+ ],
+ "n_weights_changed": 4098,
+ "test": {
+  "groups": {
+   "landbird/land": {
+    "acc": 98.09,
+    "n": 2255
+   },
+   "landbird/water": {
+    "acc": 95.52,
+    "n": 2255
+   },
+   "waterbird/land": {
+    "acc": 92.68,
+    "n": 642
+   },
+   "waterbird/water": {
+    "acc": 92.37,
+    "n": 642
+   }
+  },
+  "n": 5794,
+  "plain_mean": 95.86,
+  "worst": 92.37,
+  "worst_group": "waterbird/water",
+  "weighted_mean": 96.67
+ }
+}

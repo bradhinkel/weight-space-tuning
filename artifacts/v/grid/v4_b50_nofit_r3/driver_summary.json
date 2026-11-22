@@ -1,0 +1,105 @@
+{
+ "session_id": "v4_b50_nofit_r3_20261122T150918Z",
+ "driver_model": "fable-5.2",
+ "model_id": "claude-fable-5-2",
+ "config": {
+  "tag": "v4_b50_nofit_r3",
+  "driver_model": "fable-5.2",
+  "effort": "max",
+  "budget": 50,
+  "fitting": "refused",
+  "task_file": "exp_v/sessions/task_template.md",
+  "max_nudges": 40,
+  "max_hours": 30,
+  "max_turns": 4000,
+  "max_error_waits": 72,
+  "error_wait_min": 20
+ },
+ "start_utc": "2026-11-22T15:09:18.686226+00:00",
+ "usage_before": null,
+ "claude_version": "2.1.330 (Claude Code)",
+ "init": {
+  "tools": [
+   "mcp__harness__forward",
+   "mcp__harness__python",
+   "mcp__harness__show_images"
+  ],
+  "mcp_servers": {
+   "harness": "connected"
+  },
+  "unexpected_tools": [],
+  "missing_tools": [],
+  "model": "claude-fable-5-2",
+  "ok": true
+ },
+ "end_utc": "2026-11-22T16:15:46.309773+00:00",
+ "wall_clock_s": 3988,
+ "exit_code": 0,
+ "stderr_tail": "",
+ "tool_calls": 166,
+ "by_tool": {
+  "mcp__harness__python": 104,
+  "mcp__harness__forward": 50,
+  "mcp__harness__show_images": 12
+ },
+ "turns_ended": 1,
+ "nudges": 0,
+ "compactions": 0,
+ "error_waits": 0,
+ "results": [
+  {
+   "subtype": "success",
+   "is_error": false,
+   "num_turns": 167,
+   "total_cost_usd": 28.109385800000002,
+   "usage": {
+    "input_tokens": 224,
+    "cache_creation_input_tokens": 498631,
+    "cache_read_input_tokens": 29391689,
+    "output_tokens": 356279,
+    "output_tokens_details": {
+     "thinking_tokens": 220106
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 498631,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+     {
+      "input_tokens": 2,
+      "output_tokens": 1872,
+      "cache_read_input_tokens": 499570,
+      "cache_creation_input_tokens": 766,
+      "cache_creation": {
+       "ephemeral_5m_input_tokens": 0,
+       "ephemeral_1h_input_tokens": 766
+      },
+      "type": "message"
+     }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+   },
+   "duration_ms": 4148944
+  }
+ ],
+ "total_cost_usd_notional": 28.109385800000002,
+ "final_text": "The repair is in place and meets both targets on the practice data: worst-group accuracy rose from 72.9% to 91.0% and weighted mean accuracy is 96.0% (was 97.7%). All 50 forward passes are used; the submitted tensors are `fc.weight` and `fc.bias` in `work/edited`.\n\n| | landbird/land | landbird/water | waterbird/land | waterbird/water | worst | weighted mean |\n|---|---|---|---|---|---|---|\n| original | 99.4 | 82.6 | 72.9 | 96.2 | 72.9 | 97.7 |\n| edited (final pass) | 97.0 | 93.8 | 91.0 | 93.2 | 91.0 | 96.0 |\n| edited, 4-fold cross-fit | 97.2 | 93.6 | 91.0 | 93.2 | 91.0 | 96.1 \u00b1 0.7 |\n| edited, mirrored images | 97.2 | 95.1 | 91.7 | 93.2 | 91.7 | 96.2 |\n\nPaired against the original: landbird/water 54 fixed and 2 broken, waterbird/land 24 fixed and 0 broken; the cost is 11 landbird/land and 4 waterbird/water images.\n\n## What goes wrong in the network\n\n- **The margin is additive.** The bird moves the output margin by about 16 units and the background by about 8, with little interaction.\n- **The scene alone drives the output.** On bird-free scenes I built from the practice images, the original model calls 89% of water scenes \"waterbird\" and 5% of land scenes.\n- **The scene enters as one dominant axis, already present at the `layer3` output.** Freezing it at a single site, with the last layer untouched, cuts the background effect on the margin from about 8 to:\n  - about 1.6 at the `layer3` output;\n  - about 5.4 at the input of the `layer4.1` branch;\n  - about 3.4 at the input of the `layer4.2` branch.\n\n  The bird effect stays nearly intact in every case.\n- **The last block entangles scene and bird.** The two directions are orthogonal up to `layer4.0` but have cosine 0.57 at `avgpool`, and there are no clean \"background channels\" to switch off.\n- **The scene response saturates.** The model's push toward \"waterbird\" jumps once a scene is watery and then stays flat however watery it gets. Removing one linear direction therefore over-corrects open-sea scenes and under-corrects tree-lined lakes.\n\n## What I changed\n\n1. **`fc.weight`:** both rows are made orthogonal to two `avgpool` directions.\n   - The first is the mean water-minus-land feature difference, taken within each bird class.\n   - The second is the covariance of the features with `layer3` scene strength among water scenes, which handles the saturation.\n2. **`fc.bias`:** set so that 77 bird-free scenes score zero on average, which removes the leftover \"landbird\" class prior. A fresh batch of 37 scenes then scored \u22120.001 \u00b1 0.19.\n\nBoth directions are group statistics of activations (means and a covariance with a scene descriptor); nothing was fitted to the bird labels, and the bias uses no labels at all.\n\n## Evidence that these directions are the shortcut\n\n- **Dose-response.** At strengths 0, 0.5, 1, 1.5 the background effect on the margin is about +8, +4, 0, \u22124. Conflict groups improve monotonically, and at 1.5 the shortcut inverts (waterbird/water falls to 15%).\n- **Scene-blindness.** After the edit, bird-free land and water scenes score \u22120.05 and +0.05. For the same bird region pasted onto different scenes, the scene's effect on the margin drops from +7.05 \u00b1 0.33 to \u22120.03 \u00b1 0.09.\n- **Controls.** Removing an equally large part of the last layer in a random direction, with the same bias rule, leaves the worst group at 75\u201379%. Removing the bird direction instead turns the model into a scene classifier (waterbird/land 1.5%).\n- **Label-free replication.** Directions derived only from my constructed images, with no practice labels, reach 88.7\u201389.5% worst-group on their own.\n- **Upstream cuts add nothing.** Cuts at `layer3` or at the `layer4.2` input, followed by the same last-layer cleanup, give the same separation, so I kept the last-layer-only edit.\n\n## What remains\n\n- **Waterbird groups are capped by a labelling quirk.** Several flycatchers and towhees carry the \"waterbird\" label but look like landbirds, and the model reads them as landbirds. That accounts for about half of the remaining waterbird errors.\n- **Landbird/water errors come from the bird region.** The centres of the still-wrong images are themselves called \"waterbird\" 69% of the time; only a few are explained by other animals in the scene (spoonbills, a goose, sea lions).\n- **The worst-group estimate rests on small groups.** Each waterbird group has 133 practice images, so each is known only to about \u00b12.5 points. The pooled waterbird accuracy is 92.1% \u00b1 1.7, about four points above the 88% target.\n- **The bias position is a judgement call within a plateau.** Three independent rules (bird-free scenes neutral, equal standardized distance, halfway between no prior and the original prior) agree within 0.13 margin units. The simple \"centre of the four group means\" rule sits on the steep edge of that plateau, so I did not use it.\n\nEverything is logged in `work/notes.md`; the validated copy of the edit is in `work/best_final`.",
+ "server_state": {
+  "budget": 50,
+  "passes": 50,
+  "python_runs": 104,
+  "requests": 50,
+  "images_shown": 176,
+  "elapsed_s": 3966
+ },
+ "lockdown_ok": true,
+ "usage_after": null,
+ "finalize": "{\"session_id\": \"v4_b50_nofit_r3_20261122T150918Z\", \"edited_tensors\": [\"fc.bias\", \"fc.weight\"], \"n_weights_changed\": 4098, \"test\": {\"groups\": {\"landbird/land\": {\"acc\": 98.09, \"n\": 2255}, \"landbird/water\": {\"acc\": 95.52, \"n\": 2255}, \"waterbird/land\": {\"acc\": 92.68, \"n\": 642}, \"waterbird/water\": {\"acc\": 92.37, \"n\": 642}}, \"n\": 5794, \"plain_mean\": 95.86, \"worst\": 92.37, \"worst_group\": \"waterbird/water\", \"weighted_mean\": 96.67}}"
+}
