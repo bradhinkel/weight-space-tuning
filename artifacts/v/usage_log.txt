@@ -3,3 +3,4 @@
 2026-11-22T05:58:07Z after v3_b25_nofit pilot (finished 05:39Z): user reports Max session 84%, weekly 8% => pilot plus orchestration about 6 weekly points; 5-hour window resets 00:40 PST (08:40Z)
 2026-11-22T06:14:43Z user upgraded Max plan (double allowance this month); reports session 0%, weekly 0%; starting v3_b25_fit
 2026-11-22T08:02:39Z after v3_b25_fit (finished 07:21Z): weekly 7% (plan has no 5-hour windows, weekly only); starting grid
+2026-11-22T17:16:25Z weekly 47% after V.4 grid (shared with parallel R.4a session); start of grid 7%
