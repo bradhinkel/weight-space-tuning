@@ -1,0 +1,105 @@
+{
+ "session_id": "v4_b10_nofit_r2_20261122T090626Z",
+ "driver_model": "fable-5.2",
+ "model_id": "claude-fable-5-2",
+ "config": {
+  "tag": "v4_b10_nofit_r2",
+  "driver_model": "fable-5.2",
+  "effort": "max",
+  "budget": 10,
+  "fitting": "refused",
+  "task_file": "exp_v/sessions/task_template.md",
+  "max_nudges": 40,
+  "max_hours": 30,
+  "max_turns": 4000,
+  "max_error_waits": 72,
+  "error_wait_min": 20
+ },
+ "start_utc": "2026-11-22T09:06:26.100053+00:00",
+ "usage_before": null,
+ "claude_version": "2.1.330 (Claude Code)",
+ "init": {
+  "tools": [
+   "mcp__harness__forward",
+   "mcp__harness__python",
+   "mcp__harness__show_images"
+  ],
+  "mcp_servers": {
+   "harness": "connected"
+  },
+  "unexpected_tools": [],
+  "missing_tools": [],
+  "model": "claude-fable-5-2",
+  "ok": true
+ },
+ "end_utc": "2026-11-22T09:53:05.326787+00:00",
+ "wall_clock_s": 2799,
+ "exit_code": 0,
+ "stderr_tail": "",
+ "tool_calls": 62,
+ "by_tool": {
+  "mcp__harness__python": 45,
+  "mcp__harness__show_images": 7,
+  "mcp__harness__forward": 10
+ },
+ "turns_ended": 1,
+ "nudges": 0,
+ "compactions": 0,
+ "error_waits": 0,
+ "results": [
+  {
+   "subtype": "success",
+   "is_error": false,
+   "num_turns": 63,
+   "total_cost_usd": 17.513816599999995,
+   "usage": {
+    "input_tokens": 118,
+    "cache_creation_input_tokens": 320106,
+    "cache_read_input_tokens": 10454283,
+    "output_tokens": 257508,
+    "output_tokens_details": {
+     "thinking_tokens": 190132
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 320106,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+     {
+      "input_tokens": 2,
+      "output_tokens": 5476,
+      "cache_read_input_tokens": 319035,
+      "cache_creation_input_tokens": 2776,
+      "cache_creation": {
+       "ephemeral_5m_input_tokens": 0,
+       "ephemeral_1h_input_tokens": 2776
+      },
+      "type": "message"
+     }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+   },
+   "duration_ms": 2906467
+  }
+ ],
+ "total_cost_usd_notional": 17.513816599999995,
+ "final_text": "The repaired model is in `work/edited` (four tensors) and all ten passes are used. On the 1,199 practice images it raises worst-group accuracy from 72.9% to 92.5% while the weighted mean goes from 97.7% to 96.1% (tool summary, pass 10).\n\n| | landbird/land | landbird/water | waterbird/land | waterbird/water | worst | weighted mean |\n|---|---|---|---|---|---|---|\n| original | 99.36 | 82.62 | 72.93 | 96.24 | 72.93 | 97.72 |\n| final | 97.43 | 93.78 | 92.48 | 92.48 | 92.48 | 96.14 |\n\nPaired against the original: waterbird/land +19.5 points (26 fixed, 0 broken), landbird/water +11.2 (54 fixed, 2 broken), landbird/land \u22121.9 (9 broken), waterbird/water \u22123.8 (5 broken).\n\n## What goes wrong\n\n- **The margin adds bird and background evidence.** The bird moves the margin (output 1 \u2212 output 0) by about 16 logits and the background by about 8, nearly additively.\n- **The background acts on its own.** On bird-free images (mirror-tiled corner patches of practice photos), land tiles average \u22127.3 and water tiles +2.3; 77% of water tiles are called \"waterbird\".\n- **There are no \"background channels\".** The top 100 channels by background contribution carry 3.4 of the 8 logits and almost as much bird effect, so the shortcut is a distributed direction.\n- **The last block does the mixing.** The background is linearly visible in pooled activations from layer3 on; the bird only in layer4.1 and layer4.2. The cosine between background and bird directions rises from about 0 (layer3, layer4.0) to 0.25 (layer4.1) to 0.54 (avgpool). Reading the fc margin row on pooled block outputs, layer4.2's residual branch adds 4.6 of the 8.0 background logits.\n- **The background is low-dimensional where layer4.2 reads it.** Three principal components of tile features at layer4.1's output predict 90% of the original margin's variance across tiles, and hold only about 4% of the bird direction.\n\n## The edit\n\nLet Q be an orthonormal basis of four directions in layer4.1's 2,048-d output: the group-balanced water-minus-land mean difference, plus the top three principal components of bird-free tile features. Let c2 and c3 be the mean of the four group means at layer4.1's output and at avgpool.\n\n- `layer4.2.conv1.weight` \u2190 W \u2212 0.89\u00b7(W Q)Q\u1d40\n- `layer4.2.bn1.running_mean` \u2190 rm \u2212 0.89\u00b7W Q Q\u1d40 c2\n- `fc.weight` \u2190 W_fc \u2212 (W_fc Q)Q\u1d40\n- `fc.bias` \u2190 b + W_fc Q Q\u1d40 c3\n\nThis makes layer4.2's residual branch (nearly) blind to the background subspace and stops fc reading it through the skip connection, replacing those coordinates by their value at the balanced centroid. Q, c2 and c3 come from one half of the practice images (S) and 256 tiles; no weight was fitted to labels.\n\n## Evidence that this is the mechanism\n\nAll rows are on the 1,199 practice images except the control.\n\n| Intervention | Background effect (logits) | Bird effect (logits) | landbird/water | waterbird/land |\n|---|---|---|---|---|\n| none | 8.08 | 16.00 | 82.6 | 72.9 |\n| conv1 edit 0.5, original fc | 5.46 | 15.38 | 85.8 | 83.5 |\n| conv1 edit 0.89, original fc | 3.51 | 14.91 | 88.6 | 87.2 |\n| conv1 edit 1.0, original fc | 2.96 | 14.78 | 89.1 | 89.5 |\n| conv1 edit 0.89 + fc (final) | \u22120.01 | 11.72 | 93.8 | 92.5 |\n| control: 27 non-background directions, same site (S half) | 7.82 | 7.68 | 39.9 | 58.2 |\n| same recipe at layer4.1 instead | 5.49 | 15.49 | 85.0 | 83.5 |\n\n- **Dose-response:** the background effect falls monotonically with strength while the bird effect barely moves.\n- **Specificity:** an energy-matched ablation of non-background directions leaves the background effect intact and halves the bird effect, the opposite pattern.\n- **Depth:** layer4.1 is a secondary entry point (\u22122.6 logits versus \u22125.1 at layer4.2).\n- **Last-layer-only repair:** an fc-only projection matched to the same residual background effect is a decent fallback (90.1 / 89.5 on the two minority groups) but worse than the block-level edit at that operating point (92.7 / 90.2; 9 versus 2 discordant images on S).\n- **Spatial maps (32 photos):**\n  - The background direction is expressed at the corners of water photos (9.05 versus 0.37 for land) and not at the bird.\n  - Bird evidence at the centre is unchanged by the edit (33.0 \u2192 32.6); this pass ran the full-strength variant, not the final 0.89.\n  - Background-dependent class evidence at the corners, on the axis the edited fc still reads, drops from 2.22 \u00b1 0.63 to 0.60 \u00b1 0.51.\n- **Surround swap (128 birds pasted on a land tile and on a water tile):** the margin shifts by +6.09 \u00b1 0.36 in the original and \u22120.41 \u00b1 0.17 in the final model; prediction flips drop from 21 to 6.\n- **Unseen backgrounds (256 tiles from the other half's photos):** the land/water margin gap drops from 9.03 to 0.39 logits.\n\n## How the strength was chosen, and what is confirmed\n\n- I designed and selected on half S and kept half H sealed.\n- The candidate chosen on S (conv1 strength 0.5) was confirmed on H: 99.6 / 93.6 / 89.4 / 95.5 against the original's 100.0 / 82.8 / 77.3 / 97.0 (same group order as the first table), with paired gains of +10.7 \u00b1 2.0 and +12.1 \u00b1 4.0 on the minority groups.\n- H then showed the weighted mean had far more slack than the worst group, so I raised the strength. The final 0.89 is the strength at which the residual background effect on the group-mean margins is zero (measured: \u22120.01).\n- **This last step used H, so the final model's numbers are not an untouched-holdout result.** Its statistics still come from S only; on H it scores 98.7 / 95.3 / 92.4 / 94.0 and on S 96.1 / 92.3 / 92.5 / 90.9.\n\n## What to expect on the evaluation\n\n- **Estimate:** worst group roughly 90\u201393% and weighted mean roughly 95\u201397%.\n- **Uncertainty:** the practice standard errors are \u00b12.3 points for each waterbird group and \u00b10.7 for the mean, so both targets are met with about two standard errors of margin, not more.\n- **Cost to the common groups:** landbird/land and waterbird/water lose 2\u20134 points because they were being helped by the shortcut.\n- **Ceiling:** every background-removing edit left the ratio of bird effect to within-group spread at about 1.7, so the remaining errors are weak or ambiguous birds (tiny, semi-transparent, or pasted in front of other animals).\n\n## Two things to know about method\n\n- **Two readouts per pass.** In passes 2\u20136 and 9 I put one candidate readout in each fc output row, with +1000 on one bias so the tool summary stayed uninformative about H. Every such number comes from a real forward pass; passes 8 and 10 verified the final models with a regular fc.\n- **Kernel-side fc arithmetic.** Twice I recomputed margins from saved avgpool features to check file consistency (once for the original, once for an edited readout the pass had already returned). No edit was evaluated that way.\n\nThe full log is in `work/notes.md`, with a copy of the final tensors in `work/best_final`.",
+ "server_state": {
+  "budget": 10,
+  "passes": 10,
+  "python_runs": 45,
+  "requests": 10,
+  "images_shown": 96,
+  "elapsed_s": 2744
+ },
+ "lockdown_ok": true,
+ "usage_after": null,
+ "finalize": "{\"session_id\": \"v4_b10_nofit_r2_20261122T090626Z\", \"edited_tensors\": [\"fc.bias\", \"fc.weight\", \"layer4.2.bn1.running_mean\", \"layer4.2.conv1.weight\"], \"n_weights_changed\": 1053185, \"test\": {\"groups\": {\"landbird/land\": {\"acc\": 97.92, \"n\": 2255}, \"landbird/water\": {\"acc\": 94.99, \"n\": 2255}, \"waterbird/land\": {\"acc\": 92.83, \"n\": 642}, \"waterbird/water\": {\"acc\": 92.21, \"n\": 642}}, \"n\": 5794, \"plain_mean\": 95.58, \"worst\": 92.21, \"worst_group\": \"waterbird/water\", \"weighted_mean\": 96.49}}"
+}

@@ -1,0 +1,120 @@
+init: {"tools": ["mcp__harness__forward", "mcp__harness__python", "mcp__harness__show_images"], "mcp_servers": {"harness": "connected"}, "unexpected_tools": [], "missing_tools": [], "model": "claude-fable-5-2", "ok": true}
+[     12s] text: "I'll start by orienting myself in the kernel: checking whether `work/notes.md` already exists (in case this is a restarted session), reading the practice labels, and looking at the structure of the last layer `fc` (shape [2, 2048]). Nothing has been measured yet, so there is no hypothesis to confirm"
+[     15s] tool_use mcp__harness__python
+[    247s] tool_use mcp__harness__python
+[    248s] tool_use mcp__harness__show_images
+[    281s] tool_use mcp__harness__python
+[    282s] tool_use mcp__harness__show_images
+[    289s] tool_use mcp__harness__show_images
+[    329s] tool_use mcp__harness__python
+[    329s] tool_use mcp__harness__show_images
+[    343s] tool_use mcp__harness__python
+[    343s] tool_use mcp__harness__show_images
+[    362s] tool_use mcp__harness__python
+[    365s] tool_use mcp__harness__python
+[    396s] tool_use mcp__harness__forward
+[    408s] tool_use mcp__harness__python
+[    415s] tool_use mcp__harness__python
+[    440s] tool_use mcp__harness__python
+[    571s] tool_use mcp__harness__python
+[    656s] tool_use mcp__harness__python
+[    693s] tool_use mcp__harness__python
+[    737s] tool_use mcp__harness__python
+[    769s] tool_use mcp__harness__forward
+[    794s] tool_use mcp__harness__python
+[    922s] tool_use mcp__harness__python
+[    937s] tool_use mcp__harness__show_images
+[    994s] tool_use mcp__harness__python
+[   1136s] tool_use mcp__harness__python
+[   1212s] tool_use mcp__harness__python
+[   1282s] tool_use mcp__harness__python
+[   1313s] tool_use mcp__harness__forward
+[   1328s] tool_use mcp__harness__python
+[   1475s] tool_use mcp__harness__python
+[   1533s] tool_use mcp__harness__python
+[   1566s] tool_use mcp__harness__forward
+[   1584s] tool_use mcp__harness__python
+[   1731s] tool_use mcp__harness__python
+[   1733s] tool_use mcp__harness__show_images
+[   1998s] tool_use mcp__harness__python
+[   2060s] tool_use mcp__harness__python
+[   2090s] tool_use mcp__harness__forward
+[   2115s] tool_use mcp__harness__python
+[   2175s] tool_use mcp__harness__python
+[   2205s] tool_use mcp__harness__forward
+[   2224s] tool_use mcp__harness__python
+[   2327s] tool_use mcp__harness__python
+[   2331s] tool_use mcp__harness__forward
+[   2345s] tool_use mcp__harness__python
+[   2348s] tool_use mcp__harness__forward
+[   2364s] tool_use mcp__harness__python
+[   2370s] tool_use mcp__harness__forward
+[   2387s] tool_use mcp__harness__python
+[   2478s] tool_use mcp__harness__python
+[   2521s] tool_use mcp__harness__python
+[   2524s] tool_use mcp__harness__forward
+[   2543s] tool_use mcp__harness__python
+[   2558s] tool_use mcp__harness__python
+[   2560s] tool_use mcp__harness__forward
+[   2577s] tool_use mcp__harness__python
+[   2593s] tool_use mcp__harness__python
+[   2595s] tool_use mcp__harness__forward
+[   2611s] tool_use mcp__harness__python
+[   2688s] tool_use mcp__harness__python
+[   2690s] tool_use mcp__harness__forward
+[   2703s] tool_use mcp__harness__python
+[   2714s] tool_use mcp__harness__forward
+[   2732s] tool_use mcp__harness__python
+[   2742s] tool_use mcp__harness__forward
+[   2752s] tool_use mcp__harness__python
+[   2754s] tool_use mcp__harness__forward
+[   2775s] tool_use mcp__harness__python
+[   2831s] tool_use mcp__harness__python
+[   2850s] tool_use mcp__harness__python
+[   2995s] tool_use mcp__harness__python
+[   3008s] tool_use mcp__harness__python
+[   3010s] tool_use mcp__harness__forward
+[   3029s] tool_use mcp__harness__python
+[   3185s] tool_use mcp__harness__python
+[   3187s] tool_use mcp__harness__forward
+[   3197s] tool_use mcp__harness__python
+[   3199s] tool_use mcp__harness__forward
+[   3246s] tool_use mcp__harness__python
+[   3458s] tool_use mcp__harness__python
+[   3465s] tool_use mcp__harness__forward
+[   3482s] tool_use mcp__harness__python
+[   3553s] tool_use mcp__harness__python
+[   3554s] tool_use mcp__harness__forward
+[   3567s] tool_use mcp__harness__python
+[   3570s] tool_use mcp__harness__forward
+[   3587s] tool_use mcp__harness__python
+[   3614s] tool_use mcp__harness__python
+[   3617s] tool_use mcp__harness__forward
+[   3636s] tool_use mcp__harness__python
+[   3659s] tool_use mcp__harness__python
+[   3661s] tool_use mcp__harness__show_images
+[   3735s] tool_use mcp__harness__python
+[   3736s] tool_use mcp__harness__forward
+[   3795s] tool_use mcp__harness__python
+[   3827s] tool_use mcp__harness__python
+[   3828s] tool_use mcp__harness__forward
+[   3851s] tool_use mcp__harness__python
+[   3876s] tool_use mcp__harness__forward
+[   3897s] tool_use mcp__harness__python
+[   3946s] text: '## Final answer\n\n**What I submitted.** Only the last layer changes: `fc.weight` and `fc.bias` (in `work/edited`, copy in `work/best_2`). On the practice images the worst group rises from 72.9% to 90.8% and the weighted mean goes from 97.7% to 96.0%. Out-of-sample (cross-fitted) the estimate is 90.3%'
+[   3946s] turn ended (success); passes 25/25
+{
+ "session_id": "v4_b25_nofit_r2_20261122T104856Z",
+ "wall_clock_s": 3948,
+ "tool_calls": 101,
+ "by_tool": {
+  "mcp__harness__python": 67,
+  "mcp__harness__show_images": 8,
+  "mcp__harness__forward": 26
+ },
+ "nudges": 0,
+ "compactions": 0,
+ "lockdown_ok": true,
+ "total_cost_usd_notional": 27.130606799999992,
+ "final_text": "## Final answer\n\n**What I submitted.** Only the last layer changes: `fc.weight` and `fc.bias` (in `work/edited`, copy in `work/best_2`). On the practice images the worst group rises from 72.9% to 90.8% and the weighted mean goes from 97.7% to 96.0%. Out-of-sample (cross-fitted) the estimate is 90.3% worst group and 96.2% mean, so both targets are met on practice, with a moderate rather than large safety margin.\n\n**The edit.**\n- **Weights:** `fc.weight \u2190 W \u2212 (W u)u\u1d40`, a rank-one change. `u` is the unit direction along which the 2,048 `avgpool` features move when the background changes from land to water. I estimated it as the mean feature difference between water and land images, averaged over the two bird types, on all 1,199 practice images.\n- **Bias:** set so that the average bird-free background gets equal outputs for both classes. The reference is the mean feature of 256 bird-free probe images I built from image corners, half land and half water.\n- No weight was fitted to labels; only group means and probe means were used.\n\n**Results** (landbird/land, landbird/water, waterbird/land, waterbird/water):\n\n| | accuracies (%) | worst | weighted mean |\n|---|---|---|---|\n| Original | 99.4 / 82.6 / 72.9 / 96.2 | 72.9 | 97.7 |\n| Edited, all practice images | 97.2 / 90.8 / 92.5 / 93.2 | 90.8 | 96.0 |\n| Edited, cross-fitted | 97.4 / 90.3 / 91.7 / 93.2 | 90.3 | 96.2 |\n\n- **Paired against the original on the same images:** waterbird/land 26 fixed, 0 broken; landbird/water 40 fixed, 2 broken; landbird/land 10 broken; waterbird/water 4 broken.\n- **Cross-fitting:** each image was scored by an edit whose direction and bias reference came only from the other half of the practice set.\n- **Uncertainty:** a bootstrap over practice images gives roughly an 84% chance of meeting both targets. The risk sits in landbird/water and the two 133-image waterbird groups, which are all near 90\u201393%.\n\n**Why I expect it to help: the evidence.**\n- **The shortcut is visible in the outputs.** Taking the margin as output 1 minus output 0, a water background adds about 8.1 and a waterbird about 16.0. Bird-free probes alone get \u22127.2 on land and +2.0 on water.\n- **Removing the direction removes the background effect.** The background shift of the margin goes from 8.08 to 0.00 (0.14 out-of-sample). On fresh bird-free probes never used for any statistic, the land/water gap falls from 7.5 to 0.7 and the mean is 0.1.\n- **Dose-response.** Removing a fraction \u03b1 of the direction:\n\n| \u03b1 | background shift | AUC, hard pair | AUC, easy pair | accuracies (%) |\n|---|---|---|---|---|\n| 0 | 8.08 | 0.843 | 0.999 | 99.4 / 82.6 / 72.9 / 96.2 |\n| 0.5 | 4.04 | 0.913 | 0.997 | 98.7 / 81.1 / 88.0 / 96.2 |\n| 1 (submitted) | 0.00 | 0.975 | 0.983 | 97.2 / 90.8 / 92.5 / 93.2 |\n| 1.5 | \u22124.04 | 0.997 | 0.688 | 83.9 / 98.1 / 96.2 / 35.3 |\n\n  The hard pair is landbird/water against waterbird/land; the easy pair is landbird/land against waterbird/water. At \u03b1=1 the background neither helps nor hurts; beyond it the pattern inverts.\n- **Bird recognition is not damaged.** Separation of landbirds from waterbirds on the same background is unchanged (AUC 0.980 \u2192 0.987 on land, 0.973 \u2192 0.973 on water).\n- **Spatial maps (32 images).** The water-minus-land evidence per position drops from 8.6 to \u22121.2 at the image border and from 6.0 to 1.6 at the centre. Bird evidence stays concentrated at the centre.\n- **Stability.** Flipped copies of 128 practice images keep 99.2% of their predictions.\n\n**The path that led here.**\n1. **Where the shortcut is computed.** Background and bird directions are separate early and get mixed in the last blocks (cosine 0.04 after `layer3`, 0.08 after `layer4.0`, 0.30 after `layer4.1`, 0.57 at the output). Most of the background shift (4.7 of 8.1) is written by block `layer4.2`.\n2. **Causal test at that block.** Making `layer4.2.conv1` blind to the background direction at its input changed the block's background write to 4.73, 2.24, \u22120.09, \u22125.21 at strengths 0, 0.5, 1, 2. At full strength waterbird/land went from 72.9% to 90.2%.\n3. **Other intervention points.** One direction of `layer3`'s output carries 83% of the background shift, but ablating it hurts bird discrimination on water. Adding the same kind of edit in `layer4.1` works cleanly but adds nothing.\n4. **A two-site repair.** The `layer4.2` reader edit plus a last-layer edit gave 96.2 / 91.8 / 92.5 / 92.5, and 96.6 / 91.2 / 91.7 / 92.5 cross-fitted. It is kept in `work/best_1`.\n5. **A control that changed my conclusion.** I had predicted that a last-layer-only edit would be clearly worse, because it halves the mean bird shift. That was wrong: the spread shrinks in proportion, and it separates the classes as well as the two-site edit (mean AUC difference \u22120.002 \u00b1 0.0014 for two-site minus last-layer). Cross-fitted, last-layer-only minus two-site is \u22120.3 \u00b1 1.1 on the worst group and +0.75 \u00b1 0.42 on the mean. Since the extra edit's gain is not larger than its standard error, I submitted the simpler one.\n\n**Caveats.**\n- **The bias is a judgment call.** The standard alternative (centre on the four practice groups) gives 98.7 / 94.2 / 90.2 / 91.0. I kept the bird-free rule because it leaves the small, noisy waterbird groups further from the threshold. Probes built a different way (side strips, which leak bird fragments) average \u22120.4 rather than 0, so the rule depends somewhat on how probes are made.\n- **A direction from bird-free probes alone is only a partial repair** (hard-pair AUC 0.926 against 0.975), so the direction from real photos matters.\n- **Some errors are not background errors.** Remaining landbird/water mistakes include scenes with real ducks or geese in the background. Some waterbird \"errors\" are land species (towhee, meadowlark, pewee-like birds) that carry the waterbird label.\n- **Method note.** In the kernel I used group-mean arithmetic (weights times mean activations), descriptive statistics of measured margins, and position-wise maps that sum to the tool's own margins. Every accuracy figure comes from a forward pass.\n\nAll 25 passes are used; the full log is in `work/notes.md`."
+}

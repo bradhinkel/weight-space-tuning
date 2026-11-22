@@ -1,0 +1,197 @@
+init: {"tools": ["mcp__harness__forward", "mcp__harness__python", "mcp__harness__show_images"], "mcp_servers": {"harness": "connected"}, "unexpected_tools": [], "missing_tools": [], "model": "claude-fable-5-2", "ok": true}
+[     15s] text: "I'm starting from scratch, so there is no prior result to interpret yet. First I'll check whether `work/notes.md` already exists (in case this is a restarted conversation), then look at the layout of `model/`, `practice/` and `work/`, the label table and the group sizes. This costs no forward pass. "
+[     16s] tool_use mcp__harness__python
+[     23s] tool_use mcp__harness__python
+[    110s] tool_use mcp__harness__python
+[    110s] tool_use mcp__harness__forward
+[    123s] tool_use mcp__harness__python
+[    141s] tool_use mcp__harness__python
+[    245s] tool_use mcp__harness__python
+[    325s] tool_use mcp__harness__python
+[    475s] tool_use mcp__harness__python
+[    577s] tool_use mcp__harness__python
+[    840s] tool_use mcp__harness__python
+[    894s] tool_use mcp__harness__python
+[    895s] tool_use mcp__harness__show_images
+[    970s] tool_use mcp__harness__python
+[    984s] tool_use mcp__harness__show_images
+[    986s] tool_use mcp__harness__python
+[    990s] tool_use mcp__harness__show_images
+[   1004s] tool_use mcp__harness__forward
+[   1028s] tool_use mcp__harness__python
+[   1042s] tool_use mcp__harness__python
+[   1042s] tool_use mcp__harness__forward
+[   1056s] tool_use mcp__harness__python
+[   1101s] tool_use mcp__harness__python
+[   1178s] tool_use mcp__harness__python
+[   1238s] tool_use mcp__harness__python
+[   1292s] tool_use mcp__harness__python
+[   1293s] tool_use mcp__harness__forward
+[   1315s] tool_use mcp__harness__python
+[   1358s] tool_use mcp__harness__python
+[   1359s] tool_use mcp__harness__show_images
+[   1438s] tool_use mcp__harness__python
+[   1496s] tool_use mcp__harness__python
+[   1600s] tool_use mcp__harness__python
+[   1600s] tool_use mcp__harness__forward
+[   1619s] tool_use mcp__harness__python
+[   1679s] tool_use mcp__harness__python
+[   1680s] tool_use mcp__harness__forward
+[   1693s] tool_use mcp__harness__python
+[   1835s] tool_use mcp__harness__python
+[   1911s] tool_use mcp__harness__python
+[   1963s] tool_use mcp__harness__python
+[   2022s] tool_use mcp__harness__python
+[   2073s] tool_use mcp__harness__python
+[   2134s] tool_use mcp__harness__python
+[   2208s] tool_use mcp__harness__show_images
+[   2216s] tool_use mcp__harness__show_images
+[   2260s] tool_use mcp__harness__python
+[   2325s] tool_use mcp__harness__python
+[   2326s] tool_use mcp__harness__forward
+[   2336s] tool_use mcp__harness__python
+[   2336s] tool_use mcp__harness__forward
+[   2353s] tool_use mcp__harness__python
+[   2448s] tool_use mcp__harness__python
+[   2451s] tool_use mcp__harness__forward
+[   2465s] tool_use mcp__harness__python
+[   2569s] tool_use mcp__harness__python
+[   2647s] tool_use mcp__harness__python
+[   2660s] tool_use mcp__harness__forward
+[   2675s] tool_use mcp__harness__python
+[   2759s] tool_use mcp__harness__python
+[   2770s] tool_use mcp__harness__python
+[   2772s] tool_use mcp__harness__show_images
+[   2863s] tool_use mcp__harness__python
+[   2863s] tool_use mcp__harness__forward
+[   2881s] tool_use mcp__harness__python
+[   2955s] tool_use mcp__harness__python
+[   2956s] tool_use mcp__harness__forward
+[   2965s] tool_use mcp__harness__python
+[   2993s] tool_use mcp__harness__python
+[   2994s] tool_use mcp__harness__forward
+[   3007s] tool_use mcp__harness__python
+[   3007s] tool_use mcp__harness__forward
+[   3014s] tool_use mcp__harness__python
+[   3014s] tool_use mcp__harness__forward
+[   3018s] text: 'Mirrored chunk 2 is stored. Two more chunks complete this view. Ingesting chunk 2 and preparing chunk 3; still purely mechanical.'
+[   3019s] tool_use mcp__harness__python
+[   3020s] tool_use mcp__harness__forward
+[   3025s] tool_use mcp__harness__python
+[   3025s] tool_use mcp__harness__forward
+[   3045s] tool_use mcp__harness__python
+[   3072s] tool_use mcp__harness__python
+[   3073s] tool_use mcp__harness__forward
+[   3077s] tool_use mcp__harness__python
+[   3077s] tool_use mcp__harness__forward
+[   3082s] text: 'Chunk 1 of the top-left crop is stored. Ingesting it and preparing chunk 2; mechanical step, nothing to interpret yet.'
+[   3083s] tool_use mcp__harness__python
+[   3084s] tool_use mcp__harness__forward
+[   3086s] text: 'Chunk 2 stored. Ingesting and preparing chunk 3 of the top-left crop; two more passes finish this view.'
+[   3087s] tool_use mcp__harness__python
+[   3088s] tool_use mcp__harness__forward
+[   3089s] text: "Chunk 3 stored. Preparing the last chunk (175 images) of the top-left crop; after this pass the first shifted view is complete and I'll take a first look at it before running the second shift."
+[   3090s] tool_use mcp__harness__python
+[   3091s] tool_use mcp__harness__forward
+[   3099s] tool_use mcp__harness__python
+[   3118s] tool_use mcp__harness__forward
+[   3122s] text: 'Bottom-right shifted crop, chunk 0, is stored. Continuing mechanically: ingest, prepare chunk 1, run. Nothing to interpret until the view is complete.'
+[   3123s] tool_use mcp__harness__python
+[   3123s] tool_use mcp__harness__forward
+[   3129s] text: 'Chunk 1 stored. Ingesting and preparing chunk 2 of the bottom-right shifted view; mechanical step.'
+[   3130s] tool_use mcp__harness__python
+[   3130s] tool_use mcp__harness__forward
+[   3133s] text: 'Chunk 2 stored; half of the pass budget is now used (25 of 50). Ingesting and preparing chunk 3; two more passes complete the last augmented view.'
+[   3134s] tool_use mcp__harness__python
+[   3135s] tool_use mcp__harness__forward
+[   3143s] text: "Chunk 3 stored. Preparing the final chunk (175 images) of the bottom-right shift; after this pass all four views (original, mirror, two shifts) exist for both models and I'll do the full comparison."
+[   3144s] tool_use mcp__harness__python
+[   3144s] tool_use mcp__harness__forward
+[   3158s] tool_use mcp__harness__python
+[   3281s] tool_use mcp__harness__python
+[   3391s] tool_use mcp__harness__python
+[   3443s] tool_use mcp__harness__python
+[   3533s] tool_use mcp__harness__python
+[   3542s] tool_use mcp__harness__forward
+[   3606s] tool_use mcp__harness__python
+[   3607s] tool_use mcp__harness__forward
+[   3617s] tool_use mcp__harness__python
+[   3618s] tool_use mcp__harness__forward
+[   3632s] tool_use mcp__harness__python
+[   3686s] tool_use mcp__harness__python
+[   3717s] tool_use mcp__harness__python
+[   3753s] tool_use mcp__harness__python
+[   3812s] tool_use mcp__harness__python
+[   3970s] tool_use mcp__harness__python
+[   3970s] tool_use mcp__harness__forward
+[   3983s] tool_use mcp__harness__python
+[   4022s] tool_use mcp__harness__python
+[   4022s] tool_use mcp__harness__forward
+[   4049s] tool_use mcp__harness__python
+[   4063s] tool_use mcp__harness__python
+[   4064s] tool_use mcp__harness__forward
+[   4078s] tool_use mcp__harness__python
+[   4078s] tool_use mcp__harness__forward
+[   4107s] tool_use mcp__harness__python
+[   4136s] tool_use mcp__harness__python
+[   4136s] tool_use mcp__harness__forward
+[   4155s] tool_use mcp__harness__python
+[   4212s] tool_use mcp__harness__python
+[   4218s] tool_use mcp__harness__show_images
+[   4237s] tool_use mcp__harness__python
+[   4238s] tool_use mcp__harness__forward
+[   4248s] tool_use mcp__harness__python
+[   4296s] tool_use mcp__harness__python
+[   4297s] tool_use mcp__harness__forward
+[   4306s] tool_use mcp__harness__python
+[   4307s] tool_use mcp__harness__forward
+[   4321s] tool_use mcp__harness__python
+[   4394s] tool_use mcp__harness__python
+[   4394s] tool_use mcp__harness__forward
+[   4411s] tool_use mcp__harness__forward
+[   4426s] tool_use mcp__harness__python
+[   4452s] tool_use mcp__harness__python
+[   4453s] tool_use mcp__harness__forward
+[   4463s] tool_use mcp__harness__python
+[   4463s] tool_use mcp__harness__forward
+[   4468s] text: 'Fold 1 done. Scoring it and building fold 2; still mechanical, interpretation after fold 4.'
+[   4468s] tool_use mcp__harness__python
+[   4469s] tool_use mcp__harness__forward
+[   4472s] text: 'Fold 2 done. Scoring it and building fold 3; two more passes complete the series.'
+[   4473s] tool_use mcp__harness__python
+[   4473s] tool_use mcp__harness__forward
+[   4477s] text: "Fold 3 done. Scoring it and building the last fold's edit; after the next pass every practice image will have an out-of-sample score from the complete pipeline."
+[   4478s] tool_use mcp__harness__python
+[   4479s] tool_use mcp__harness__forward
+[   4488s] tool_use mcp__harness__python
+[   4518s] tool_use mcp__harness__python
+[   4519s] tool_use mcp__harness__forward
+[   4536s] tool_use mcp__harness__python
+[   4602s] tool_use mcp__harness__python
+[   4603s] tool_use mcp__harness__show_images
+[   4612s] tool_use mcp__harness__forward
+[   4631s] tool_use mcp__harness__python
+[   4658s] tool_use mcp__harness__python
+[   4661s] tool_use mcp__harness__forward
+[   4671s] tool_use mcp__harness__python
+[   4706s] tool_use mcp__harness__python
+[   4714s] tool_use mcp__harness__forward
+[   4745s] tool_use mcp__harness__forward
+[   4764s] tool_use mcp__harness__python
+[   4790s] text: 'The repair is in place and confirmed: `work/edited` holds 13 tensors (11 in block `layer4.2`, plus `fc.weight` and `fc.bias`), and on practice the worst group rises from 72.9% to 92.5% while the weighted mean goes from 97.7% to 96.1%. Out of sample I expect roughly 91–92.5% worst-group and about 96%'
+[   4790s] turn ended (success); passes 50/50
+{
+ "session_id": "v4_b50_fit_r2_20261122T134516Z",
+ "wall_clock_s": 4791,
+ "tool_calls": 167,
+ "by_tool": {
+  "mcp__harness__python": 108,
+  "mcp__harness__forward": 50,
+  "mcp__harness__show_images": 9
+ },
+ "nudges": 0,
+ "compactions": 0,
+ "lockdown_ok": true,
+ "total_cost_usd_notional": 28.2436896,
+ "final_text": "The repair is in place and confirmed: `work/edited` holds 13 tensors (11 in block `layer4.2`, plus `fc.weight` and `fc.bias`), and on practice the worst group rises from 72.9% to 92.5% while the weighted mean goes from 97.7% to 96.1%. Out of sample I expect roughly 91\u201392.5% worst-group and about 96% mean on the test split; my rough estimate of clearing both targets is about 90%, limited by noise in the two 133-image groups.\n\n## What goes wrong in the network\n\n- **The last layer adds background evidence to bird evidence.** A water background shifts the margin (output 1 \u2212 output 0) by about +8 whatever the bird; the bird itself is worth about +16. That is why the two mismatched groups straddle zero.\n- **Where it enters.** The background is linearly readable at ~95% from layer3 onward. Read with the model's own decision direction, block 4.0's output holds 1.7 of the 8.1 background gap, block 4.1 adds 1.6, and block 4.2 writes 4.7 (59%) alongside 87% of the bird evidence.\n- **Block 4.2 is where the two get entangled.** Background and bird directions are nearly orthogonal at block 4.0's output (cosine 0.08), still mostly separate at block 4.1 (0.30), and entangled only at the final output (0.57). It is not a few bad channels: the top 100 channels carry only 42% of the shift.\n- **Spatially, the background comes from the periphery.** On two samples of 32 images, the outer ring of the 7\u00d77 final map carried 62% and 92% of the background evidence but only 12\u201314% of the bird evidence; the central 3\u00d73 carried half the bird evidence and no positive background evidence.\n\n## The edit\n\n1. **Periphery mask in `layer4.2`.** One channel becomes a constant, a second becomes a border indicator (zero padding makes a 3\u00d73 sum of the constant smaller at the border), and `conv3` uses it to drive the block output below zero on the outer ring. I verified on feature maps that the final map is exactly zero there.\n2. **Direction cut where block 4.2 reads its input.** A rank-1 change of `layer4.2.conv1` removes the background mean-difference direction, read with a functional that is blind to the bird direction; the mean is folded into `bn1.running_mean`.\n3. **Small rank-1 correction at `fc`, plus a bias shift.** It subtracts a background detector to cancel the ~10% of the effect that bypasses block 4.2 through the skip connection. This direction is fitted (a logistic place probe on saved avgpool features).\n\n## Causal evidence\n\n- **Dose-response at each stage.** Each stage moved the background gap as predicted and left bird evidence nearly intact:\n\n| Stage | Doses | Background evidence | Bird evidence |\n|---|---|---|---|\n| Direction cut (\u03b1) | 0 / 0.5 / 1 / 2 | block 4.2's write: +4.73 / +2.23 / \u22120.18 / \u22125.74 | 13.9\u201314.1 |\n| Periphery mask (positions off) | 0 / 4 / 24 | total gap: 8.08 / 7.46 / 3.78 | 16.0 / 15.9 / 13.9 |\n| fc subtraction alone (\u03b2) | 0 \u2192 1 \u2192 1.5 | groups equalise at 1, shortcut reverses at 1.5 | \u2014 |\n\n- **Background swaps in the image.** Replacing only the periphery of an image (land \u2192 water) moves the original margin by +5.8 and +7.8 (49% and 75% of the area), and by +5.4 and +8.9 on a second, unused set. For the final model the shifts are about 0 for the smaller swap and +1.0 \u00b1 0.4 for the larger one.\n- **Bird-free mosaics.** With almost no bird in the picture, the original model calls 88% of water scenes and 6% of land scenes \"waterbird\" (margin difference +10.8). The final model's difference is +1.3.\n\n## Measured results on practice\n\n| | landbird/land | landbird/water | waterbird/land | waterbird/water | worst | weighted mean |\n|---|---|---|---|---|---|---|\n| Original | 99.4 | 82.6 | 72.9 | 96.2 | 72.9 | 97.7 |\n| Final (three passes agree) | 97.2 | 92.7 | 92.5 | 93.2 | 92.5 | 96.1 |\n| Final, 5-fold through the network | 96.8 | 92.5 | 91.7 | 93.2 | 91.7 | 95.8 |\n| Final, split-half | 96.8 | 92.9 | 91.0 | 93.2 | 91.0 | 95.8 |\n\n- **Paired against the original:** 49 landbird/water and 26 waterbird/land images fixed; 2, 10 and 4 newly wrong in landbird/water, landbird/land and waterbird/water.\n- **The out-of-sample rows are the honest ones.** In both, every data-dependent quantity (the layer4.1 direction, the fc probe, its dose and centring) was estimated only on images not being scored; the threshold was fixed in advance.\n- **Robustness.** Accuracy holds on mirrored and \u00b116 px shifted versions of all practice images (worst group 92.3\u201392.9, in-sample), under stronger zoom and shift on a subset, with a different pair of sacrificed channels (identical predictions), and for \u03b1 between 0.75 and 1.25.\n\n## Limits you should know about\n\n- **Every repair hits the same ceiling.** The fc-only subtraction, the direction cut and the mask, alone or combined, all reach a mean pairwise AUC of 0.979\u20130.980, as do richer probes on the same features. The fc-only repair alone gives about 91.6% worst-group at 96.0% mean; I chose the three-stage version for its lower sensitivity to background swaps, not for accuracy.\n- **Most remaining \"waterbird\" errors are a labelling artefact.** Three landbird-looking species (Eastern Towhee, Western Meadowlark, Western Wood Pewee) carry the waterbird label; I identified them by viewing the images, and the cause is my recollection that the dataset's name rule matches \"tern\" as a substring, which I could not check here. They account for 10 of the 19 waterbird errors (7 of 8 pewees). Fitting species detectors failed in nested cross-validation, so I left them alone.\n- **Landbird/water has a floor too.** Water scenes often contain real waterfowl or other animals next to the pasted landbird; 4 of 16 persistent errors I viewed had one.\n- **Residual background reliance.** Background that sits right beside the bird is about 85\u201390% neutralised, not fully.\n- **Waterbird/land is the noisy group.** With 133 images its estimate carries about \u00b12.5 points; it scored 84.8% on one held-out half and 97.0% on the other. The practice set over-represents the pewee relative to what the test split should contain, which should help the waterbird groups by just under a point.\n- **Other things tried and not adopted.** A cut where block 4.0 reads layer3 removes 83% of the gap but damages discrimination on water; full last-layer refits and a rank-2 fc correction were no better; a second mask at block 4.1 gave the same ceiling.\n- **One slip:** pass 2 ran with only 4 of the 256 composites because I pasted a truncated file list; it still confirmed the first fc edit, and the composite experiment was rerun in pass 3.\n\nEverything needed to rebuild the edit is in `work/notes.md` and `work/final_D/edits.pt`."
+}

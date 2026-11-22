@@ -1,0 +1,120 @@
+init: {"tools": ["mcp__harness__forward", "mcp__harness__python", "mcp__harness__show_images"], "mcp_servers": {"harness": "connected"}, "unexpected_tools": [], "missing_tools": [], "model": "claude-fable-5-2", "ok": true}
+[     13s] text: "I'll start by orienting myself in the kernel: checking whether `work/notes.md` already exists (in case this is a restarted conversation), looking at the practice labels, and listing the model tensors. Nothing has been measured yet, so there is no hypothesis to confirm or refute at this stage — this "
+[     15s] tool_use mcp__harness__python
+[    147s] tool_use mcp__harness__show_images
+[    224s] tool_use mcp__harness__python
+[    244s] tool_use mcp__harness__python
+[    244s] tool_use mcp__harness__show_images
+[    297s] tool_use mcp__harness__python
+[    298s] tool_use mcp__harness__show_images
+[    299s] tool_use mcp__harness__show_images
+[    498s] tool_use mcp__harness__python
+[    499s] tool_use mcp__harness__show_images
+[    517s] tool_use mcp__harness__python
+[    518s] tool_use mcp__harness__forward
+[    530s] tool_use mcp__harness__python
+[    545s] tool_use mcp__harness__python
+[    573s] tool_use mcp__harness__python
+[    635s] tool_use mcp__harness__python
+[    662s] tool_use mcp__harness__python
+[   1027s] tool_use mcp__harness__python
+[   1093s] tool_use mcp__harness__python
+[   1094s] tool_use mcp__harness__forward
+[   1113s] tool_use mcp__harness__python
+[   1154s] tool_use mcp__harness__python
+[   1225s] tool_use mcp__harness__python
+[   1233s] tool_use mcp__harness__show_images
+[   1335s] tool_use mcp__harness__python
+[   1387s] tool_use mcp__harness__show_images
+[   1451s] tool_use mcp__harness__python
+[   1451s] tool_use mcp__harness__forward
+[   1482s] tool_use mcp__harness__python
+[   1633s] tool_use mcp__harness__python
+[   1634s] tool_use mcp__harness__forward
+[   1643s] tool_use mcp__harness__python
+[   1644s] tool_use mcp__harness__forward
+[   1658s] tool_use mcp__harness__python
+[   1714s] tool_use mcp__harness__python
+[   1715s] tool_use mcp__harness__forward
+[   1730s] tool_use mcp__harness__python
+[   1730s] tool_use mcp__harness__forward
+[   1740s] tool_use mcp__harness__python
+[   1804s] tool_use mcp__harness__python
+[   1916s] tool_use mcp__harness__python
+[   1916s] tool_use mcp__harness__forward
+[   1931s] tool_use mcp__harness__python
+[   1931s] tool_use mcp__harness__forward
+[   1945s] tool_use mcp__harness__python
+[   2000s] tool_use mcp__harness__python
+[   2000s] tool_use mcp__harness__show_images
+[   2017s] tool_use mcp__harness__python
+[   2017s] tool_use mcp__harness__show_images
+[   2048s] tool_use mcp__harness__python
+[   2049s] tool_use mcp__harness__forward
+[   2057s] tool_use mcp__harness__python
+[   2057s] tool_use mcp__harness__forward
+[   2074s] tool_use mcp__harness__python
+[   2259s] tool_use mcp__harness__python
+[   2348s] tool_use mcp__harness__python
+[   2349s] tool_use mcp__harness__forward
+[   2362s] tool_use mcp__harness__python
+[   2424s] tool_use mcp__harness__python
+[   2425s] tool_use mcp__harness__forward
+[   2433s] tool_use mcp__harness__python
+[   2433s] tool_use mcp__harness__forward
+[   2455s] tool_use mcp__harness__python
+[   2524s] tool_use mcp__harness__python
+[   2524s] tool_use mcp__harness__forward
+[   2551s] tool_use mcp__harness__python
+[   2619s] tool_use mcp__harness__python
+[   2712s] tool_use mcp__harness__python
+[   2713s] tool_use mcp__harness__forward
+[   2730s] tool_use mcp__harness__python
+[   2748s] tool_use mcp__harness__python
+[   2748s] tool_use mcp__harness__forward
+[   2777s] tool_use mcp__harness__python
+[   2836s] tool_use mcp__harness__python
+[   2837s] tool_use mcp__harness__forward
+[   2854s] tool_use mcp__harness__python
+[   2894s] tool_use mcp__harness__python
+[   2933s] tool_use mcp__harness__python
+[   2934s] tool_use mcp__harness__forward
+[   2951s] tool_use mcp__harness__python
+[   2974s] tool_use mcp__harness__python
+[   2975s] tool_use mcp__harness__forward
+[   2988s] tool_use mcp__harness__python
+[   3002s] tool_use mcp__harness__python
+[   3042s] tool_use mcp__harness__python
+[   3045s] tool_use mcp__harness__forward
+[   3057s] tool_use mcp__harness__python
+[   3077s] tool_use mcp__harness__python
+[   3119s] tool_use mcp__harness__python
+[   3120s] tool_use mcp__harness__forward
+[   3137s] tool_use mcp__harness__python
+[   3149s] tool_use mcp__harness__python
+[   3181s] tool_use mcp__harness__python
+[   3182s] tool_use mcp__harness__forward
+[   3195s] tool_use mcp__harness__python
+[   3224s] tool_use mcp__harness__python
+[   3225s] tool_use mcp__harness__forward
+[   3240s] tool_use mcp__harness__python
+[   3254s] tool_use mcp__harness__python
+[   3254s] tool_use mcp__harness__forward
+[   3269s] tool_use mcp__harness__python
+[   3295s] text: '# Final report\n\nThe repair is in place and verified: three rank-1 edits inside layer 4 remove the background shortcut, and the last layer `fc` is left exactly as trained. On practice images scored by a recipe built without them, worst-group accuracy goes from 72.9% to 92.3% and weighted mean from 97'
+[   3295s] turn ended (success); passes 25/25
+{
+ "session_id": "v4_b25_fit_r3_20261122T114316Z",
+ "wall_clock_s": 3296,
+ "tool_calls": 101,
+ "by_tool": {
+  "mcp__harness__python": 67,
+  "mcp__harness__show_images": 9,
+  "mcp__harness__forward": 25
+ },
+ "nudges": 0,
+ "compactions": 0,
+ "lockdown_ok": true,
+ "total_cost_usd_notional": 18.067365799999997,
+ "final_text": "# Final report\n\nThe repair is in place and verified: three rank-1 edits inside layer 4 remove the background shortcut, and the last layer `fc` is left exactly as trained. On practice images scored by a recipe built without them, worst-group accuracy goes from 72.9% to 92.3% and weighted mean from 97.7% to 95.6%, against targets of 88% and 94%.\n\n## What I changed\n\nThe submission in `work/edited` is 8 tensors, all at the inputs of the three layer-4 blocks:\n\n| Site (where the background direction is read) | Conv weight edited (rank-1) | Batch-norm running mean shifted | Strength |\n|---|---|---|---|\n| layer3 output \u2192 block 4.0 | `layer4.0.conv1.weight`, `layer4.0.downsample.0.weight` | `layer4.0.bn1.running_mean`, `layer4.0.downsample.1.running_mean` | 1.08 |\n| layer4.0 output \u2192 block 4.1 branch | `layer4.1.conv1.weight` | `layer4.1.bn1.running_mean` | 1.13 |\n| layer4.1 output \u2192 block 4.2 branch | `layer4.2.conv1.weight` | `layer4.2.bn1.running_mean` | 1.15 |\n\n- **The edit at each site:** every activation vector `x` is replaced by `x \u2212 d\u00b7(v\u00b7(x\u2212\u03bc))/(v\u00b7d)` before the 1\u00d71 conv reads it. Here `d` is the mean water-minus-land shift within bird class, `v` is a ridge-regularised reading direction and `\u03bc` is the group-balanced mean. This folds into the conv as `W' = W \u2212 \u03b1(Wd)v\u1d40/(v\u00b7d)`, with the constant absorbed into the next batch-norm's running mean.\n- **What was fitted:** only first and second moments of saved pooled activations, using the background labels and group means. No classifier was fitted to the bird labels.\n- **Strength:** \u03b1 = 1/\u03c1, where \u03c1 is a cross-validated estimate of how much the in-sample shift along `v` is inflated. It is measured, not tuned.\n\n## How I got there\n\n1. **Baseline and causal diagnosis.**\n   - The original model scores 99.4 / 82.6 / 72.9 / 96.2 (landbird/land, landbird/water, waterbird/land, waterbird/water).\n   - The margin is roughly additive: the bird is worth about 16 and the background about 8.\n   - On 256 composites built from 64 hand-checked bird masks, backgrounds with no bird at all are called \"waterbird\" 91% of the time on water and 9% on land.\n   - Moving the same bird from land to water shifts its margin by +7.0 \u00b1 0.7.\n\n2. **Last-layer-only repairs plateau.** Projecting the background direction out of `fc`, or refitting it with group-balanced logistic regression, reaches about 89\u201391% worst-group under cross-validation. Refitting `fc` on top of the final edit, using properly held-out features, gave no gain, so I kept it original.\n\n3. **Localization inside the network.** Background type is about 95% decodable from layer3 onward. The per-channel correlation between \"responds to water\" and \"responds to waterbird\" rises from 0.05 at layer3 to 0.57 at avgpool, so the last blocks fold scene evidence into the class channels. Erasing the background direction at single sites removes this share of its effect on the output:\n\n   | Sites erased | Background effect removed | Worst group (practice, in-sample) |\n   |---|---|---|\n   | layer2\u2192layer3 interface only | 42% | 81.2 |\n   | layer3\u2192layer4 interface only | 58% | 86.5 |\n   | block 4.2 branch input only (one rank-1 edit) | 77% | 88.7 |\n   | block 4.1 + 4.2 branch inputs | 90% | 91.7 |\n   | all three layer-4 sites | 93\u2013105% | 91.7\u201392.5 |\n\n   The scene code travels harmlessly along the skip connections, where `fc` does not read it. It becomes class evidence where the branches of the last blocks read it.\n\n4. **Dose-response.** At strengths 0 / 0.5 / 1 / 1.5 the background effect on the margin is 8.1 / 4.6 / 0.5 / \u22124.6 and worst-group is 72.9 / 86.5 / 91.7 / 82.7. At 1.5 the shortcut is reversed and the former majority groups fail. Bird evidence stays between 14.5 and 16 throughout.\n\n5. **Specificity control.** Removing the largest non-background direction at the same three sites removes only 8% of the effect and leaves waterbird/land at 73.7%. My first control was flawed (its reading correlated 0.78 with background), so I reran it cleanly; the 8% figure is from the clean run.\n\n6. **Spatial check on 32 masked images.** In the original model the scene effect on the margin comes from background cells (7.57 of 7.71). After the edit that contribution is 0.53. The erased direction's reading differs by scene on background cells (1.15) far more than on bird cells (0.21).\n\n## Held-out confirmation\n\nI split the practice set into two stratified halves, built the whole recipe from one half and scored the other, in both directions.\n\n| | landbird/land | landbird/water | waterbird/land | waterbird/water | Worst | Weighted mean |\n|---|---|---|---|---|---|---|\n| Original | 99.4 | 82.6 | 72.9 | 96.2 | 72.9 | 97.7 |\n| Final recipe, held-out (built from ~600 images each) | 96.6 | 92.3 | 92.5 | 93.2 | 92.3 | 95.6 |\n| Final build, practice (in-sample, verified in the last pass) | 96.6 | 92.7 | 94.7 | 92.5 | 92.5 | 95.5 |\n\n- **Paired changes vs the original (held-out):** landbird/water 47 fixed and 2 broken; waterbird/land 26 fixed and 0 broken; landbird/land 1 fixed and 14 broken; waterbird/water 0 fixed and 4 broken.\n- **Residual background effect (held-out):** 0.37 \u00b1 0.32, down from 8.08.\n- **Recipe versions:** the held-out test caught two estimation problems in earlier versions, which left residuals of 1.4 and then 0.8\u20131.3. I fixed each for a stated mechanistic reason before measuring again. The second fix followed the first two-fold held-out result, so the 92.3 figure is the best of two recipes scored on the same held-out images and may be slightly optimistic.\n- **Over-correction (held-out half B):** deploying at 1.25\u00d7 the calibrated strength reverses the effect to \u22123.15 and drops waterbird/water to 79.1%, so the chosen strength sits at the knee.\n- **Simpler alternative (held-out half B):** the two-site edit leaves a residual of 1.54 and trails on both minority groups, so I kept three sites.\n- **Composites, final model:** accuracy on mismatched backgrounds rises from 77.3% to 92.2%, and 58 of 64 birds get the same answer on all four backgrounds, up from 47.\n\n## What to expect on the test set\n\n- **Expected result:** roughly 91\u201392% worst-group and 95.5% mean.\n- **Chance of clearing both targets:** about 0.93, from a bootstrap over practice images. The main uncertainty is the 133-image waterbird groups, about \u00b12.5 points.\n- **Cost of the repair:** the two majority groups lose about 3 points each, because images that were right only thanks to the background are no longer helped.\n- **Remaining errors are mostly not shortcut errors.** Western Wood-Pewee is a songbird that carries the waterbird label through a dataset quirk (\"tern\" matches \"Western\"), and the model gets 0 of 8 right. Other errors are water scenes that contain real ducks, geese or herons, and tiny or semi-transparent pasted birds. I do not think a weight edit without retraining can fix these.\n\nNotes with all numbers are in `work/notes.md`; a copy of the submitted tensors is in `work/best_v3_full/`."
+}

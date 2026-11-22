@@ -1,0 +1,105 @@
+{
+ "session_id": "v4_b10_fit_r2_20261122T085240Z",
+ "driver_model": "fable-5.2",
+ "model_id": "claude-fable-5-2",
+ "config": {
+  "tag": "v4_b10_fit_r2",
+  "driver_model": "fable-5.2",
+  "effort": "max",
+  "budget": 10,
+  "fitting": "allowed",
+  "task_file": "exp_v/sessions/task_template.md",
+  "max_nudges": 40,
+  "max_hours": 30,
+  "max_turns": 4000,
+  "max_error_waits": 72,
+  "error_wait_min": 20
+ },
+ "start_utc": "2026-11-22T08:52:40.636538+00:00",
+ "usage_before": null,
+ "claude_version": "2.1.330 (Claude Code)",
+ "init": {
+  "tools": [
+   "mcp__harness__forward",
+   "mcp__harness__python",
+   "mcp__harness__show_images"
+  ],
+  "mcp_servers": {
+   "harness": "connected"
+  },
+  "unexpected_tools": [],
+  "missing_tools": [],
+  "model": "claude-fable-5-2",
+  "ok": true
+ },
+ "end_utc": "2026-11-22T09:41:05.233386+00:00",
+ "wall_clock_s": 2905,
+ "exit_code": 0,
+ "stderr_tail": "",
+ "tool_calls": 62,
+ "by_tool": {
+  "mcp__harness__python": 47,
+  "mcp__harness__show_images": 5,
+  "mcp__harness__forward": 10
+ },
+ "turns_ended": 1,
+ "nudges": 0,
+ "compactions": 0,
+ "error_waits": 0,
+ "results": [
+  {
+   "subtype": "success",
+   "is_error": false,
+   "num_turns": 63,
+   "total_cost_usd": 16.574869999999997,
+   "usage": {
+    "input_tokens": 124,
+    "cache_creation_input_tokens": 307413,
+    "cache_read_input_tokens": 9828950,
+    "output_tokens": 242237,
+    "output_tokens_details": {
+     "thinking_tokens": 153013
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 307413,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+     {
+      "input_tokens": 2,
+      "output_tokens": 2356,
+      "cache_read_input_tokens": 307517,
+      "cache_creation_input_tokens": 1601,
+      "cache_creation": {
+       "ephemeral_5m_input_tokens": 0,
+       "ephemeral_1h_input_tokens": 1601
+      },
+      "type": "message"
+     }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+   },
+   "duration_ms": 3015288
+  }
+ ],
+ "total_cost_usd_notional": 16.574869999999997,
+ "final_text": "The submitted edit is a one-direction correction of the last layer (`fc.weight`, `fc.bias` only), and on practice it lifts worst-group accuracy from 72.9% to 91.6% with the weighted mean at 96.1%. All 10 forward passes are used; the tensors in `work/edited` are the final ones (backup in `work/best_1/final_S1.pt`).\n\n## What I changed\n\nAt the features the last layer reads (avgpool), I estimated a \"place\" read-out `u`: a ridge-regularised linear estimator of water-vs-land background, constrained to be blind to the bird's mean shift. The edit subtracts the last layer's read of that direction and moves the bias:\n\n- **Direction and strength:** new margin = old margin \u2212 \u03b2\u00b7u\u00b7(f \u2212 \u03bc) + 1.5, with \u03b2 = 8.08 logits. \u03b2 is not tuned; it is the value at which the average background effect on the margin is zero.\n- **Bias:** +1.5 logits toward waterbird, the centre of a held-out plateau (+1.25 to +1.75) where the two minority groups are balanced.\n- **Everything else is untouched.** The change is split symmetrically across the two fc rows.\n\n## Result on practice (final pass, real pipeline)\n\n| Group | Original | Edited | Paired change |\n|---|---|---|---|\n| landbird/land | 99.36 | 97.00 | 0 fixed, 11 broken |\n| landbird/water | 82.62 | 91.63 | 43 fixed, 1 broken |\n| waterbird/land | 72.93 | 91.73 | 25 fixed, 0 broken |\n| waterbird/water | 96.24 | 93.98 | 0 fixed, 3 broken |\n| **Worst group** | 72.93 | **91.63** | |\n| **Weighted mean** | 97.72 | **96.07** | |\n\nThese numbers match my offline computation to 4e-6. They are in-sample for the place estimator, so the honest figures are the held-out ones:\n\n- **Repeated 5-fold, out-of-fold:** 97.0 / 91.1 / 91.9 / 94.0, mean 96.0.\n- **Two-half cross-fit:** 97.0 / 90.3 / 92.5 / 94.0.\n\n## The path that led here\n\n1. **Diagnosis at the input.** Backgrounds are assigned independently of the bird in this split, so group differences are causal. The background moves the margin by +8.8 logits for landbirds and +7.4 for waterbirds, about half the bird's own effect (~16). On composites I built, swapping only the periphery from land to water with the centre fixed shifts the margin by +5.9 to +6.7 logits. Scenery-only images (centre greyed out) were called waterbird 0% of the time on land and 80% on water.\n\n2. **Where it enters.** Background is linearly decodable at ~95% at every depth I probed. Its direction is nearly orthogonal to the bird direction at layer3 and layer4.0 (cosine 0.04, 0.08), then aligns with it after layer4.1 (0.30) and layer4.2 (0.57). The last block creates most of the class evidence the fc reads, including more than half of the background evidence.\n\n3. **Causal localisation with dose-response.** I erased the place signal from what the last block's residual branch reads (a rank-1 edit of `layer4.2.conv1.weight` plus `bn1.running_mean`), leaving the fc untouched:\n\n   | Erasure strength | 0 | 0.5 | 1 | 2 |\n   |---|---|---|---|---|\n   | Place shift read by fc (logits) | +8.08 | +5.18 | +2.30 | \u22124.08 |\n   | Paired swap effect (logits) | +6.69 | +4.46 | +2.16 | \u22123.14 |\n   | waterbird/land accuracy | 72.9 | 84.2 | 88.0 | 97.0 |\n   | landbird/land accuracy | 99.4 | 99.1 | 98.3 | 94.4 |\n\n   The bird effect stayed at 16.0\u201317.3 throughout. At strength 2 the shortcut reverses sign, as predicted. The same erasure one block earlier (layer4.1) also helped (worst group 84.2%), and both together reached 91.0% worst-group and 96.7% mean without touching the fc.\n\n4. **Why the final edit is fc-only.** I cross-fitted the whole procedure: estimate on one half of practice, score the other half, and vice versa. Held-out results at the unshifted bias:\n\n   | Repair | LL / LW / WL / WW | Hard-pair AUC |\n   |---|---|---|\n   | Last-block erasure, old fc | 98.1 / 91.4 / 88.0 / 94.0 | 0.955 |\n   | fc correction only | 98.3 / 93.3 / 90.2 / 93.2 | 0.973 |\n   | Erasure + fc correction | 97.2 / 93.1 / 90.2 / 94.0 | 0.974 |\n   | Full fc refit | 98.3 / 89.7 / 90.2 / 94.0 | 0.962 |\n\n   \"Hard pair\" is landbirds-on-water versus waterbirds-on-land. Adding the erasure to the fc correction gave no gain there and pushed landbird/land closer to the threshold. My earlier in-sample estimate had made the combination look better; that turned out to be optimism in the erasure's probe. So I kept the single edit whose benefit is clearly established. The fc correction also has an exact offline dose-response (0\u00d7 to 2\u00d7) and is stable across ridge settings from 10 up to the no-covariance limit.\n\n5. **Spatial check.** On 32 composites, a land-to-water periphery swap changed the original fc's evidence by +4.0 logits in the outer ring of the 7\u00d77 map and +0.1 in the centre (total +6.4). With the corrected fc the total is +0.3, while bird evidence in the centre is unchanged. Scenery-only images now get margins near zero (\u22121.7 / +1.6) instead of \u22129.7 / +3.4.\n\n## Why I expect it to hold, and what limits it\n\nThe correction is a pair of mean-difference vectors and a strongly regularised probe, with strength fixed by a constraint. Out-of-fold and cross-fit results agree with the in-sample ones, and composites never used for fitting show the background effect removed (+6.7 \u2192 +0.1).\n\nThe remaining errors look mostly irreducible:\n\n- **Label noise:** about 6% of \"waterbirds\" look like landbirds \u2014 the ones I viewed were a towhee and small flycatchers. I believe this is the known Waterbirds labelling quirk (species names containing \"tern\"), but I could not verify species names here.\n- **Contaminated backgrounds:** several landbird/water errors have real waterbirds in the pasted background photo.\n\nMy estimate of the chance of meeting both targets on the test set is roughly 0.8\u20130.9. The main risk is that the waterbird/land accuracy rests on only 133 practice images (about \u00b12.5 points).",
+ "server_state": {
+  "budget": 10,
+  "passes": 10,
+  "python_runs": 47,
+  "requests": 10,
+  "images_shown": 76,
+  "elapsed_s": 2878
+ },
+ "lockdown_ok": true,
+ "usage_after": null,
+ "finalize": "{\"session_id\": \"v4_b10_fit_r2_20261122T085240Z\", \"edited_tensors\": [\"fc.bias\", \"fc.weight\"], \"n_weights_changed\": 4098, \"test\": {\"groups\": {\"landbird/land\": {\"acc\": 96.98, \"n\": 2255}, \"landbird/water\": {\"acc\": 93.22, \"n\": 2255}, \"waterbird/land\": {\"acc\": 94.24, \"n\": 642}, \"waterbird/water\": {\"acc\": 93.93, \"n\": 642}}, \"n\": 5794, \"plain_mean\": 94.87, \"worst\": 93.22, \"worst_group\": \"landbird/water\", \"weighted_mean\": 96.13}}"
+}

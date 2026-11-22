@@ -1,0 +1,105 @@
+{
+ "session_id": "v4_b25_fit_r2_20261122T103609Z",
+ "driver_model": "fable-5.2",
+ "model_id": "claude-fable-5-2",
+ "config": {
+  "tag": "v4_b25_fit_r2",
+  "driver_model": "fable-5.2",
+  "effort": "max",
+  "budget": 25,
+  "fitting": "allowed",
+  "task_file": "exp_v/sessions/task_template.md",
+  "max_nudges": 40,
+  "max_hours": 30,
+  "max_turns": 4000,
+  "max_error_waits": 72,
+  "error_wait_min": 20
+ },
+ "start_utc": "2026-11-22T10:36:09.415647+00:00",
+ "usage_before": null,
+ "claude_version": "2.1.330 (Claude Code)",
+ "init": {
+  "tools": [
+   "mcp__harness__forward",
+   "mcp__harness__python",
+   "mcp__harness__show_images"
+  ],
+  "mcp_servers": {
+   "harness": "connected"
+  },
+  "unexpected_tools": [],
+  "missing_tools": [],
+  "model": "claude-fable-5-2",
+  "ok": true
+ },
+ "end_utc": "2026-11-22T11:42:58.427407+00:00",
+ "wall_clock_s": 4009,
+ "exit_code": 0,
+ "stderr_tail": "",
+ "tool_calls": 106,
+ "by_tool": {
+  "mcp__harness__python": 77,
+  "mcp__harness__forward": 25,
+  "mcp__harness__show_images": 4
+ },
+ "turns_ended": 1,
+ "nudges": 0,
+ "compactions": 0,
+ "error_waits": 0,
+ "results": [
+  {
+   "subtype": "success",
+   "is_error": false,
+   "num_turns": 107,
+   "total_cost_usd": 22.798111200000008,
+   "usage": {
+    "input_tokens": 214,
+    "cache_creation_input_tokens": 394170,
+    "cache_read_input_tokens": 25740796,
+    "output_tokens": 283538,
+    "output_tokens_details": {
+     "thinking_tokens": 169966
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 394170,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+     {
+      "input_tokens": 2,
+      "output_tokens": 2262,
+      "cache_read_input_tokens": 394073,
+      "cache_creation_input_tokens": 1802,
+      "cache_creation": {
+       "ephemeral_5m_input_tokens": 0,
+       "ephemeral_1h_input_tokens": 1802
+      },
+      "type": "message"
+     }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+   },
+   "duration_ms": 4174350
+  }
+ ],
+ "total_cost_usd_notional": 22.798111200000008,
+ "final_text": "# Final report\n\n## What I changed\n\nThe submission in `work/edited` changes only the last layer, `fc.weight` and `fc.bias`. Every other tensor is the original.\n\n- **New decision direction.** It is the difference between the mean waterbird and mean landbird feature vectors (each averaged equally over the two backgrounds), lightly whitened with the within-group covariance (ridge 50). It is constrained in closed form so that its response to the water-vs-land background shift is exactly zero; the original's was 8.08 margin units.\n- **New bias.** It sits at the class midpoint, shifted by 0.24 held-out standard deviations toward \"waterbird\".\n- **How much moved.** The cosine with the original direction is 0.51, and its bird response is 16.95 against the original's 16.0.\n\nThis is a fitted edit, allowed in this session: the direction and bias are fitted in closed form from the pass-1 avgpool features and the practice labels.\n\n## Expected performance\n\nAll figures are on practice data; I never saw test images.\n\n| Measurement | landbird/land | landbird/water | waterbird/land | waterbird/water | worst | mean |\n|---|---|---|---|---|---|---|\n| Original model | 99.4 | 82.6 | 72.9 | 96.2 | 72.9 | 97.7 |\n| Final edit, in-sample (pass 25) | 97.4 | 91.9 | 94.7 | 94.7 | 91.9 | 96.6 |\n| Held-out, two halves, real passes | 97.0 | 91.9 | 91.7 | 94.0 | 91.7 | 96.1 |\n| Held-out, nested cross-validation | 97.0 | 91.9 | 92.3 | 94.0 | 91.9 | 96.1 |\n| Held-out, mirrored images | 96.5 | 93.2 | 93.0 | 94.0 | 93.0 | 95.8 |\n\n- **Honest estimate:** about 92% worst group and 96% mean, against targets of 88% and 94%.\n- **In-sample caveat:** the pass-25 row is optimistic, because the edit was fitted on all practice images.\n- **What the held-out rows test:** they score the recipe refitted without the scored images, not the exact submitted tensors. The two-halves row is the one measured with real forward passes, where each image is scored by an edit fitted on the other half.\n- **Paired held-out changes:** landbird/water 46 fixed and 3 broken; waterbird/land 25 fixed and 0 broken; the cost is 11 landbird/land and 3 waterbird/water images.\n- **Risk:** I estimate roughly a 90% chance of meeting both targets on the test set. The main uncertainty is that the two waterbird groups have only 133 practice images each.\n\n## What goes wrong in the network\n\n- **The margin is additive.** The bird moves it by about 16 units and the background by about 8, so the background is worth half a bird.\n- **No channel surgery is possible at the last layer.** 1,627 of 2,048 pooled channels push the background the same way, and the same channels carry bird evidence. The background direction accounts for 48% of the squared norm of the original decision direction.\n- **Background and bird become aligned inside layer4.** The correlation between per-channel background and bird effects rises from 0.06 at layer3 to 0.57 at avgpool. Place is readable from layer1 on; bird type only forms in layer4.\n- **Spatially, the background votes from everywhere.** The outer ring of the 7\u00d77 map supplies 14% of the bird evidence but 49% of the background evidence.\n\n## Causal evidence\n\n- **Last layer, dose-response.** Removing the background direction from the original decision direction at strengths 0 to 1.5 moves the background effect linearly from 8.08 through 0.10 to \u22123.88. The best worst-group accuracy rises from 78.9 to 91.4, then collapses when over-corrected. Re-tuning the bias alone cannot get past 78.9%.\n- **Inside layer4, original last layer untouched.** Removing one direction from what each block reads cuts the background evidence from 8.08 to:\n  - 1.36 at the entrance of layer4;\n  - 5.42 at block 4.1's input;\n  - 3.25 at block 4.2's input.\n\n  Bird evidence stays at 14.3\u201315.8 in all three. All three together give \u22120.49, which shows one serial pathway rather than parallel routes.\n- **Deep-only repair.** Those three removals alone, with the original last layer and bias, score 96.4 / 90.8 / 93.2 / 93.2. On a held-out half they score 96.6 / 89.7 / 95.5 / 94.0.\n- **Bird-free images.** On textures cut from image corners, the original model's margin is 6.35 \u00b1 0.52 higher for water than land, and it calls 71% of water textures \"waterbird\". With the edited last layer the difference is \u22120.22 \u00b1 0.27.\n- **Same bird, swapped surroundings.** Changing only the periphery from land to water texture shifts the original margin by +3.94 \u00b1 0.42. With the final edit the shift is \u22121.24 \u00b1 0.30, a slight over-correction on these synthetic textures.\n\n## Why accuracy stops near 92%\n\n- **Waterbird side.** One land-looking species block labelled waterbird (p0587\u2013p0594) is wrong 7\u20138 times out of 8, and its images do not even neighbour each other in feature space. The rest are cropped or blurred birds.\n- **Landbird/water side.** Many of the errors I viewed have real waterbirds in the background photo or are landbirds in flight. Their wrong-way evidence sits in the centre of the feature map, not the edge.\n- **Things I tested that did not help:** removing further background directions, rerouting earlier layers, spatial gating (analysed from the feature maps, not built), fitting on mirrored images, more fitting data, and refitting the last layer on top of the internal edits.\n\n## Path to the edit\n\n1. I diagnosed the additive margin and found the background could not be separated by channel.\n2. A reasoned one-direction removal from the original last layer reached 97.2 / 91.0 / 92.5 / 92.5, measured in pass 17.\n3. A fair cross-validated comparison showed the class-mean direction beats the trained one by about a point on the hard groups; logistic refits did not.\n4. I chose ridge and bias on a flat optimum, confirmed with nested cross-validation, two held-out halves and mirrored images.\n5. I used the remaining passes for the internal and image-level causal tests above, then restored and re-verified the final edit.\n\nAlternatives are kept in `work/r1` (the reasoned last-layer edit) and `work/deep3` (the deep-only edit); `work/notes.md` has the full log.",
+ "server_state": {
+  "budget": 25,
+  "passes": 25,
+  "python_runs": 77,
+  "requests": 25,
+  "images_shown": 56,
+  "elapsed_s": 3986
+ },
+ "lockdown_ok": true,
+ "usage_after": null,
+ "finalize": "{\"session_id\": \"v4_b25_fit_r2_20261122T103609Z\", \"edited_tensors\": [\"fc.bias\", \"fc.weight\"], \"n_weights_changed\": 4098, \"test\": {\"groups\": {\"landbird/land\": {\"acc\": 96.9, \"n\": 2255}, \"landbird/water\": {\"acc\": 94.24, \"n\": 2255}, \"waterbird/land\": {\"acc\": 93.46, \"n\": 642}, \"waterbird/water\": {\"acc\": 93.15, \"n\": 642}}, \"n\": 5794, \"plain_mean\": 95.06, \"worst\": 93.15, \"worst_group\": \"waterbird/water\", \"weighted_mean\": 95.93}}"
+}

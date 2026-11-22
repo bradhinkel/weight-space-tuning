@@ -1,0 +1,78 @@
+init: {"tools": ["mcp__harness__forward", "mcp__harness__python", "mcp__harness__show_images"], "mcp_servers": {"harness": "connected"}, "unexpected_tools": [], "missing_tools": [], "model": "claude-fable-5-2", "ok": true}
+[    161s] text: "I'm starting from scratch, so the first step is orientation rather than hypothesis testing: I want to confirm what is in the kernel (tensor names, shapes, the practice labels, any existing `work/notes.md` from a previous attempt) before spending any of the 10 forward passes. Nothing has been measure"
+[    165s] tool_use mcp__harness__python
+[    389s] tool_use mcp__harness__show_images
+[    476s] tool_use mcp__harness__python
+[    501s] tool_use mcp__harness__python
+[    509s] tool_use mcp__harness__show_images
+[    549s] tool_use mcp__harness__python
+[    550s] tool_use mcp__harness__show_images
+[    571s] tool_use mcp__harness__python
+[    579s] tool_use mcp__harness__python
+[    600s] tool_use mcp__harness__forward
+[    610s] tool_use mcp__harness__python
+[    620s] tool_use mcp__harness__python
+[    651s] tool_use mcp__harness__python
+[    833s] tool_use mcp__harness__python
+[    958s] tool_use mcp__harness__python
+[   1141s] text: '**What the last result showed.** (1) Background identity matters even *within* a place category: the same centre on two different land (or two different water) surrounds changes the margin with a standard deviation of 2.9 units, a large share of the ~5-unit within-group spread, and those changes run'
+[   1150s] tool_use mcp__harness__python
+[   1174s] tool_use mcp__harness__python
+[   1176s] tool_use mcp__harness__show_images
+[   1236s] text: '**What the last result showed.** Looking at the failures changes the picture in two important ways. (1) Landbirds on water with the highest "waterbird" margins: several of these backgrounds contain *real waterbirds or water animals* (a goose behind the pasted flicker in p0191, a hooded merganser in '
+[   1245s] tool_use mcp__harness__python
+[   1354s] tool_use mcp__harness__python
+[   1395s] tool_use mcp__harness__python
+[   1433s] tool_use mcp__harness__python
+[   1613s] tool_use mcp__harness__python
+[   1649s] tool_use mcp__harness__python
+[   1672s] tool_use mcp__harness__forward
+[   1712s] tool_use mcp__harness__python
+[   1743s] tool_use mcp__harness__python
+[   1745s] tool_use mcp__harness__show_images
+[   1846s] tool_use mcp__harness__python
+[   1933s] tool_use mcp__harness__python
+[   2080s] tool_use mcp__harness__python
+[   2152s] tool_use mcp__harness__python
+[   2177s] tool_use mcp__harness__forward
+[   2209s] tool_use mcp__harness__python
+[   2258s] tool_use mcp__harness__python
+[   2374s] tool_use mcp__harness__python
+[   2398s] tool_use mcp__harness__forward
+[   2457s] tool_use mcp__harness__python
+[   2480s] tool_use mcp__harness__python
+[   2504s] tool_use mcp__harness__forward
+[   2535s] tool_use mcp__harness__python
+[   2645s] tool_use mcp__harness__python
+[   2669s] tool_use mcp__harness__forward
+[   2691s] tool_use mcp__harness__python
+[   2731s] tool_use mcp__harness__python
+[   2856s] tool_use mcp__harness__python
+[   2875s] tool_use mcp__harness__forward
+[   2907s] tool_use mcp__harness__python
+[   2926s] tool_use mcp__harness__forward
+[   2964s] tool_use mcp__harness__python
+[   3009s] tool_use mcp__harness__python
+[   3028s] tool_use mcp__harness__forward
+[   3054s] tool_use mcp__harness__python
+[   3128s] tool_use mcp__harness__python
+[   3150s] tool_use mcp__harness__forward
+[   3190s] tool_use mcp__harness__python
+[   3284s] tool_use mcp__harness__python
+[   3309s] text: '# Final report\n\n## Outcome\n\nThe submitted edit changes only the last layer (`fc.weight`, `fc.bias`). On the practice images it raises worst-group accuracy from 72.9% to 90.8% while the weighted mean goes from 97.7% to 95.4%. Both targets are met on practice, but the cushion is thin, and on the harde'
+[   3309s] turn ended (success); passes 10/10
+{
+ "session_id": "v4_b10_nofit_r3_20261122T095333Z",
+ "wall_clock_s": 3309,
+ "tool_calls": 57,
+ "by_tool": {
+  "mcp__harness__python": 42,
+  "mcp__harness__show_images": 5,
+  "mcp__harness__forward": 10
+ },
+ "nudges": 0,
+ "compactions": 0,
+ "lockdown_ok": true,
+ "total_cost_usd_notional": 20.368968400000007,
+ "final_text": "# Final report\n\n## Outcome\n\nThe submitted edit changes only the last layer (`fc.weight`, `fc.bias`). On the practice images it raises worst-group accuracy from 72.9% to 90.8% while the weighted mean goes from 97.7% to 95.4%. Both targets are met on practice, but the cushion is thin, and on the harder half of the practice set the weighted mean alone is 93.1%, below the 94% line.\n\n| | landbird/land | landbird/water | waterbird/land | waterbird/water | worst | weighted mean |\n|---|---|---|---|---|---|---|\n| Original | 99.4 | 82.6 | 72.9 | 96.2 | 72.9 | 97.7 |\n| **Submitted edit** (pass 10) | 96.4 | 90.8 | 93.2 | 93.2 | **90.8** | **95.4** |\n| Paired change (fixed / broken) | 0 / 14 | 41 / 3 | 27 / 0 | 0 / 4 | | |\n| Out-of-sample estimate (cross-fitted halves) | 97.2 | 89.9 | 92.5 | 94.0 | 89.9 | 96.2 |\n\nThe cross-fitted row scores each image with a version of the recipe whose statistics did not use that image.\n\n## What I changed\n\nWith `wd = W[1] \u2212 W[0]` the readout the decision depends on:\n\n- **Background cancellation.** `W[1] \u2212= (\u03bb/2)\u00b7d_p\u22a5` and `W[0] += (\u03bb/2)\u00b7d_p\u22a5`, with \u03bb = 0.2487.\n  - `d_p` is the water-minus-land difference of group-mean `avgpool` features, averaged within bird class.\n  - `d_y` is the waterbird-minus-landbird difference, averaged within background.\n  - `d_p\u22a5` is the part of `d_p` orthogonal to `d_y`, i.e. a background coordinate with zero mean response to the bird.\n  - \u03bb = (wd\u00b7d_p)/\u2016d_p\u22a5\u2016\u00b2 is the one strength at which the new readout has zero projection on `d_p` and an unchanged projection on `d_y`.\n- **Bias.** The margin offset is set to `\u03bb\u00b7d_p\u22a5\u00b7c + 1.196`.\n  - `c` is the mean of the four group means, so a background-neutral image keeps its margin.\n  - 1.196 = log(0.7679/0.2321) removes the class prior of the fine-tuning data. I fixed this before the first edited pass.\n\nNothing was fitted: every number comes from group means, the original weights, or the stated training shares.\n\n## What goes wrong in the network\n\n- **Size of the shortcut.** The bird moves the margin by about 16 units and the background by about 8, against a within-group spread of about 5.\n- **Background alone drives the output.** On bird-free collages built from image corners, water backgrounds score 9.4 units higher than land, and 73% are called \"waterbird\" with no bird present (0% for land). The same bird patch pasted into a water surround scores 6.7 units higher than in a land surround, in all 32 cases.\n- **Shared axis.** In the features the last layer reads, the background shifts activations along nearly the same axis as the bird (cosine 0.57 between `d_p` and `d_y`).\n- **Not a few channels.** The 10 channels contributing most to the background effect supply 0.93 of 8.08 units and carry as much bird evidence. This ruled out channel ablation.\n- **Depth.** Bird and background directions are orthogonal at `layer3` (cosine 0.04) and `layer4.0` (0.08), and merge in `layer4.1` (0.30) and `layer4.2` (0.57).\n\n## Causal evidence\n\n**Dose-response on the last-layer direction** (four real passes, half-A statistics):\n\n| Strength | LL | LW | WL | WW | Background effect on mean margin | Swap surround effect |\n|---|---|---|---|---|---|---|\n| 0 (original) | 99.4 | 82.6 | 72.9 | 96.2 | +8.08 | +6.67 |\n| 0.5 | 98.7 | 85.6 | 88.0 | 94.7 | +4.21 | +3.31 |\n| 1 | 97.2 | 90.1 | 93.2 | 94.0 | +0.34 | \u22120.04 |\n| 2 | 80.9 | 95.7 | 98.5 | 86.5 | \u22127.39 | \u22126.75 |\n\nStrength 2 reverses the bias, so the formerly favoured groups become the weak ones. Strengths 0.5 to 2 also carry the prior correction; strength 0 is the untouched model.\n\n**The two components separately.** The direction edit alone (pass 8) gives 98.5 / 92.9 / 91.0 / 92.5, so it is the repair. The prior correction only trades landbird accuracy (\u22122.8, \u22121.3 points) for waterbird accuracy (+2.3, +1.5). I kept it because the waterbird groups are measured on only 133 images each and need the slack.\n\n**Held-out checks.**\n- Statistics from half A, tested on half B: worst group 68.7 \u2192 89.3%, with the same gains as on half A.\n- Statistics from half B alone (pass 9) reproduce the repair; the two recipes disagree on 14 of 1,199 predictions.\n- The stimuli played no part in building the edit.\n\n**Upstream localisation** (three passes at the `layer3`\u2192`layer4` boundary, last layer original):\n- Erasing one place direction there removes 81% of the mean background effect (8.08 \u2192 1.56) with the bird effect intact. I had predicted only a modest effect, so that prediction was wrong.\n- It is a worse repair, though: within-group spread rises and worst group reaches only 85.7%.\n- Erasing 16 background directions, or the 15 non-place ones, also falls short. A last-layer correction on those features is predicted at d\u2032 3.28, against 3.41 on the original features.\n- So the shortcut's input enters through a low-dimensional part of `layer3`, but the repair belongs at the last layer.\n\n## Limits you should know\n\n- **Ceiling from the data, as far as I can tell.** Several remaining landbird/water errors have real ducks, spoonbills or geese in the background photo. Several \"waterbird\" errors look like flycatchers and a towhee; I believe this comes from name-matching when the dataset was built, but I have no species labels to confirm it.\n- **Risk on the test set.** My rough estimate of meeting both targets is 80\u201390%. The final version differs from the half-A version (pass 2, kept in `work/best_1`) on 10 images: 4 more landbird/land errors and 3 fewer landbird/water errors. That gives it more cushion on the worst group and less on the mean; I kept it as planned because the two are equivalent within uncertainty.\n- **How predictions were made.** I predicted group means and spreads of edited margins from group means and covariances, never per-image outputs. Those predictions matched every pass exactly. All accuracies quoted come from forward passes, except the cross-fitted row, which combines the per-image predictions of passes 2 and 9.\n\nAll 10 passes are used. `work/edited` holds the two submitted tensors, with a copy in `work/best_final`; the full log is in `work/notes.md`."
+}

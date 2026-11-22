@@ -1,0 +1,136 @@
+init: {"tools": ["mcp__harness__forward", "mcp__harness__python", "mcp__harness__show_images"], "mcp_servers": {"harness": "connected"}, "unexpected_tools": [], "missing_tools": [], "model": "claude-fable-5-2", "ok": true}
+[     10s] text: "I'll start by orienting myself: check what's in the kernel's working directory (model/, practice/, work/), whether a notes file exists from an earlier session, and look at the labels and the last layer's weights. No hypothesis yet — this run is just inventory, so I know what the starting state is be"
+[     13s] tool_use mcp__harness__python
+[    156s] tool_use mcp__harness__python
+[    161s] tool_use mcp__harness__forward
+[    177s] tool_use mcp__harness__python
+[    194s] tool_use mcp__harness__python
+[    238s] tool_use mcp__harness__python
+[    270s] tool_use mcp__harness__python
+[    330s] tool_use mcp__harness__python
+[    440s] tool_use mcp__harness__python
+[    452s] tool_use mcp__harness__show_images
+[    538s] tool_use mcp__harness__show_images
+[    653s] tool_use mcp__harness__python
+[    730s] tool_use mcp__harness__python
+[    776s] tool_use mcp__harness__python
+[    911s] tool_use mcp__harness__python
+[   1060s] tool_use mcp__harness__python
+[   1117s] tool_use mcp__harness__python
+[   1153s] tool_use mcp__harness__python
+[   1221s] tool_use mcp__harness__python
+[   1301s] tool_use mcp__harness__python
+[   1368s] tool_use mcp__harness__python
+[   1490s] tool_use mcp__harness__python
+[   1546s] tool_use mcp__harness__python
+[   1632s] tool_use mcp__harness__python
+[   1728s] tool_use mcp__harness__python
+[   2091s] tool_use mcp__harness__python
+[   2106s] tool_use mcp__harness__python
+[   2110s] tool_use mcp__harness__forward
+[   2130s] tool_use mcp__harness__python
+[   2150s] tool_use mcp__harness__python
+[   2260s] tool_use mcp__harness__python
+[   2313s] tool_use mcp__harness__python
+[   2317s] tool_use mcp__harness__forward
+[   2335s] tool_use mcp__harness__python
+[   2380s] tool_use mcp__harness__python
+[   2434s] tool_use mcp__harness__python
+[   2506s] tool_use mcp__harness__python
+[   2551s] tool_use mcp__harness__python
+[   2566s] tool_use mcp__harness__python
+[   2567s] text: "I need the explicit id list for the request, so I'll print the full JSON for half B once (about 5 kB) and paste it into the forward call."
+[   2568s] tool_use mcp__harness__python
+[   2575s] tool_use mcp__harness__forward
+[   2591s] tool_use mcp__harness__python
+[   2603s] tool_use mcp__harness__python
+[   2611s] tool_use mcp__harness__forward
+[   2624s] tool_use mcp__harness__python
+[   2681s] tool_use mcp__harness__python
+[   2708s] tool_use mcp__harness__python
+[   2751s] tool_use mcp__harness__python
+[   2757s] tool_use mcp__harness__forward
+[   2833s] tool_use mcp__harness__python
+[   2924s] tool_use mcp__harness__python
+[   2960s] tool_use mcp__harness__python
+[   3003s] tool_use mcp__harness__python
+[   3009s] tool_use mcp__harness__show_images
+[   3025s] tool_use mcp__harness__python
+[   3048s] tool_use mcp__harness__python
+[   3053s] tool_use mcp__harness__forward
+[   3074s] tool_use mcp__harness__python
+[   3126s] tool_use mcp__harness__python
+[   3173s] tool_use mcp__harness__python
+[   3180s] tool_use mcp__harness__forward
+[   3184s] text: 'Pass 8 worked as intended (256 mirrored images scored by both models, features saved). Continuing with the second chunk; nothing to interpret until all five are in.'
+[   3185s] tool_use mcp__harness__forward
+[   3187s] text: 'Second chunk done. Third chunk next (ids 512–767).'
+[   3187s] tool_use mcp__harness__forward
+[   3189s] text: 'Third chunk done. Fourth chunk (ids 768–1023).'
+[   3190s] tool_use mcp__harness__forward
+[   3192s] text: 'Fourth chunk done. Last chunk (ids 1024–1198, 175 images).'
+[   3193s] tool_use mcp__harness__forward
+[   3212s] tool_use mcp__harness__python
+[   3250s] tool_use mcp__harness__python
+[   3308s] tool_use mcp__harness__python
+[   3315s] tool_use mcp__harness__forward
+[   3340s] tool_use mcp__harness__python
+[   3387s] tool_use mcp__harness__python
+[   3391s] tool_use mcp__harness__forward
+[   3405s] tool_use mcp__harness__python
+[   3446s] tool_use mcp__harness__python
+[   3449s] tool_use mcp__harness__forward
+[   3464s] tool_use mcp__harness__python
+[   3527s] tool_use mcp__harness__python
+[   3529s] text: 'Strength 2 for the entrance edit is set (original last layer). Running pass 16; prediction recorded: background evidence ≈ −5.4, bird evidence ≈ 15.7.'
+[   3530s] tool_use mcp__harness__forward
+[   3544s] tool_use mcp__harness__python
+[   3593s] tool_use mcp__harness__python
+[   3610s] tool_use mcp__harness__python
+[   3626s] tool_use mcp__harness__python
+[   3630s] tool_use mcp__harness__forward
+[   3661s] tool_use mcp__harness__python
+[   3662s] text: 'The block-4.1 edit is in place (two tensors, original last layer). Running pass 18 with avgpool and layer4.1 means saved for the edited model.'
+[   3663s] tool_use mcp__harness__forward
+[   3678s] tool_use mcp__harness__python
+[   3705s] tool_use mcp__harness__python
+[   3707s] text: 'All three internal removals are active together (eight tensors, original last layer). Running pass 19; the prediction separating the two hypotheses is recorded.'
+[   3708s] tool_use mcp__harness__forward
+[   3724s] tool_use mcp__harness__python
+[   3772s] tool_use mcp__harness__python
+[   3777s] tool_use mcp__harness__forward
+[   3790s] tool_use mcp__harness__python
+[   3828s] tool_use mcp__harness__python
+[   3831s] text: "The inputs are built (192 composites from 96 base images, plus 64 tiles). I'll look at four base images in both versions to confirm the bird is preserved in the centre and only the periphery changes."
+[   3831s] tool_use mcp__harness__show_images
+[   3837s] tool_use mcp__harness__forward
+[   3855s] tool_use mcp__harness__python
+[   3881s] tool_use mcp__harness__python
+[   3885s] tool_use mcp__harness__forward
+[   3891s] text: 'Pass 22 is in (overall 96.2 / 91.2 / 94.7 / 92.5 with the half-A directions). Scoring the held-out half B and, for comparison, the fitted half A:'
+[   3896s] tool_use mcp__harness__python
+[   3919s] tool_use mcp__harness__python
+[   3921s] text: 'Half-strength deep-only edit is set (original last layer). Running pass 23; prediction recorded: background evidence ≈ +3.8.'
+[   3922s] tool_use mcp__harness__forward
+[   3937s] tool_use mcp__harness__python
+[   3944s] tool_use mcp__harness__forward
+[   3967s] tool_use mcp__harness__python
+[   3974s] tool_use mcp__harness__forward
+[   3986s] tool_use mcp__harness__python
+[   4007s] text: '# Final report\n\n## What I changed\n\nThe submission in `work/edited` changes only the last layer, `fc.weight` and `fc.bias`. Every other tensor is the original.\n\n- **New decision direction.** It is the difference between the mean waterbird and mean landbird feature vectors (each averaged equally over '
+[   4007s] turn ended (success); passes 25/25
+{
+ "session_id": "v4_b25_fit_r2_20261122T103609Z",
+ "wall_clock_s": 4009,
+ "tool_calls": 106,
+ "by_tool": {
+  "mcp__harness__python": 77,
+  "mcp__harness__forward": 25,
+  "mcp__harness__show_images": 4
+ },
+ "nudges": 0,
+ "compactions": 0,
+ "lockdown_ok": true,
+ "total_cost_usd_notional": 22.798111200000008,
+ "final_text": "# Final report\n\n## What I changed\n\nThe submission in `work/edited` changes only the last layer, `fc.weight` and `fc.bias`. Every other tensor is the original.\n\n- **New decision direction.** It is the difference between the mean waterbird and mean landbird feature vectors (each averaged equally over the two backgrounds), lightly whitened with the within-group covariance (ridge 50). It is constrained in closed form so that its response to the water-vs-land background shift is exactly zero; the original's was 8.08 margin units.\n- **New bias.** It sits at the class midpoint, shifted by 0.24 held-out standard deviations toward \"waterbird\".\n- **How much moved.** The cosine with the original direction is 0.51, and its bird response is 16.95 against the original's 16.0.\n\nThis is a fitted edit, allowed in this session: the direction and bias are fitted in closed form from the pass-1 avgpool features and the practice labels.\n\n## Expected performance\n\nAll figures are on practice data; I never saw test images.\n\n| Measurement | landbird/land | landbird/water | waterbird/land | waterbird/water | worst | mean |\n|---|---|---|---|---|---|---|\n| Original model | 99.4 | 82.6 | 72.9 | 96.2 | 72.9 | 97.7 |\n| Final edit, in-sample (pass 25) | 97.4 | 91.9 | 94.7 | 94.7 | 91.9 | 96.6 |\n| Held-out, two halves, real passes | 97.0 | 91.9 | 91.7 | 94.0 | 91.7 | 96.1 |\n| Held-out, nested cross-validation | 97.0 | 91.9 | 92.3 | 94.0 | 91.9 | 96.1 |\n| Held-out, mirrored images | 96.5 | 93.2 | 93.0 | 94.0 | 93.0 | 95.8 |\n\n- **Honest estimate:** about 92% worst group and 96% mean, against targets of 88% and 94%.\n- **In-sample caveat:** the pass-25 row is optimistic, because the edit was fitted on all practice images.\n- **What the held-out rows test:** they score the recipe refitted without the scored images, not the exact submitted tensors. The two-halves row is the one measured with real forward passes, where each image is scored by an edit fitted on the other half.\n- **Paired held-out changes:** landbird/water 46 fixed and 3 broken; waterbird/land 25 fixed and 0 broken; the cost is 11 landbird/land and 3 waterbird/water images.\n- **Risk:** I estimate roughly a 90% chance of meeting both targets on the test set. The main uncertainty is that the two waterbird groups have only 133 practice images each.\n\n## What goes wrong in the network\n\n- **The margin is additive.** The bird moves it by about 16 units and the background by about 8, so the background is worth half a bird.\n- **No channel surgery is possible at the last layer.** 1,627 of 2,048 pooled channels push the background the same way, and the same channels carry bird evidence. The background direction accounts for 48% of the squared norm of the original decision direction.\n- **Background and bird become aligned inside layer4.** The correlation between per-channel background and bird effects rises from 0.06 at layer3 to 0.57 at avgpool. Place is readable from layer1 on; bird type only forms in layer4.\n- **Spatially, the background votes from everywhere.** The outer ring of the 7\u00d77 map supplies 14% of the bird evidence but 49% of the background evidence.\n\n## Causal evidence\n\n- **Last layer, dose-response.** Removing the background direction from the original decision direction at strengths 0 to 1.5 moves the background effect linearly from 8.08 through 0.10 to \u22123.88. The best worst-group accuracy rises from 78.9 to 91.4, then collapses when over-corrected. Re-tuning the bias alone cannot get past 78.9%.\n- **Inside layer4, original last layer untouched.** Removing one direction from what each block reads cuts the background evidence from 8.08 to:\n  - 1.36 at the entrance of layer4;\n  - 5.42 at block 4.1's input;\n  - 3.25 at block 4.2's input.\n\n  Bird evidence stays at 14.3\u201315.8 in all three. All three together give \u22120.49, which shows one serial pathway rather than parallel routes.\n- **Deep-only repair.** Those three removals alone, with the original last layer and bias, score 96.4 / 90.8 / 93.2 / 93.2. On a held-out half they score 96.6 / 89.7 / 95.5 / 94.0.\n- **Bird-free images.** On textures cut from image corners, the original model's margin is 6.35 \u00b1 0.52 higher for water than land, and it calls 71% of water textures \"waterbird\". With the edited last layer the difference is \u22120.22 \u00b1 0.27.\n- **Same bird, swapped surroundings.** Changing only the periphery from land to water texture shifts the original margin by +3.94 \u00b1 0.42. With the final edit the shift is \u22121.24 \u00b1 0.30, a slight over-correction on these synthetic textures.\n\n## Why accuracy stops near 92%\n\n- **Waterbird side.** One land-looking species block labelled waterbird (p0587\u2013p0594) is wrong 7\u20138 times out of 8, and its images do not even neighbour each other in feature space. The rest are cropped or blurred birds.\n- **Landbird/water side.** Many of the errors I viewed have real waterbirds in the background photo or are landbirds in flight. Their wrong-way evidence sits in the centre of the feature map, not the edge.\n- **Things I tested that did not help:** removing further background directions, rerouting earlier layers, spatial gating (analysed from the feature maps, not built), fitting on mirrored images, more fitting data, and refitting the last layer on top of the internal edits.\n\n## Path to the edit\n\n1. I diagnosed the additive margin and found the background could not be separated by channel.\n2. A reasoned one-direction removal from the original last layer reached 97.2 / 91.0 / 92.5 / 92.5, measured in pass 17.\n3. A fair cross-validated comparison showed the class-mean direction beats the trained one by about a point on the hard groups; logistic refits did not.\n4. I chose ridge and bias on a flat optimum, confirmed with nested cross-validation, two held-out halves and mirrored images.\n5. I used the remaining passes for the internal and image-level causal tests above, then restored and re-verified the final edit.\n\nAlternatives are kept in `work/r1` (the reasoned last-layer edit) and `work/deep3` (the deep-only edit); `work/notes.md` has the full log."
+}

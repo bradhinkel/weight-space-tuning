@@ -1,0 +1,30 @@
+2026-11-22T08:03:07Z start v4_b10_nofit_r1
+2026-11-22T08:03:26Z start v4_b10_fit_r1
+2026-11-22T08:52:40Z end v4_b10_fit_r1 rc=0
+2026-11-22T08:52:40Z start v4_b10_fit_r2
+2026-11-22T09:06:26Z end v4_b10_nofit_r1 rc=0
+2026-11-22T09:06:26Z start v4_b10_nofit_r2
+2026-11-22T09:41:20Z end v4_b10_fit_r2 rc=0
+2026-11-22T09:41:20Z start v4_b10_fit_r3
+2026-11-22T09:53:33Z end v4_b10_nofit_r2 rc=0
+2026-11-22T09:53:33Z start v4_b10_nofit_r3
+2026-11-22T10:36:09Z end v4_b10_fit_r3 rc=0
+2026-11-22T10:36:09Z start v4_b25_fit_r2
+2026-11-22T10:48:56Z end v4_b10_nofit_r3 rc=0
+2026-11-22T10:48:56Z start v4_b25_nofit_r2
+2026-11-22T11:43:16Z end v4_b25_fit_r2 rc=0
+2026-11-22T11:43:16Z start v4_b25_fit_r3
+2026-11-22T11:55:13Z end v4_b25_nofit_r2 rc=0
+2026-11-22T11:55:13Z start v4_b25_nofit_r3
+2026-11-22T12:38:33Z end v4_b25_fit_r3 rc=0
+2026-11-22T12:38:33Z start v4_b50_fit_r1
+2026-11-22T12:55:03Z end v4_b25_nofit_r3 rc=0
+2026-11-22T12:55:03Z start v4_b50_nofit_r1
+2026-11-22T13:45:15Z end v4_b50_fit_r1 rc=0
+2026-11-22T13:45:15Z start v4_b50_fit_r2
+2026-11-22T14:00:25Z end v4_b50_nofit_r1 rc=0
+2026-11-22T14:00:25Z start v4_b50_nofit_r2
+2026-11-22T15:05:48Z end v4_b50_fit_r2 rc=0
+2026-11-22T15:05:48Z start v4_b50_fit_r3
+2026-11-22T15:09:18Z end v4_b50_nofit_r2 rc=0
+2026-11-22T15:09:18Z start v4_b50_nofit_r3

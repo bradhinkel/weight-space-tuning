@@ -1,0 +1,105 @@
+{
+ "session_id": "v4_b50_nofit_r1_20261122T125503Z",
+ "driver_model": "fable-5.2",
+ "model_id": "claude-fable-5-2",
+ "config": {
+  "tag": "v4_b50_nofit_r1",
+  "driver_model": "fable-5.2",
+  "effort": "max",
+  "budget": 50,
+  "fitting": "refused",
+  "task_file": "exp_v/sessions/task_template.md",
+  "max_nudges": 40,
+  "max_hours": 30,
+  "max_turns": 4000,
+  "max_error_waits": 72,
+  "error_wait_min": 20
+ },
+ "start_utc": "2026-11-22T12:55:03.451680+00:00",
+ "usage_before": null,
+ "claude_version": "2.1.330 (Claude Code)",
+ "init": {
+  "tools": [
+   "mcp__harness__forward",
+   "mcp__harness__python",
+   "mcp__harness__show_images"
+  ],
+  "mcp_servers": {
+   "harness": "connected"
+  },
+  "unexpected_tools": [],
+  "missing_tools": [],
+  "model": "claude-fable-5-2",
+  "ok": true
+ },
+ "end_utc": "2026-11-22T13:59:57.024039+00:00",
+ "wall_clock_s": 3894,
+ "exit_code": 0,
+ "stderr_tail": "",
+ "tool_calls": 169,
+ "by_tool": {
+  "mcp__harness__python": 106,
+  "mcp__harness__forward": 50,
+  "mcp__harness__show_images": 13
+ },
+ "turns_ended": 1,
+ "nudges": 0,
+ "compactions": 0,
+ "error_waits": 0,
+ "results": [
+  {
+   "subtype": "success",
+   "is_error": false,
+   "num_turns": 170,
+   "total_cost_usd": 28.629309600000006,
+   "usage": {
+    "input_tokens": 242,
+    "cache_creation_input_tokens": 490122,
+    "cache_read_input_tokens": 32274508,
+    "output_tokens": 358263,
+    "output_tokens_details": {
+     "thinking_tokens": 237854
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 490122,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+     {
+      "input_tokens": 2,
+      "output_tokens": 2842,
+      "cache_read_input_tokens": 490881,
+      "cache_creation_input_tokens": 946,
+      "cache_creation": {
+       "ephemeral_5m_input_tokens": 0,
+       "ephemeral_1h_input_tokens": 946
+      },
+      "type": "message"
+     }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+   },
+   "duration_ms": 4055193
+  }
+ ],
+ "total_cost_usd_notional": 28.629309600000006,
+ "final_text": "# Final report\n\nThe edit in `work/edited` raises worst-group accuracy on the practice images from 72.9% to 91.2%, with weighted mean accuracy at 95.6% (down from 97.7%). Both are above the targets (88% / 94%), and the result held up when the statistics were derived from one half of the practice images and scored on the other.\n\n## What I changed\n\nSix tensors, all in layer4; `fc` is untouched. Two 1\u00d71 \"reader\" convolutions are made blind to a background direction of their input: the weights are projected off it and the matching BatchNorm `running_mean` is shifted so the removed coordinate is replaced by a constant.\n\n| Reader | Tensors edited | What it can no longer see |\n|---|---|---|\n| layer4.0's two readers of layer3 | `layer4.0.conv1.weight`, `layer4.0.bn1.running_mean`, `layer4.0.downsample.0.weight`, `layer4.0.downsample.1.running_mean` | A 2-D subspace of layer3's output: the land-vs-water mean shift (bird class held fixed) and the main axis along which water scenes vary more than land scenes |\n| layer4.2's reader of layer4.1 | `layer4.2.conv1.weight`, `layer4.2.bn1.running_mean` | The land-vs-water mean-shift direction of layer4.1's output |\n\nAll directions and constants come from group means and group covariances of pooled activations on the 1,199 practice images. No weight was regressed on labels or predictions.\n\nOne constant is set from output statistics, and you should judge whether that is within the rules. The value imposed at layer4.2's reader (3.554) is the one at which the mean outputs of the two bird classes are symmetric about zero. I found it by interpolating between two measured settings.\n\n## What goes wrong in the original model\n\n- **Background and bird evidence add up.** A water background adds about +8 to the waterbird-minus-landbird margin; the bird itself is worth about 16.\n- **It is not a few last-layer channels.** About 1,600 of the 2,048 `fc` channels carry the background effect with the same sign, and the same channels carry bird evidence. In the pooled features, the background shift and the bird shift have cosine 0.57.\n- **The entanglement arises in layer4.** At layer3 the background shift is large and orthogonal to the bird shift (cosine 0.04). The cosine rises to 0.30 after layer4.1 and 0.57 after layer4.2, which produces about 60% of the background's effect on the logit.\n- **Background patches vote directly.** At layer3 the background coordinate differs only at background positions (0.09 on land vs 1.92 on water) and not on the bird (0.40 vs 0.45). In the original model, 6.6 of the 8.5-unit effect of swapping a surround comes from the surround positions themselves.\n\n## Evidence that the edit acts on that mechanism\n\n**Dose-response** (both cuts scaled together):\n\n| Strength | Worst group | Weighted mean | Background effect on margin (landbirds / waterbirds) | Surround-swap effect |\n|---|---|---|---|---|\n| 0 | 72.9 | 97.7 | 8.8 / 7.4 | +8.8 |\n| 0.5 | 85.7 | 97.4 | 3.9 / 4.0 | +3.0 |\n| 0.75 | 89.5 | 96.6 | 2.0 / 2.6 | +0.7 |\n| 1.0 | 90.6 | 95.7 | 0.6 / 1.4 | \u22121.1 |\n| 1.25 | 90.6 | 94.5 | \u22120.2 / 0.6 | \u22122.2 |\n| 1.5 | 90.1 | 93.4 | \u22120.6 / 0.0 | \u22122.9 |\n\nFull strength is the first dose on the worst-group plateau; beyond it only the mean falls. (The table uses the earlier constant 3.76. The 0.5 and 1.5 rows use directions from half the images.)\n\n- **Each cut is needed.** The layer3 cut alone gives worst group 84.2%; the layer4.2 cut alone 86.5%; both give 90.6%. The layer3 cut mainly fixes landbirds on water, the layer4.2 cut waterbirds on land.\n- **Specificity control.** The same edit along equally high-variance directions orthogonal to the background directions changes nothing: worst group 72.2%, surround-swap effect +8.6.\n- **Same bird, swapped surround.** I pasted the central region of 28 practice images into land and water surrounds. Switching the surround moves the original's margin by +8.8 (extreme scenes) or +6.9 (typical scenes), and the edited model's by \u22121.2 or +1.5.\n- **No bird at all.** On 256 bird-free scene images, the original outputs \u22126.6 for land and +3.3 for water (gap 9.9). The edited model outputs \u22120.7 and +0.4 (gap 1.0), so an empty scene is undecided.\n\n## Accuracy and generalisation\n\n| Measurement | landbird/land | landbird/water | waterbird/land | waterbird/water | Worst | Weighted mean |\n|---|---|---|---|---|---|---|\n| Original | 99.4 | 82.6 | 72.9 | 96.2 | 72.9 | 97.7 |\n| Final edit, practice images | 96.6 | 91.2 | 91.7 | 93.2 | 91.2 | 95.6 |\n| Final edit, mirrored practice images | 96.8 | 91.6 | 91.7 | 94.0 | 91.6 | 95.9 |\n| Held-out (statistics from the other half) | 96.6 | 91.2 | 91.0 | 93.2 | 91.0 | 95.6 |\n\nPaired against the original on the practice images:\n\n| Group | Change (points) | Fixed | Broken |\n|---|---|---|---|\n| waterbird/land | +18.8 | 25 | 0 |\n| landbird/water | +8.6 | 43 | 3 |\n| landbird/land | \u22122.8 | 0 | 13 |\n| waterbird/water | \u22123.0 | 0 | 4 |\n\nThe broken majority-group images are birds with weak evidence that the background had been carrying.\n\n## Things I tried and rejected\n\n- **Cutting the same direction out of `fc`.** It failed the held-out check: the leftover direction in the pooled features is poorly determined (cosine 0.91 between halves) and cost 1.6 points of mean on held-out images.\n- **Cutting at layer4.1's reader, an extra cut at the layer2\u2192layer3 boundary, or over-dosing.** These trade mean for worst group or lose bird evidence.\n- **The original-model constant (3.76) at layer4.2.** This was my first version (worst 90.6%, mean 95.7% on practice). I measured that this constant is a linear operating-point dial with no effect on group separation. Before testing the class-symmetric value, I fixed a rule: adopt it only if worst group and mean both improve when averaged over original and mirrored images. They did (90.6 \u2192 91.4 and 95.3 \u2192 95.7), at the cost of about two points on waterbird/land.\n\n## Limitations\n\n- **Residual background dependence.** On the practice groups a water background still adds +0.6 (landbirds) and +1.5 (waterbirds) to the margin, and very watery scenes are slightly over-corrected (\u22121.2 on open sea vs dense bamboo). I could not remove this without losing bird evidence.\n- **Ceiling on landbird/water.** About 35 of these images are wrong under every variant: scenes with real waterbirds, boats or people, kingfisher-like landbirds, and transparent paste-ups.\n- **Label quirk in the waterbird groups.** Small perching birds labelled as waterbirds (about 12 and 10 of the 133 images in the two groups) are roughly coin flips for any background-neutral model.\n- **Margins over the targets are modest.** The worst-group estimate carries a standard error of about 1.4 to 2.4 points depending on the group, and the mean about 0.8, so I expect the test result near 91% / 95.5% but cannot rule out a miss.\n- **No pristine holdout.** Every practice image was used at some point to choose among variants; the half-swap and mirrored-image checks are the closest substitutes.\n\n`work/notes.md` has the full log of all 50 passes; the recipe constants are in `work/final_stats_F2.npz`.",
+ "server_state": {
+  "budget": 50,
+  "passes": 50,
+  "python_runs": 106,
+  "requests": 50,
+  "images_shown": 160,
+  "elapsed_s": 3864
+ },
+ "lockdown_ok": true,
+ "usage_after": null,
+ "finalize": "{\"session_id\": \"v4_b50_nofit_r1_20261122T125503Z\", \"edited_tensors\": [\"layer4.0.bn1.running_mean\", \"layer4.0.conv1.weight\", \"layer4.0.downsample.0.weight\", \"layer4.0.downsample.1.running_mean\", \"layer4.2.bn1.running_mean\", \"layer4.2.conv1.weight\"], \"n_weights_changed\": 3673075, \"test\": {\"groups\": {\"landbird/land\": {\"acc\": 97.87, \"n\": 2255}, \"landbird/water\": {\"acc\": 92.9, \"n\": 2255}, \"waterbird/land\": {\"acc\": 93.3, \"n\": 642}, \"waterbird/water\": {\"acc\": 94.55, \"n\": 642}}, \"n\": 5794, \"plain_mean\": 95.06, \"worst\": 92.9, \"worst_group\": \"landbird/water\", \"weighted_mean\": 96.89}}"
+}

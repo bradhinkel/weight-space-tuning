@@ -1,0 +1,49 @@
+{
+ "session_id": "v4_b50_fit_r2_20261122T134516Z",
+ "config": {
+  "session_id": "v4_b50_fit_r2_20261122T134516Z",
+  "budget": 50,
+  "fitting": "allowed"
+ },
+ "edited_tensors": [
+  "fc.bias",
+  "fc.weight",
+  "layer4.2.bn1.bias",
+  "layer4.2.bn1.running_mean",
+  "layer4.2.bn1.weight",
+  "layer4.2.bn2.bias",
+  "layer4.2.bn2.running_mean",
+  "layer4.2.bn2.running_var",
+  "layer4.2.bn2.weight",
+  "layer4.2.bn3.running_mean",
+  "layer4.2.conv1.weight",
+  "layer4.2.conv2.weight",
+  "layer4.2.conv3.weight"
+ ],
+ "n_weights_changed": 1066997,
+ "test": {
+  "groups": {
+   "landbird/land": {
+    "acc": 97.78,
+    "n": 2255
+   },
+   "landbird/water": {
+    "acc": 94.59,
+    "n": 2255
+   },
+   "waterbird/land": {
+    "acc": 93.15,
+    "n": 642
+   },
+   "waterbird/water": {
+    "acc": 93.3,
+    "n": 642
+   }
+  },
+  "n": 5794,
+  "plain_mean": 95.53,
+  "worst": 93.15,
+  "worst_group": "waterbird/land",
+  "weighted_mean": 96.62
+ }
+}
