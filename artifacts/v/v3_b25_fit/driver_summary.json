@@ -1,0 +1,105 @@
+{
+ "session_id": "v3_b25_fit_20261122T061448Z",
+ "driver_model": "fable-5.2",
+ "model_id": "claude-fable-5-2",
+ "config": {
+  "tag": "v3_b25_fit",
+  "driver_model": "fable-5.2",
+  "effort": "max",
+  "budget": 25,
+  "fitting": "allowed",
+  "task_file": "exp_v/sessions/task_template.md",
+  "max_nudges": 40,
+  "max_hours": 30,
+  "max_turns": 4000,
+  "max_error_waits": 72,
+  "error_wait_min": 20
+ },
+ "start_utc": "2026-11-22T06:14:48.316772+00:00",
+ "usage_before": "session 0%, weekly 0% (plan upgraded, reset)",
+ "claude_version": "2.1.330 (Claude Code)",
+ "init": {
+  "tools": [
+   "mcp__harness__forward",
+   "mcp__harness__python",
+   "mcp__harness__show_images"
+  ],
+  "mcp_servers": {
+   "harness": "connected"
+  },
+  "unexpected_tools": [],
+  "missing_tools": [],
+  "model": "claude-fable-5-2",
+  "ok": true
+ },
+ "end_utc": "2026-11-22T07:21:43.764725+00:00",
+ "wall_clock_s": 4015,
+ "exit_code": 0,
+ "stderr_tail": "",
+ "tool_calls": 114,
+ "by_tool": {
+  "mcp__harness__python": 80,
+  "mcp__harness__forward": 25,
+  "mcp__harness__show_images": 9
+ },
+ "turns_ended": 1,
+ "nudges": 0,
+ "compactions": 0,
+ "error_waits": 0,
+ "results": [
+  {
+   "subtype": "success",
+   "is_error": false,
+   "num_turns": 115,
+   "total_cost_usd": 23.5359514,
+   "usage": {
+    "input_tokens": 222,
+    "cache_creation_input_tokens": 404392,
+    "cache_read_input_tokens": 25887117,
+    "output_tokens": 297162,
+    "output_tokens_details": {
+     "thinking_tokens": 161481
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 404392,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+     {
+      "input_tokens": 2,
+      "output_tokens": 4767,
+      "cache_read_input_tokens": 404314,
+      "cache_creation_input_tokens": 1783,
+      "cache_creation": {
+       "ephemeral_5m_input_tokens": 0,
+       "ephemeral_1h_input_tokens": 1783
+      },
+      "type": "message"
+     }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+   },
+   "duration_ms": 4168915
+  }
+ ],
+ "total_cost_usd_notional": 23.5359514,
+ "final_text": "## Final submission\n\nThe submitted edit changes only the last layer (`fc.weight` and `fc.bias`); it raises practice worst-group accuracy from 72.9% to 91.7% with weighted mean 96.1%, confirmed by the final forward pass. Those figures are in-sample; on images the edit never saw I measured about 91% worst group and 95.9% mean, so I expect the test set to land near worst group 91\u201392 and mean 95.9.\n\n### What I changed\nThe model decides by the sign of one linear read-out of the 2,048 pooled features. I kept that read-out and subtracted from it the part that responds to the background:\n\n- **Direction removed:** the two background-shift directions (land\u2192water among landbirds, and among waterbirds), whitened by the within-group covariance of the practice features (closed form, with shrinkage).\n- **Strength:** 1.075 times the amount that cancels the background effect on the fitting images. The strength that cancels it on held-out images is 1.05.\n- **Bias:** re-centred between the four group means, then shifted by \u22120.125 toward \"landbird\" to protect the weighted mean.\n\nStrength and bias were chosen by cross-validation, from the middle of a broad flat region.\n\n### Measured effect\n\n| | landbird/land | landbird/water | waterbird/land | waterbird/water | worst | weighted mean |\n|---|---|---|---|---|---|---|\n| Original | 99.4 | 82.6 | 72.9 | 96.2 | 72.9 | 97.7 |\n| Submitted (final pass, in-sample) | 97.2 | 92.9 | 91.7 | 93.2 | 91.7 | 96.1 |\n| Held-out halves (two real passes, pooled) | 96.8 | 91.0 | 92.5 | 94.0 | 91.0 | 95.9 |\n| Cross-validated estimate | 96.8 | 92.9 | 93.3 | 93.6 | \u2014 | 95.9 |\n\n- **Paired counts, final pass:** 49 landbird/water and 25 waterbird/land images corrected, 1 lost; cost 10 landbird/land and 4 waterbird/water images.\n- **Held-out halves:** strength and bias were selected and fitted on one half and scored on the other, in both directions; the selected settings there were 1.1/+0.25 and 1.0/\u22120.25, bracketing the submitted one.\n- **Uncertainty:** a bootstrap over held-out predictions gives roughly a 96% chance of meeting both targets. The two waterbird groups have only 133 practice images each (about \u00b12.5 points), and one held-out half scored 87.9 on waterbird/land.\n\n### What goes wrong in the network\n- **Size of the shortcut:** a waterbird moves the margin by +16.0; a water background alone moves it by +8.1, and the two add. That is enough to flip mismatched images.\n- **Not dedicated channels at the last layer:** only 36 of 2,048 pooled channels are background-only, carrying 0.2 of the 8.1. Background and bird shifts point in similar directions (cosine 0.57), so ablating channels at fc would remove bird evidence too.\n- **Where it arises:** background is decodable at about 94% from layer3 onward, but its alignment with the bird direction grows only in the last two blocks (cosine 0.04 \u2192 0.08 \u2192 0.30 \u2192 0.57).\n- **Spatially:** fc sums two separate sources. Background positions contribute \"water vs land\" evidence (gap +9.7 per cell) and bird positions contribute bird evidence (gap +27.5). Under the edited read-out the background gap is \u22120.6 and the bird gap 26.9.\n- **Inside the last block (layer4.2):** removing one \"place\" direction from what its first convolution reads, with fc untouched, cuts the background effect from 8.1 to 2.4 while the bird effect stays at 15.8. That alone gives [98.5, 90.8, 87.2, 93.2]. The direction was estimated on all practice images, so this is in-sample.\n- **One block earlier (layer4.1):** background and bird evidence are still in separate units: 89 background-selective bottleneck channels, 27 bird-selective, 2 mixed.\n\n### Causal evidence\nI built 188 synthetic images: bird-free backgrounds, and 24 bird cut-outs each pasted on three land and three water backgrounds.\n\n| fc strength | practice worst / mean | bird-free backgrounds, water \u2212 land margin | same bird, water \u2212 land surround |\n|---|---|---|---|\n| 0 (original) | 72.9 / 97.7 | +13.7 | +8.75 |\n| 0.5 | 85.4 / 97.1 | +7.7 | +4.2 |\n| 1.075 (submitted) | 91.7 / 96.1 | +0.9 | \u22121.0 |\n| 1.5 | 91.0 / 91.2 | \u22124.2 | \u22124.9 |\n\n- The original model calls every bird-free water background \"waterbird\" and every land one \"landbird\".\n- Ablating background-writing channels inside the network, with fc untouched, shows the same dose-response:\n  - layer4.2, 50 then 150 channels: background effect 8.1 \u2192 5.9 \u2192 4.2, worst group 72.9 \u2192 79.7 \u2192 82.0.\n  - layer4.1, the 89 background-selective channels: background effect 6.5, waterbird/land 81.2.\n  - Both sites combined: [98.7, 86.7, 86.5, 94.0].\n  - Random-channel controls at each site: no improvement (waterbird/land 68.4 and 69.9).\n\n### Why fc only\nEvery in-network edit, once fc was refitted on its features, reached the same held-out separation as fc alone, or slightly worse. The same held for adding features from other layers and for raising the last block's thresholds. So the bird information the network extracts is the ceiling, and the fc edit is the simplest repair that reaches it and the only one I validated on held-out halves with real passes.\n\nI also tested and rejected: full logistic refits, anchored corrections, a species-specific add-on, and penalties for sensitivity to surround, mirroring or crop changes. None gave a held-out gain.\n\n### Limits\n- **Mislabelled-looking species:** one small flycatcher species (ids p0587\u2013p0594) is labelled \"waterbird\" but looks like a landbird. It is wrong on both backgrounds after the repair, cannot be separated from other flycatchers at any layer I read, and accounts for 7 of the 18 remaining waterbird errors. The test set should contain it too.\n- **Wasted pass:** pass 4 ran with a half-installed probe because I launched it alongside the code that set it up. Most of its data was recoverable, but it cost budget.\n- **Corrected artifact:** one leave-one-out analysis leaked held-out images into its covariance estimate and briefly suggested that species was separable; I caught it and redid the test cleanly.\n\nEverything is logged in `work/notes.md`; the submitted tensors are in `work/edited`, with an identical backup in `work/best_final`.",
+ "server_state": {
+  "budget": 25,
+  "passes": 25,
+  "python_runs": 80,
+  "requests": 25,
+  "images_shown": 136,
+  "elapsed_s": 3968
+ },
+ "lockdown_ok": true,
+ "usage_after": null,
+ "finalize": "{\"session_id\": \"v3_b25_fit_20261122T061448Z\", \"edited_tensors\": [\"fc.bias\", \"fc.weight\"], \"n_weights_changed\": 4098, \"test\": {\"groups\": {\"landbird/land\": {\"acc\": 96.98, \"n\": 2255}, \"landbird/water\": {\"acc\": 93.97, \"n\": 2255}, \"waterbird/land\": {\"acc\": 94.39, \"n\": 642}, \"waterbird/water\": {\"acc\": 93.3, \"n\": 642}}, \"n\": 5794, \"plain_mean\": 95.12, \"worst\": 93.3, \"worst_group\": \"waterbird/water\", \"weighted_mean\": 96.03}}"
+}

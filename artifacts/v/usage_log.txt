@@ -1,2 +1,4 @@
 2026-11-22T05:04:49Z v3_b25_nofit pilot: passes/elapsed_s=4 1411; user reports Max session 20%, weekly 2% (weekly reset 2026-11-21; includes orchestration + deck work)
 2026-11-22T05:09:09Z v3_b25_nofit pilot: passes elapsed_s python_runs images = 5 1646 30 70; user reports Max session 28%, weekly 3%
+2026-11-22T05:58:07Z after v3_b25_nofit pilot (finished 05:39Z): user reports Max session 84%, weekly 8% => pilot plus orchestration about 6 weekly points; 5-hour window resets 00:40 PST (08:40Z)
+2026-11-22T06:14:43Z user upgraded Max plan (double allowance this month); reports session 0%, weekly 0%; starting v3_b25_fit
