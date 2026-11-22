@@ -28,7 +28,7 @@ from exp_v.common import REPO, SESSIONS
 
 DRIVER_MODELS = {"fable-5.2": "claude-fable-5-2", "fable-5.1": "claude-fable-5-1", "opus-5.5": "claude-opus-5-5"}
 TOOLS = ["python", "forward", "show_images"]
-SERVER_KEYS = {"budget", "fitting", "limits"}
+SERVER_KEYS = {"budget", "fitting", "limits", "prior"}
 PY = sys.executable
 
 

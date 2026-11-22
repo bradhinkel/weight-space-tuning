@@ -151,6 +151,8 @@ class VHarness:
         (self.work / "edited").mkdir(parents=True)
         os.symlink(MODEL_DIR, self.sandbox / "model")
         os.symlink(PRACTICE, self.sandbox / "practice")
+        if self.cfg.get("prior"):                       # V.7: earlier runs and DFR, read-only
+            os.symlink(os.path.expanduser(self.cfg["prior"]), self.sandbox / "prior")
         for p in (self.sdir, self.sandbox):
             os.chmod(p, 0o700)
 

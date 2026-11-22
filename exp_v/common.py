@@ -88,6 +88,8 @@ def confine(sandbox: Path, work: Path, deny_extra=()):
     read = ["/usr", "/lib", "/lib64", "/bin", "/etc", "/proc", "/sys/devices/system/cpu",
             "/dev/null", "/dev/urandom", "/dev/random", "/dev/zero", *venv, sys.base_prefix,
             str(sandbox), os.path.realpath(sandbox / "model"), os.path.realpath(sandbox / "practice")]
+    if (sandbox / "prior").exists():                    # V.7 only: read-only prior work
+        read.append(os.path.realpath(sandbox / "prior"))
     os.chdir(sandbox)
     abi = sb.landlock(read, [str(work)])
     sb.seccomp_no_network()

@@ -134,6 +134,24 @@ The runs differ in **where** the direction is removed:
 - **Pilot:** the no-fitting pilot was the arm's best run, which overstated the arm in V.3.
 - **Late commits:** run records were committed only after 14 runs had finished (0a385ad), not as each finished. No data was lost.
 
+## Addendum (2026-11-22): DFR with 20 seeds
+- **Why:** building V.7's DFR files showed that re-running DFR is not bit-exact. GPU feature extraction and liblinear's solver both vary slightly between runs, so a seed can select a different C.
+  - Seed 4 picked C = 0.7 and scored 93.4, against V.1's C = 0.1 and 91.8.
+  - I therefore re-ran the V.1 recipe with 20 seeds (`exp_v/analysis/dfr_seeds.py`, results in `artifacts/v/broken/dfr_20seeds.json`).
+- **Result:**
+  - worst group 92.58 ± 0.51 (range 91.26–93.39), the same mean as V.1's 5 seeds;
+  - weighted mean 94.92 ± 0.44;
+  - C was chosen as 1.0 ×5, 0.7 ×8, 0.3 ×4, 0.1 ×2 and 0.07 ×1. DFR's own tuning step is a source of its spread.
+- **What changes in this report:**
+  - **"Above every DFR seed" no longer holds as stated.** Against 20 seeds, 3 of 9 fitting-arm runs (the three at 93.61) are above DFR's best seed (93.39).
+  - 8 of 9 are above DFR's mean + 1 SD (93.09).
+  - The arm-level comparison gets stronger with the larger baseline: the fitting arm is +0.69 over DFR, Welch t = 4.3 (9 runs against 20 seeds).
+  - The no-fitting arm is still equal to DFR (−0.01).
+- **What doesn't change:** the per-run paired CI against DFR still spans zero. The conclusion stands: the fitting arm beats DFR consistently on this split, by less than this test set can resolve for any single model.
+
 ## Next
-- **The user reviews this report.**
-- **Then design V.7 and write its predictions before running it.**
+- **The user reviewed this report.** Their reading:
+  - Fable beats DFR consistently, by less than the CI.
+  - A larger dataset is the only way to narrow the CI, and synthesised test images would add a different dimension.
+  - The experiment answered its question, "can Fable fix the shortcut by weight-space editing?": yes, with caveats.
+- **V.7 is designed** (`exp_v/V_design.md`, predictions 19–25) and set up.

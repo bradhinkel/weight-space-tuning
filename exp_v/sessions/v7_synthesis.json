@@ -1,0 +1,14 @@
+{
+ "tag": "v7_synthesis",
+ "driver_model": "fable-5.2",
+ "effort": "max",
+ "budget": 50,
+ "fitting": "allowed",
+ "prior": "~/wst-v/v7_prior",
+ "task_file": "exp_v/sessions/task_v7.md",
+ "max_nudges": 40,
+ "max_hours": 30,
+ "max_turns": 4000,
+ "max_error_waits": 72,
+ "error_wait_min": 20
+}

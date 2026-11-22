@@ -1,0 +1,140 @@
+{
+ "runs": [
+  {
+   "seed": 0,
+   "C": 1.0,
+   "worst": 92.28,
+   "mean_weighted": 94.61
+  },
+  {
+   "seed": 1,
+   "C": 0.7,
+   "worst": 92.99,
+   "mean_weighted": 94.87
+  },
+  {
+   "seed": 2,
+   "C": 0.3,
+   "worst": 92.86,
+   "mean_weighted": 95.1
+  },
+  {
+   "seed": 3,
+   "C": 0.7,
+   "worst": 92.68,
+   "mean_weighted": 94.85
+  },
+  {
+   "seed": 4,
+   "C": 0.7,
+   "worst": 93.39,
+   "mean_weighted": 94.72
+  },
+  {
+   "seed": 5,
+   "C": 0.7,
+   "worst": 92.46,
+   "mean_weighted": 94.65
+  },
+  {
+   "seed": 6,
+   "C": 0.7,
+   "worst": 92.86,
+   "mean_weighted": 94.58
+  },
+  {
+   "seed": 7,
+   "C": 0.07,
+   "worst": 91.26,
+   "mean_weighted": 95.74
+  },
+  {
+   "seed": 8,
+   "C": 0.3,
+   "worst": 92.9,
+   "mean_weighted": 95.07
+  },
+  {
+   "seed": 9,
+   "C": 0.7,
+   "worst": 92.86,
+   "mean_weighted": 94.45
+  },
+  {
+   "seed": 10,
+   "C": 1.0,
+   "worst": 92.28,
+   "mean_weighted": 94.68
+  },
+  {
+   "seed": 11,
+   "C": 1.0,
+   "worst": 92.51,
+   "mean_weighted": 94.52
+  },
+  {
+   "seed": 12,
+   "C": 0.3,
+   "worst": 93.04,
+   "mean_weighted": 95.16
+  },
+  {
+   "seed": 13,
+   "C": 0.7,
+   "worst": 92.82,
+   "mean_weighted": 94.7
+  },
+  {
+   "seed": 14,
+   "C": 0.3,
+   "worst": 92.64,
+   "mean_weighted": 95.06
+  },
+  {
+   "seed": 15,
+   "C": 0.1,
+   "worst": 91.88,
+   "mean_weighted": 96.03
+  },
+  {
+   "seed": 16,
+   "C": 1.0,
+   "worst": 92.2,
+   "mean_weighted": 94.46
+  },
+  {
+   "seed": 17,
+   "C": 1.0,
+   "worst": 92.64,
+   "mean_weighted": 94.67
+  },
+  {
+   "seed": 18,
+   "C": 0.7,
+   "worst": 93.26,
+   "mean_weighted": 94.74
+  },
+  {
+   "seed": 19,
+   "C": 0.1,
+   "worst": 91.84,
+   "mean_weighted": 95.67
+  }
+ ],
+ "summary": {
+  "n": 20,
+  "worst_mean": 92.58,
+  "worst_sd": 0.51,
+  "worst_min": 91.26,
+  "worst_max": 93.39,
+  "mean_weighted_mean": 94.92,
+  "mean_weighted_sd": 0.44,
+  "C_counts": {
+   "0.07": 1,
+   "0.1": 2,
+   "0.3": 4,
+   "0.7": 8,
+   "1.0": 5
+  }
+ }
+}

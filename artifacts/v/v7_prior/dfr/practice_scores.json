@@ -1,0 +1,128 @@
+{
+ "WARNING": "IN-SAMPLE: each DFR last layer was fitted on (group-balanced subsamples of) these same 1,199 practice images, so these scores overstate how it does on new images.",
+ "seed0": {
+  "C": 0.3,
+  "tuning_worst_group_by_C (half/half split of practice)": {
+   "1.0": 0.8654708520179372,
+   "0.7": 0.852017937219731,
+   "0.3": 0.8834080717488789,
+   "0.1": 0.820627802690583,
+   "0.07": 0.8251121076233184,
+   "0.03": 0.8161434977578476,
+   "0.01": 0.8385650224215246
+  },
+  "practice_in_sample": {
+   "group_acc": {
+    "landbird/land": 97.43,
+    "landbird/water": 91.63,
+    "waterbird/land": 100.0,
+    "waterbird/water": 98.5
+   },
+   "worst": 91.63,
+   "worst_group": "landbird/water",
+   "mean_weighted": 97.47,
+   "mean_plain": 95.58,
+   "n": 1199
+  }
+ },
+ "seed1": {
+  "C": 0.7,
+  "tuning_worst_group_by_C (half/half split of practice)": {
+   "1.0": 0.8464912280701754,
+   "0.7": 0.868421052631579,
+   "0.3": 0.8464912280701754,
+   "0.1": 0.8596491228070176,
+   "0.07": 0.8508771929824561,
+   "0.03": 0.7894736842105263,
+   "0.01": 0.8245614035087719
+  },
+  "practice_in_sample": {
+   "group_acc": {
+    "landbird/land": 96.79,
+    "landbird/water": 92.7,
+    "waterbird/land": 100.0,
+    "waterbird/water": 100.0
+   },
+   "worst": 92.7,
+   "worst_group": "landbird/water",
+   "mean_weighted": 97.38,
+   "mean_plain": 95.91,
+   "n": 1199
+  }
+ },
+ "seed2": {
+  "C": 0.3,
+  "tuning_worst_group_by_C (half/half split of practice)": {
+   "1.0": 0.8771929824561403,
+   "0.7": 0.8771929824561403,
+   "0.3": 0.8947368421052632,
+   "0.1": 0.8781512605042017,
+   "0.07": 0.8947368421052632,
+   "0.03": 0.8151260504201681,
+   "0.01": 0.773109243697479
+  },
+  "practice_in_sample": {
+   "group_acc": {
+    "landbird/land": 96.79,
+    "landbird/water": 91.85,
+    "waterbird/land": 100.0,
+    "waterbird/water": 98.5
+   },
+   "worst": 91.85,
+   "worst_group": "landbird/water",
+   "mean_weighted": 97.01,
+   "mean_plain": 95.41,
+   "n": 1199
+  }
+ },
+ "seed3": {
+  "C": 0.7,
+  "tuning_worst_group_by_C (half/half split of practice)": {
+   "1.0": 0.8870967741935484,
+   "0.7": 0.8911290322580645,
+   "0.3": 0.8629032258064516,
+   "0.1": 0.8790322580645161,
+   "0.07": 0.8548387096774194,
+   "0.03": 0.7943548387096774,
+   "0.01": 0.8346774193548387
+  },
+  "practice_in_sample": {
+   "group_acc": {
+    "landbird/land": 97.22,
+    "landbird/water": 91.63,
+    "waterbird/land": 100.0,
+    "waterbird/water": 100.0
+   },
+   "worst": 91.63,
+   "worst_group": "landbird/water",
+   "mean_weighted": 97.65,
+   "mean_plain": 95.66,
+   "n": 1199
+  }
+ },
+ "seed4": {
+  "C": 0.7,
+  "tuning_worst_group_by_C (half/half split of practice)": {
+   "1.0": 0.8666666666666667,
+   "0.7": 0.8933333333333333,
+   "0.3": 0.8666666666666667,
+   "0.1": 0.8888888888888888,
+   "0.07": 0.8444444444444444,
+   "0.03": 0.8444444444444444,
+   "0.01": 0.8488888888888889
+  },
+  "practice_in_sample": {
+   "group_acc": {
+    "landbird/land": 97.22,
+    "landbird/water": 93.13,
+    "waterbird/land": 100.0,
+    "waterbird/water": 100.0
+   },
+   "worst": 93.13,
+   "worst_group": "landbird/water",
+   "mean_weighted": 97.71,
+   "mean_plain": 96.25,
+   "n": 1199
+  }
+ }
+}

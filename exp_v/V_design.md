@@ -175,6 +175,24 @@ Two runs count as **different solutions** if they fall in different mechanism gr
 - **Gate (before running):** the user approves the hints and the run count.
 - **Measure:** score mean and spread per arm, and how many runs in each arm land in the hinted mechanism group.
 
+### V.7 Synthesis (amendment, 2026-11-22, written after V.4 and before the run)
+**The question, as the user put it:** given the current best model (DFR), can Fable tune it to better performance through weight-space edits? So the session gets everything except the test split.
+- **One session:** Fable 5.2, effort max, budget 50, fitting allowed. Config `exp_v/sessions/v7_synthesis.json`; task text `exp_v/sessions/task_v7.md`, which is the V.4 template plus a "build on everything" paragraph and a fifth item under WHAT YOU HAVE. The goal, the rules and the measurement are unchanged.
+- **Read-only `prior/` in the sandbox** (`~/wst-v/v7_prior`, built by `exp_v/v7_prepare.py`):
+  - **DFR, seeds 0–4:** fc tensors in the model's own units, refit with the V.1 recipe. Their practice scores are labelled **in-sample**. The DFR test scores stay in `artifacts/`.
+  - **All 18 V.3/V.4 runs** as `run01`–`run18`: submitted tensors, final report, `notes.md`, and the arm and budget. Neither the run tags nor any test score are shown.
+- **Not given:** any test number, the V.4 report, or the V.4 finding that practice scores don't rank runs on test, because that finding came from test.
+- **Harness change:**
+  - the server gains an optional `prior` config key, which symlinks the folder into the sandbox;
+  - Landlock allows reading it and nothing else new;
+  - other sessions are unchanged, since they have no `prior` key.
+- **Scored once on test, then compared with:**
+  - the 20-seed DFR baseline (`artifacts/v/broken/dfr_20seeds.json`: 92.58 ± 0.51, range 91.26–93.39);
+  - the fitting arm (93.27 ± 0.34);
+  - paired bootstrap against DFR, as in V.4.
+- **Report:** `reports/V.7.md`. It records what Fable started from (DFR, a run, a combination), what it changed, and the agreement of the final model with DFR and with the 18 runs.
+- Stage 2's step numbers below (V.7–V.11) move up by one if stage 2 runs.
+
 ---
 
 ## Stage 2: CIFAR-10 with out-of-scope images (the router analog)
@@ -240,6 +258,15 @@ Probabilities are my own estimates. Each states what would count against it.
 14. A hint toward the most common fix cuts the spread of worst-group by at least 30% without lowering the mean. P = 0.5.
 15. A hint toward the best fix raises the mean by at least 3 points over no hint. P = 0.4.
 16. At least 4 of 5 hinted runs land in the hinted mechanism group. P = 0.6.
+
+**V.7 synthesis (recorded 2026-11-22, before the run)**
+19. **User's prediction:** the synthesis improves on DFR, but not by more than the confidence interval.
+20. V.7 beats the DFR mean (92.58) on test worst group. P = 0.8.
+21. V.7 lands within the fitting arm's range (92.52–93.61). P = 0.65.
+22. V.7 beats the best grid run (93.61). P = 0.25.
+23. The gain over DFR is outside the per-run paired 95% CI (more than about +1.7). P = 0.1.
+24. Fable's final edit builds on DFR's last layer (starts from a DFR seed's fc) rather than on one of its own earlier edits. P = 0.5.
+25. The weighted mean stays above DFR's (94.92). P = 0.8.
 
 **What the outcomes would tell us**
 - **8 and 10 hold:** more passes help, and also make Fable more consistent. Budget is the lever.
