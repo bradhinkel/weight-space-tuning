@@ -1,0 +1,13 @@
+{
+ "tag": "v4_b10_nofit_r1",
+ "driver_model": "fable-5.2",
+ "effort": "max",
+ "budget": 10,
+ "fitting": "refused",
+ "task_file": "exp_v/sessions/task_template.md",
+ "max_nudges": 40,
+ "max_hours": 30,
+ "max_turns": 4000,
+ "max_error_waits": 72,
+ "error_wait_min": 20
+}

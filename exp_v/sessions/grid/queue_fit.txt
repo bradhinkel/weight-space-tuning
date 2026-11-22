@@ -1,0 +1,8 @@
+exp_v/sessions/grid/v4_b10_fit_r1.json
+exp_v/sessions/grid/v4_b10_fit_r2.json
+exp_v/sessions/grid/v4_b10_fit_r3.json
+exp_v/sessions/grid/v4_b25_fit_r2.json
+exp_v/sessions/grid/v4_b25_fit_r3.json
+exp_v/sessions/grid/v4_b50_fit_r1.json
+exp_v/sessions/grid/v4_b50_fit_r2.json
+exp_v/sessions/grid/v4_b50_fit_r3.json

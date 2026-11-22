@@ -1,0 +1,8 @@
+exp_v/sessions/grid/v4_b10_nofit_r1.json
+exp_v/sessions/grid/v4_b10_nofit_r2.json
+exp_v/sessions/grid/v4_b10_nofit_r3.json
+exp_v/sessions/grid/v4_b25_nofit_r2.json
+exp_v/sessions/grid/v4_b25_nofit_r3.json
+exp_v/sessions/grid/v4_b50_nofit_r1.json
+exp_v/sessions/grid/v4_b50_nofit_r2.json
+exp_v/sessions/grid/v4_b50_nofit_r3.json
