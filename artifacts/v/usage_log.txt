@@ -1,0 +1,2 @@
+2026-11-22T05:04:49Z v3_b25_nofit pilot: passes/elapsed_s=4 1411; user reports Max session 20%, weekly 2% (weekly reset 2026-11-21; includes orchestration + deck work)
+2026-11-22T05:09:09Z v3_b25_nofit pilot: passes elapsed_s python_runs images = 5 1646 30 70; user reports Max session 28%, weekly 3%
