@@ -1,0 +1,13 @@
+{
+ "tag": "v3_b25_fit",
+ "driver_model": "fable-5.2",
+ "effort": "max",
+ "budget": 25,
+ "fitting": "allowed",
+ "task_file": "exp_v/sessions/task_template.md",
+ "max_nudges": 40,
+ "max_hours": 30,
+ "max_turns": 4000,
+ "max_error_waits": 72,
+ "error_wait_min": 20
+}

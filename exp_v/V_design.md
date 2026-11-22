@@ -23,6 +23,12 @@
    - It runs under the fitting-allowed rules. The budget is set before it runs (proposal: 25).
    - Stage 2's step numbers move up by one (V.8–V.12).
 
+**Amendments from V.2 (2026-11-21, before any Fable session):**
+10. **Sandbox on the laptop:** without root, the kernel can't drop to an unprivileged user. Landlock and seccomp do the confinement; the V.2 self-test shows they block everything the pods' user switch blocked.
+11. **Fitting arm:** it may also compute fc on saved avgpool features, which DFR-style tuning needs. The no-fitting arm may not; an fc edit is seen only through a forward pass.
+12. **Task text** (`exp_v/sessions/task_template.md`): states the target (worst-group ≥ 88 with weighted mean ≥ 94), the original's practice numbers and the mean's weights. It names no published method.
+13. **One pass** = one `evaluate` request over any practice images (up to 1,199) plus up to 256 own images. Pooled activations are available for all of them; full feature maps for at most 32.
+
 **Predictions for the new arms (2026-11-20, before any run):**
 17. Fitting-allowed runs reach DFR minus 1 point on test worst-group at budget 25. P = 0.75.
 18. At least one fitting-allowed run beats DFR by 1 point or more. P = 0.35.

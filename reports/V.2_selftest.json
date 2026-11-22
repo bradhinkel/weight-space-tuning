@@ -1,0 +1,266 @@
+{
+ "1a_original_matches_wb": {
+  "ok": true,
+  "same_predictions": "1199/1199",
+  "max_logit_diff": 0.0,
+  "max_feat_diff": 0.0,
+  "server_score": {
+   "groups": {
+    "landbird/land": {
+     "acc": 99.36,
+     "n": 467
+    },
+    "landbird/water": {
+     "acc": 82.62,
+     "n": 466
+    },
+    "waterbird/land": {
+     "acc": 72.93,
+     "n": 133
+    },
+    "waterbird/water": {
+     "acc": 96.24,
+     "n": 133
+    }
+   },
+   "n": 1199,
+   "plain_mean": 89.57,
+   "worst": 72.93,
+   "worst_group": "waterbird/land",
+   "weighted_mean": 97.72
+  },
+  "wb_score": {
+   "groups": {
+    "landbird/land": {
+     "acc": 99.36,
+     "n": 467
+    },
+    "landbird/water": {
+     "acc": 82.62,
+     "n": 466
+    },
+    "waterbird/land": {
+     "acc": 72.93,
+     "n": 133
+    },
+    "waterbird/water": {
+     "acc": 96.24,
+     "n": 133
+    }
+   },
+   "n": 1199,
+   "plain_mean": 89.57,
+   "worst": 72.93,
+   "worst_group": "waterbird/land",
+   "weighted_mean": 97.72
+  }
+ },
+ "5a_refusals_free": {
+  "ok": true,
+  "kernel": "OUTPUT of Python run 1 of at most 300:\n```\nrefused: save_edit refused: this edit only multiplies the whole tensor by a constant (2), which is out of scope\n\n```",
+  "failed_request": "ValueError: unknown layers ['layer9']; allowed: ['conv1', 'layer1', 'layer2', 'layer3', 'layer4', 'avgpool', 'layer1.0', 'layer1.1', 'layer1.2', 'layer2.0', 'layer2.1', 'layer2.2', 'layer2.3', 'layer3.0', 'layer3.1', 'layer3.2', 'layer3.3', 'layer3.4', 'layer3.5', 'layer4.0', 'layer4.1', 'layer4.2']"
+ },
+ "1b_edited_matches_independent": {
+  "ok": true,
+  "same_predictions": "600/600",
+  "max_logit_diff": 0.0011730194091796875,
+  "max_abs_logit": 4.556211471557617,
+  "kernel": "kages/sklearn/linear_model/_logistic.py:1407: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.\n  warnings.warn(\nsaved fc.weight: relative change 1.568\nsaved fc.bias: relative change 3.636\n599 600 [229 243  58  69] [238 223  75  64]\n\n```"
+ },
+ "4_show_images": {
+  "ok": true,
+  "images_returned": 16,
+  "shown": 34,
+  "header": "16 images (as the model sees them: resized to 256x256, center 224x224 crop; shown at up to 336 px). In order: p0000: waterbird/water; p0001: waterbird/land; p00",
+  "cap_msg": "show_images failed (costs nothing): ValueError: the session's image cap is 40 (34 shown)"
+ },
+ "1c_own_images": {
+  "ok": true,
+  "result": {
+   "ok": true,
+   "original_own_images": {
+    "n": 1,
+    "predicted_waterbird": 1
+   },
+   "error": null
+  }
+ },
+ "5b_budget_enforced": {
+  "ok": true,
+  "error": "ValueError: the forward-pass budget is used up (6 of 6)"
+ },
+ "1d_finalize_matches_independent": {
+  "ok": true,
+  "finalize": {
+   "groups": {
+    "landbird/land": {
+     "acc": 94.94,
+     "n": 2255
+    },
+    "landbird/water": {
+     "acc": 89.36,
+     "n": 2255
+    },
+    "waterbird/land": {
+     "acc": 93.3,
+     "n": 642
+    },
+    "waterbird/water": {
+     "acc": 96.26,
+     "n": 642
+    }
+   },
+   "n": 5794,
+   "plain_mean": 92.73,
+   "worst": 89.36,
+   "worst_group": "landbird/water",
+   "weighted_mean": 95.0
+  },
+  "independent": {
+   "groups": {
+    "landbird/land": {
+     "acc": 94.94,
+     "n": 2255
+    },
+    "landbird/water": {
+     "acc": 89.36,
+     "n": 2255
+    },
+    "waterbird/land": {
+     "acc": 93.3,
+     "n": 642
+    },
+    "waterbird/water": {
+     "acc": 96.26,
+     "n": 642
+    }
+   },
+   "n": 5794,
+   "plain_mean": 92.73,
+   "worst": 89.36,
+   "worst_group": "landbird/water",
+   "weighted_mean": 95.0
+  }
+ },
+ "3_practice_predicts_test": {
+  "ok": true,
+  "practice_halfB_worst": 87.0,
+  "test_worst": 89.36,
+  "practice_halfB_weighted_mean": 96.32,
+  "test_weighted_mean": 95.0,
+  "original_halfB_worst": 74.67,
+  "paired": {
+   "landbird/land": {
+    "diff_pts": -3.36,
+    "wrong_to_right": 0,
+    "right_to_wrong": 8,
+    "n": 238
+   },
+   "landbird/water": {
+    "diff_pts": 3.14,
+    "wrong_to_right": 13,
+    "right_to_wrong": 6,
+    "n": 223
+   },
+   "waterbird/land": {
+    "diff_pts": 18.67,
+    "wrong_to_right": 14,
+    "right_to_wrong": 0,
+    "n": 75
+   },
+   "waterbird/water": {
+    "diff_pts": 1.56,
+    "wrong_to_right": 1,
+    "right_to_wrong": 0,
+    "n": 64
+   }
+  }
+ },
+ "2a_guard_fitting_allowed": {
+  "ok": true,
+  "test_manifest": "blocked:PermissionError",
+  "raw_metadata": "blocked:PermissionError",
+  "raw_dir": "blocked:PermissionError",
+  "test_image": "blocked:PermissionError",
+  "broken_ckpt": "blocked:PermissionError",
+  "repo": "blocked:PermissionError",
+  "claude_dir": "blocked:PermissionError",
+  "server_log": "blocked:PermissionError",
+  "session_dir": "blocked:PermissionError",
+  "write_sandbox": "blocked:PermissionError",
+  "write_tmp": "blocked:PermissionError",
+  "write_model": "blocked:PermissionError",
+  "write_work": "ok",
+  "socket": "blocked:PermissionError",
+  "cuda": false,
+  "torchvision": "blocked:PermissionError",
+  "sklearn": "IMPORTABLE",
+  "cwd_listing": [
+   "model",
+   "practice",
+   "work"
+  ],
+  "practice_listing": [
+   "images",
+   "labels.csv"
+  ],
+  "n_practice_images": 1199
+ },
+ "2b_guard_no_fitting": {
+  "ok": true,
+  "test_manifest": "blocked:PermissionError",
+  "raw_metadata": "blocked:PermissionError",
+  "raw_dir": "blocked:PermissionError",
+  "test_image": "blocked:PermissionError",
+  "broken_ckpt": "blocked:PermissionError",
+  "repo": "blocked:PermissionError",
+  "claude_dir": "blocked:PermissionError",
+  "server_log": "blocked:PermissionError",
+  "session_dir": "blocked:PermissionError",
+  "write_sandbox": "blocked:PermissionError",
+  "write_tmp": "blocked:PermissionError",
+  "write_model": "blocked:PermissionError",
+  "write_work": "ok",
+  "socket": "blocked:PermissionError",
+  "cuda": false,
+  "torchvision": "blocked:PermissionError",
+  "sklearn": "blocked:PermissionError",
+  "cwd_listing": [
+   "model",
+   "practice",
+   "work"
+  ],
+  "practice_listing": [
+   "images",
+   "labels.csv"
+  ],
+  "n_practice_images": 1199
+ },
+ "2c_split_hashes": {
+  "ok": true,
+  "tail": "ice_files\": 1199,\n \"practice_equals_val\": true,\n \"practice_test_overlap\": 0,\n \"practice_train_overlap\": 0,\n \"val_test_overlap\": 0,\n \"train_test_overlap\": 0,\n \"non_image_files\": []\n}\nsplit guard: PASS\n"
+ },
+ "6_mcp_stdio": {
+  "ok": true,
+  "tools": [
+   "forward",
+   "python",
+   "show_images"
+  ],
+  "show_images_content": [
+   "text",
+   "image",
+   "image"
+  ],
+  "python": "OUTPUT of Python run 1 of at most 300:\n```\n(267, [])\n\n```",
+  "forward_worst": 72.93
+ },
+ "_meta": {
+  "seconds": 65,
+  "sessions": [
+   "v2_selftest_fit_20261121T165741Z",
+   "v2_selftest_nofit_20261121T165824Z"
+  ],
+  "date": "2026-11-21T16:58:43.187958+00:00"
+ }
+}
