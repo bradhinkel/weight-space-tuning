@@ -1,0 +1,39 @@
+{
+ "session_id": "v7_synthesis_20261122T181434Z",
+ "config": {
+  "session_id": "v7_synthesis_20261122T181434Z",
+  "budget": 50,
+  "fitting": "allowed",
+  "prior": "~/wst-v/v7_prior"
+ },
+ "edited_tensors": [
+  "fc.bias",
+  "fc.weight"
+ ],
+ "n_weights_changed": 4098,
+ "test": {
+  "groups": {
+   "landbird/land": {
+    "acc": 96.94,
+    "n": 2255
+   },
+   "landbird/water": {
+    "acc": 95.43,
+    "n": 2255
+   },
+   "waterbird/land": {
+    "acc": 93.77,
+    "n": 642
+   },
+   "waterbird/water": {
+    "acc": 91.59,
+    "n": 642
+   }
+  },
+  "n": 5794,
+  "plain_mean": 95.41,
+  "worst": 91.59,
+  "worst_group": "waterbird/water",
+  "weighted_mean": 95.67
+ }
+}

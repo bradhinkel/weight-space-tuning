@@ -1,0 +1,239 @@
+init: {"tools": ["mcp__harness__forward", "mcp__harness__python", "mcp__harness__show_images"], "mcp_servers": {"harness": "connected"}, "unexpected_tools": [], "missing_tools": [], "model": "claude-fable-5-2", "ok": true}
+[     16s] text: "I'll start by reading the prior-work README and index, since the task says to build on everything done so far. Nothing has been measured yet, so there is no result to interpret; the first step is purely orientation: what prior runs exist, which arm each was in, what tensors they edited, and what DFR"
+[     17s] tool_use mcp__harness__python
+[     24s] tool_use mcp__harness__python
+[     28s] tool_use mcp__harness__python
+[     33s] tool_use mcp__harness__python
+[     59s] tool_use mcp__harness__python
+[     64s] tool_use mcp__harness__python
+[    232s] tool_use mcp__harness__python
+[    239s] tool_use mcp__harness__python
+[    376s] tool_use mcp__harness__python
+[    508s] tool_use mcp__harness__python
+[    535s] tool_use mcp__harness__python
+[    710s] tool_use mcp__harness__python
+[    716s] tool_use mcp__harness__forward
+[    731s] tool_use mcp__harness__python
+[    748s] tool_use mcp__harness__python
+[    789s] tool_use mcp__harness__python
+[    832s] tool_use mcp__harness__python
+[    891s] tool_use mcp__harness__python
+[    905s] tool_use mcp__harness__show_images
+[    920s] tool_use mcp__harness__show_images
+[   1005s] tool_use mcp__harness__python
+[   1340s] tool_use mcp__harness__python
+[   1371s] tool_use mcp__harness__python
+[   1541s] tool_use mcp__harness__python
+[   1577s] tool_use mcp__harness__python
+[   1599s] tool_use mcp__harness__show_images
+[   1601s] text: "You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."
+[   1601s] turn ended (success); passes 1/50
+[   1601s] turn ended with an error ("You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."); waiting 20.0 min (1/72)
+init: {"tools": ["mcp__harness__forward", "mcp__harness__python", "mcp__harness__show_images"], "mcp_servers": {"harness": "connected"}, "unexpected_tools": [], "missing_tools": [], "model": "claude-fable-5-2", "ok": true}
+[   2750s] text: "You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."
+[   2750s] turn ended (success); passes 1/50
+[   2750s] turn ended with an error ("You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."); waiting 20.0 min (2/72)
+init: {"tools": ["mcp__harness__forward", "mcp__harness__python", "mcp__harness__show_images"], "mcp_servers": {"harness": "connected"}, "unexpected_tools": [], "missing_tools": [], "model": "claude-fable-5-2", "ok": true}
+[   3899s] text: "You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."
+[   3899s] turn ended (success); passes 1/50
+[   3899s] turn ended with an error ("You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."); waiting 20.0 min (3/72)
+init: {"tools": ["mcp__harness__forward", "mcp__harness__python", "mcp__harness__show_images"], "mcp_servers": {"harness": "connected"}, "unexpected_tools": [], "missing_tools": [], "model": "claude-fable-5-2", "ok": true}
+[   5047s] text: "You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."
+[   5047s] turn ended (success); passes 1/50
+[   5047s] turn ended with an error ("You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."); waiting 20.0 min (4/72)
+init: {"tools": ["mcp__harness__forward", "mcp__harness__python", "mcp__harness__show_images"], "mcp_servers": {"harness": "connected"}, "unexpected_tools": [], "missing_tools": [], "model": "claude-fable-5-2", "ok": true}
+[   6195s] text: "You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."
+[   6195s] turn ended (success); passes 1/50
+[   6195s] turn ended with an error ("You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."); waiting 20.0 min (5/72)
+init: {"tools": ["mcp__harness__forward", "mcp__harness__python", "mcp__harness__show_images"], "mcp_servers": {"harness": "connected"}, "unexpected_tools": [], "missing_tools": [], "model": "claude-fable-5-2", "ok": true}
+[   7340s] text: "You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."
+[   7340s] turn ended (success); passes 1/50
+[   7340s] turn ended with an error ("You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."); waiting 20.0 min (6/72)
+init: {"tools": ["mcp__harness__forward", "mcp__harness__python", "mcp__harness__show_images"], "mcp_servers": {"harness": "connected"}, "unexpected_tools": [], "missing_tools": [], "model": "claude-fable-5-2", "ok": true}
+[   8487s] text: "You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."
+[   8487s] turn ended (success); passes 1/50
+[   8487s] turn ended with an error ("You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."); waiting 20.0 min (7/72)
+init: {"tools": ["mcp__harness__forward", "mcp__harness__python", "mcp__harness__show_images"], "mcp_servers": {"harness": "connected"}, "unexpected_tools": [], "missing_tools": [], "model": "claude-fable-5-2", "ok": true}
+[   9635s] text: "You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."
+[   9635s] turn ended (success); passes 1/50
+[   9635s] turn ended with an error ("You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."); waiting 20.0 min (8/72)
+init: {"tools": ["mcp__harness__forward", "mcp__harness__python", "mcp__harness__show_images"], "mcp_servers": {"harness": "connected"}, "unexpected_tools": [], "missing_tools": [], "model": "claude-fable-5-2", "ok": true}
+[  10783s] text: "You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."
+[  10783s] turn ended (success); passes 1/50
+[  10783s] turn ended with an error ("You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."); waiting 20.0 min (9/72)
+init: {"tools": ["mcp__harness__forward", "mcp__harness__python", "mcp__harness__show_images"], "mcp_servers": {"harness": "connected"}, "unexpected_tools": [], "missing_tools": [], "model": "claude-fable-5-2", "ok": true}
+[  11930s] text: "You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."
+[  11930s] turn ended (success); passes 1/50
+[  11930s] turn ended with an error ("You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."); waiting 20.0 min (10/72)
+init: {"tools": ["mcp__harness__forward", "mcp__harness__python", "mcp__harness__show_images"], "mcp_servers": {"harness": "connected"}, "unexpected_tools": [], "missing_tools": [], "model": "claude-fable-5-2", "ok": true}
+[  13076s] text: "You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."
+[  13076s] turn ended (success); passes 1/50
+[  13076s] turn ended with an error ("You've hit your Fable limit · resets Nov 28, 8pm (America/Los_Angeles). Switch to another model, or manage usage credits at https://claude.ai/settings/usage?from=cc_cli_limit_message, to continue."); waiting 20.0 min (11/72)
+init: {"tools": ["mcp__harness__forward", "mcp__harness__python", "mcp__harness__show_images"], "mcp_servers": {"harness": "connected"}, "unexpected_tools": [], "missing_tools": [], "model": "claude-fable-5-2", "ok": true}
+[  14243s] tool_use mcp__harness__python
+[  14352s] tool_use mcp__harness__python
+[  14396s] tool_use mcp__harness__python
+[  14430s] tool_use mcp__harness__python
+[  14612s] tool_use mcp__harness__python
+[  14683s] tool_use mcp__harness__python
+[  14739s] tool_use mcp__harness__python
+[  14762s] tool_use mcp__harness__forward
+[  14782s] tool_use mcp__harness__python
+[  14807s] tool_use mcp__harness__python
+[  14876s] tool_use mcp__harness__python
+[  14927s] tool_use mcp__harness__python
+[  14931s] tool_use mcp__harness__python
+[  14955s] tool_use mcp__harness__python
+[  14959s] tool_use mcp__harness__forward
+[  14975s] tool_use mcp__harness__python
+[  15032s] tool_use mcp__harness__python
+[  15035s] tool_use mcp__harness__forward
+[  15052s] tool_use mcp__harness__python
+[  15095s] tool_use mcp__harness__python
+[  15098s] tool_use mcp__harness__forward
+[  15129s] tool_use mcp__harness__python
+[  15162s] tool_use mcp__harness__forward
+[  15182s] tool_use mcp__harness__python
+[  15238s] tool_use mcp__harness__python
+[  15442s] tool_use mcp__harness__python
+[  15470s] tool_use mcp__harness__python
+[  15665s] tool_use mcp__harness__python
+[  15758s] tool_use mcp__harness__python
+[  15794s] tool_use mcp__harness__python
+[  15801s] tool_use mcp__harness__forward
+[  15833s] tool_use mcp__harness__python
+[  15838s] tool_use mcp__harness__forward
+[  15859s] tool_use mcp__harness__python
+[  15875s] tool_use mcp__harness__forward
+[  15888s] tool_use mcp__harness__python
+[  15892s] tool_use mcp__harness__forward
+[  15932s] tool_use mcp__harness__python
+[  15934s] tool_use mcp__harness__forward
+[  15954s] tool_use mcp__harness__python
+[  15981s] tool_use mcp__harness__python
+[  16031s] tool_use mcp__harness__python
+[  16133s] tool_use mcp__harness__python
+[  16169s] tool_use mcp__harness__python
+[  16172s] tool_use mcp__harness__forward
+[  16189s] tool_use mcp__harness__python
+[  16239s] tool_use mcp__harness__python
+[  16242s] tool_use mcp__harness__forward
+[  16256s] tool_use mcp__harness__python
+[  16267s] tool_use mcp__harness__forward
+[  16275s] tool_use mcp__harness__python
+[  16284s] tool_use mcp__harness__python
+[  16319s] tool_use mcp__harness__python
+[  16339s] tool_use mcp__harness__forward
+[  16353s] tool_use mcp__harness__python
+[  16360s] tool_use mcp__harness__forward
+[  16382s] tool_use mcp__harness__python
+[  16494s] tool_use mcp__harness__python
+[  16497s] tool_use mcp__harness__forward
+[  16501s] tool_use mcp__harness__forward
+[  16517s] tool_use mcp__harness__python
+[  16587s] tool_use mcp__harness__python
+[  16677s] tool_use mcp__harness__python
+[  16680s] tool_use mcp__harness__forward
+[  16696s] tool_use mcp__harness__python
+[  16761s] tool_use mcp__harness__python
+[  16784s] tool_use mcp__harness__python
+[  16789s] tool_use mcp__harness__forward
+[  16806s] tool_use mcp__harness__python
+[  16814s] tool_use mcp__harness__forward
+[  16822s] tool_use mcp__harness__python
+[  16829s] tool_use mcp__harness__forward
+[  16839s] tool_use mcp__harness__python
+[  16862s] tool_use mcp__harness__python
+[  16866s] tool_use mcp__harness__forward
+[  16882s] tool_use mcp__harness__python
+[  16885s] tool_use mcp__harness__forward
+[  16904s] tool_use mcp__harness__python
+[  16990s] tool_use mcp__harness__python
+[  16992s] tool_use mcp__harness__forward
+[  17008s] tool_use mcp__harness__python
+[  17012s] tool_use mcp__harness__forward
+[  17058s] tool_use mcp__harness__python
+[  17066s] tool_use mcp__harness__forward
+[  17108s] tool_use mcp__harness__python
+[  17111s] tool_use mcp__harness__forward
+[  17125s] tool_use mcp__harness__python
+[  17188s] tool_use mcp__harness__python
+[  17191s] tool_use mcp__harness__forward
+[  17208s] tool_use mcp__harness__python
+[  17261s] tool_use mcp__harness__python
+[  18158s] tool_use mcp__harness__python
+[  18163s] tool_use mcp__harness__forward
+[  18175s] tool_use mcp__harness__python
+[  18180s] tool_use mcp__harness__forward
+[  18187s] tool_use mcp__harness__python
+[  18192s] text: 'Fold 1 is stored and matches the kernel to within 0.004 logits for both methods; fold 2 is installed. Continuing with pass 32.'
+[  18192s] tool_use mcp__harness__forward
+[  18199s] tool_use mcp__harness__python
+[  18204s] text: 'Fold 2 stored (tool and kernel agree to 0.006); fold 3 installed. Pass 33 next.'
+[  18204s] tool_use mcp__harness__forward
+[  18212s] tool_use mcp__harness__python
+[  18215s] text: 'Fold 3 stored; fold 4 installed with the last ×1.06 chunk. Pass 34 next.'
+[  18216s] tool_use mcp__harness__forward
+[  18225s] tool_use mcp__harness__python
+[  18235s] tool_use mcp__harness__forward
+[  18242s] tool_use mcp__harness__python
+[  18247s] text: 'Fold 5 stored; fold 6 installed. Pass 36 next.'
+[  18247s] tool_use mcp__harness__forward
+[  18253s] tool_use mcp__harness__python
+[  18259s] text: 'Fold 6 stored; fold 7 installed. Pass 37 next.'
+[  18259s] tool_use mcp__harness__forward
+[  18267s] tool_use mcp__harness__python
+[  18271s] text: 'Fold 7 stored; fold 8 installed. Pass 38 next.'
+[  18272s] tool_use mcp__harness__forward
+[  18278s] tool_use mcp__harness__python
+[  18281s] text: 'Fold 8 stored; the last fold is installed with the final ×0.94 chunk. Pass 39 completes the cross-fit.'
+[  18282s] tool_use mcp__harness__forward
+[  18302s] tool_use mcp__harness__python
+[  18353s] tool_use mcp__harness__python
+[  18447s] tool_use mcp__harness__python
+[  18450s] tool_use mcp__harness__forward
+[  18466s] tool_use mcp__harness__python
+[  18473s] tool_use mcp__harness__forward
+[  18480s] tool_use mcp__harness__python
+[  18483s] text: 'Centres 128–255 are stored and F1 is confirmed again; the next chunk (centres 256–383) is built. Pass 42.'
+[  18483s] tool_use mcp__harness__forward
+[  18490s] tool_use mcp__harness__python
+[  18494s] text: 'Centres 256–383 stored; F1 unchanged. Pass 43 covers centres 384–511.'
+[  18495s] tool_use mcp__harness__forward
+[  18504s] tool_use mcp__harness__python
+[  18515s] tool_use mcp__harness__forward
+[  18523s] tool_use mcp__harness__python
+[  18525s] text: 'Centres 512–639 stored; F1 confirmed again. Pass 45 covers centres 640–767.'
+[  18525s] tool_use mcp__harness__forward
+[  18532s] tool_use mcp__harness__python
+[  18534s] text: 'Centres 640–767 stored. Pass 46 covers centres 768–895.'
+[  18535s] tool_use mcp__harness__forward
+[  18541s] tool_use mcp__harness__python
+[  18545s] text: 'Centres 768–895 stored. Four passes remain: three more counterfactual chunks (896–1023, 1024–1151, 1152–1198) and the final confirmation. Pass 47.'
+[  18546s] tool_use mcp__harness__forward
+[  18553s] tool_use mcp__harness__python
+[  18556s] text: 'Centres 896–1023 stored. Pass 48 covers centres 1024–1151.'
+[  18556s] tool_use mcp__harness__forward
+[  18571s] tool_use mcp__harness__python
+[  18575s] tool_use mcp__harness__forward
+[  18599s] tool_use mcp__harness__python
+[  18622s] tool_use mcp__harness__python
+[  18625s] tool_use mcp__harness__forward
+[  18634s] tool_use mcp__harness__python
+[  18668s] text: '# Final report\n\n## Outcome\n\nThe submitted edit changes only the last layer (`fc.weight`, `fc.bias`). On the practice images it raises worst-group accuracy from 72.9% to 92.5% while the weighted mean goes from 97.7% to 95.7%, confirmed by the final forward pass. Held-out, the same recipe gives the sa'
+[  18668s] turn ended (success); passes 50/50
+{
+ "session_id": "v7_synthesis_20261122T181434Z",
+ "wall_clock_s": 18669,
+ "tool_calls": 163,
+ "by_tool": {
+  "mcp__harness__python": 110,
+  "mcp__harness__forward": 50,
+  "mcp__harness__show_images": 3
+ },
+ "nudges": 0,
+ "compactions": 0,
+ "lockdown_ok": true,
+ "total_cost_usd_notional": 121.4598304,
+ "final_text": "# Final report\n\n## Outcome\n\nThe submitted edit changes only the last layer (`fc.weight`, `fc.bias`). On the practice images it raises worst-group accuracy from 72.9% to 92.5% while the weighted mean goes from 97.7% to 95.7%, confirmed by the final forward pass. Held-out, the same recipe gives the same numbers, and it beats DFR's held-out worst group by about 3.4 points.\n\n| | landbird/land | landbird/water | waterbird/land | waterbird/water | worst | weighted mean |\n|---|---|---|---|---|---|---|\n| Original | 99.36 | 82.62 | 72.93 | 96.24 | 72.93 | 97.72 |\n| **Submitted edit (final pass)** | 96.79 | 93.35 | 93.23 | 92.48 | **92.48** | **95.67** |\n| Same recipe, 10-fold held-out, through the tool | 96.79 | 93.35 | 93.23 | 92.48 | 92.48 | 95.67 |\n| DFR recipe, 10-fold held-out, through the tool | 95.72 | 89.06 | 92.48 | 95.49 | 89.06 | 95.37 |\n| DFR as given (in-sample, seed average) | 97.1 | 92.2 | 100.0 | 99.4 | 92.2 | 97.4 |\n\n- **Paired against the original:** 52 landbird/water and 27 waterbird/land images fixed, 2 and 0 broken; cost 12 landbird/land and 5 waterbird/water images.\n- **Paired against held-out DFR:** the edit wins landbird/water 23 to 3 and landbird/land 10 to 5; waterbird/land is even (3 to 2); DFR wins waterbird/water 4 to 0.\n- **Expectation for the test split:** about 96.8 / 93.4 / 93.2 / 94.0, i.e. worst group about 93% and mean about 96%. Drawing test-sized groups from the held-out predictions, the edit beats DFR on worst group in every draw and on the mean in about 92% of draws.\n- **Uncertainty:** roughly \u00b11 point on landbird/water and \u00b11.5 on each waterbird group. The targets (88% / 94%) are met in essentially all simulated draws.\n\nThe test expectation reweights three species to their test share; see \"Limits\" for why that matters.\n\n## What I changed\n\nThe new read-out is built in closed form from the four group means of the 2,048 pooled features, taken over the practice images in normal and mirrored view:\n\n- **Direction:** the waterbird-minus-landbird mean difference, with its component along the water-minus-land mean difference removed, scaled so the bird is worth 16 logits as in the original model.\n- **Over-cancellation:** I subtract a further 10% of the original background read-out, so a water background now moves the margin by \u22120.8 logits instead of +8.1.\n- **Bias:** the midpoint between the two class means, shifted 0.25 logits toward \"landbird\".\n\nThe 10% and the \u22120.25 were chosen by cross-validation from a broad ridge, not from in-sample accuracy.\n\n## What goes wrong in the network\n\n- **The margin adds bird and background evidence.** The bird is worth 16.0 logits and a water background 8.1, with within-group spread about 5; that is enough to flip mismatched images.\n- **The background enters layer4 as one direction.** Hiding the water-minus-land direction of layer3's output from layer4.0's two 1\u00d71 convolutions removes 84% of the background effect (8.08 \u2192 1.33) and leaves the bird effect at 15.9.\n- **The last block amplifies two input coordinates.**\n  - Cutting the scene direction at `layer4.2.conv1` takes the block's background write from +4.73 to \u22120.18 logits; the bird write stays at 13.9.\n  - Cutting the bird direction at the same place takes the bird write from 13.9 to 2.0 and turns the model into a scene classifier (98.5% on matched groups, 19% and 35% on mismatched).\n  - Doubling the gain on the bird coordinate doubles the bird effect and the spread together, so the block is linear in it.\n- **fc reads the rest through the skip path.** With the layer4.2 cut in place, 3.3 logits of background effect remain, exactly the skip-path share.\n\nShare of the background effect removed by a single cut at each site (the cuts overlap, because each block re-reads the scene code):\n\n| Site | Removed |\n|---|---|\n| layer4.0's readers of layer3 | 84% |\n| layer4.1's reader | 33% |\n| layer4.2's reader | 61% |\n| fc | 100% |\n\n## Causal evidence for the edit\n\n**Dose-response through the tool**, moving along the line from the original read-out to the edit:\n\n| Fraction of the edit | 0 | 0.5 | 1 (submitted) | 1.5 |\n|---|---|---|---|---|\n| Worst group | 72.9 | 87.2 | 92.5 | 88.7 |\n| Weighted mean | 97.7 | 97.2 | 95.7 | 89.1 |\n\nAt 1.5 the shortcut reverses: the formerly easy groups become the hard ones.\n\n**Dose-response inside the network** (layer4.2 reader cut, fc untouched): at strengths 0 / 0.5 / 1 / 2 the block's background write is +4.73 / +2.23 / \u22120.18 / \u22125.74. An equally large cut along a non-background direction changes nothing (99.4 / 83.3 / 72.2 / 96.2).\n\n**Counterfactual surrounds.** I pasted the central box of every practice image into one land-background and one water-background donor (1,199 pairs):\n\n| | Prediction flips with surround | Surround effect (logits) |\n|---|---|---|\n| Original | 18.4% | +7.23 \u00b1 0.12 |\n| Submitted edit | 5.4% | \u22120.20 \u00b1 0.09 |\n| DFR as given (two seeds) | 7.6\u20138.3% | +0.6 to +0.8 |\n\nFor the edit, changing donor type moves the margin no more than changing to another donor of the same type, so what remains is donor-specific content. Donors are natural images, so parts of the donor's own bird sometimes stay visible and inflate all the flip rates.\n\n**Bird-free scenes (60 land, 60 water).** The original separates them by 12.3 logits and calls 49 of 60 water scenes \"waterbird\" against 1 of 60 land scenes. Under the edit the gap is 2.6 logits (33 of 60 against 11 of 60), so some scene response remains when there is no bird at all.\n\n**Other views of the same images.** Worst group is 92.5\u201394.0 on mirrored, shifted and \u00b16% zoomed versions, and 91.0 and 91.7 under 12.5% zoom-out and 14% zoom-in; the mean stays between 95.5 and 96.0.\n\n## How I chose it, and what did not help\n\n- **DFR's real level.** Re-running the DFR recipe inside each training fold gives about 89% worst group, not the 92\u201393% of its in-sample file. It separates birds as well as anything on water backgrounds, but it is about 3 points worse on land backgrounds and its threshold leans toward \"waterbird\".\n- **Every closed-form read-out sits on one plateau.** The original direction with the background removed, the practice bird direction, and lightly whitened versions all give land-pair AUC 0.985\u20130.987 and water-pair AUC 0.975\u20130.977. The plain practice bird direction was slightly ahead of the original-anchored one and is the simplest, so I used it.\n- **No in-network edit beats the read-out edit.** I ran all seven prior in-network submissions and re-derived a read-out on each one's features; differences from the fc-only edit were at most 0.003 AUC and not consistent. My own test \u2014 cutting 2, 4 or 8 surround directions at layer4.2's reader \u2014 changed AUC by less than 0.001.\n- **Other ideas that gave nothing:**\n  - clamping the scene coordinate to its land value at layer4.2's reader;\n  - lowering the last block's thresholds;\n  - doubling the bird gain;\n  - whitening by view noise;\n  - a read-out fitted on water-background images only;\n  - a towhee-specific boost.\n- **Over-cancelling by 10% is a modest, assumption-dependent gain.** A bootstrap puts it at +0.6 \u00b1 0.4 points of expected worst group over exact cancellation, for 0.3 points of mean. On held-out halves with plain practice weighting the gain shrinks to +0.3 \u00b1 0.8.\n- **Finer tuning is noise.** When I repeated the whole selection on half the images and scored the other half, adaptive selection did no better than fixed settings, so I stopped optimising.\n\n## Limits\n\n- **The remaining errors are recognition failures, not background.**\n  - Feature maps of the landbird/water errors show almost no landbird votes on the pasted bird; correct landbirds have 10\u201313 strongly negative cells, the errors fewer than one.\n  - Clipping per-cell votes fixes 0 of 31.\n  - Moved onto new backgrounds, about 25 of the 31 error crops are still called waterbird.\n  - About half of these images contain a second animal or person in the water photo (ducks, geese, a merganser, sea lions, surfers).\n- **Three songbird species carry the \"waterbird\" label.** Pewee-like flycatchers (8 practice images) are wrong under every read-out including DFR; towhees are about 5 of 7 right; meadowlarks are right. They account for 10 of the 19 waterbird errors.\n- **The test expectation depends on species mix.** I assume each of these species is about 2.3% of each test waterbird group, where practice has 3.8% pewees in waterbird/water. That assumption is from my knowledge of the dataset, not something I could check here. If the test mix is like practice, waterbird/water is about 92.5 instead of 94.\n- **DFR is better on waterbird/water.** Its held-out score there is about 3 points higher, bought with a threshold that costs it 4 points on landbird/water.\n- **Bird size shifts the operating point slightly.** With birds 12.5% smaller, waterbird/land drops to 91.0.\n- **No pristine holdout exists.** Every practice image was used at some point. The held-out figures are cross-validated, and other views of images a read-out was fitted on are not independent \u2014 DFR stays at 97\u201398% on them.\n\nAll 50 passes are used. The submitted tensors are in `work/edited`, with identical copies in `work/best_1` and `work/best_final`; the full log is in `work/notes.md`."
+}
