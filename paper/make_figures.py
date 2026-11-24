@@ -10,7 +10,7 @@ import matplotlib.patches
 import matplotlib.pyplot as plt
 
 OUT = Path(__file__).resolve().parent
-INK, INK2, GRID, SURF = "#0b0b0b", "#52514e", "#e4e3df", "#fcfcfb"
+INK, INK2, GRID, SURF = "#0b0b0b", "#52514e", "#e4e3df", "#ffffff"
 BLUE, ORANGE, AQUA, GRAY = "#2a78d6", "#eb6834", "#1baf7a", "#8a8984"
 plt.rcParams.update({"font.size": 10, "axes.edgecolor": INK2, "axes.labelcolor": INK, "xtick.color": INK2,
                      "ytick.color": INK2, "axes.spines.top": False, "axes.spines.right": False,
@@ -31,7 +31,7 @@ def fig1():
             for b, v in zip(bars, d[drv]):
                 ax.text(b.get_x() + b.get_width() / 2, v + 1.2, f"{v:.1f}", ha="center", fontsize=8.5, color=INK)
         ax.axhline(d["base"], color=INK2, ls="--", lw=1)
-        ax.text(-0.55, d["base"] + 1.2, f"unedited {d['base']:.1f}", ha="left", fontsize=8, color=INK2)
+        ax.text(0.5, d["base"] + 1.6, f"unedited {d['base']:.1f}", ha="center", fontsize=7.2, color=INK2)
         ax.set_xticks(x, ["budget 10", "budget 50"])
         ax.set_title(name, color=INK, fontsize=10.5)
         ax.yaxis.grid(True, color=GRID, lw=0.8)
@@ -39,10 +39,8 @@ def fig1():
         ax.set_ylim(0, 80)
     axes[0].set_ylabel("accuracy (%)")
     axes[0].legend(frameon=False, fontsize=8.5, loc="upper left")
-    fig.suptitle("Figure 1. Replicating weight-space programming on Qwen3.5-0.8B math (Experiment 8)",
-                 fontsize=10, color=INK, x=0.02, ha="left")
     fig.tight_layout()
-    fig.savefig(OUT / "fig1_replication.png", dpi=180)
+    fig.savefig(OUT / "fig1_replication.png", dpi=220)
 
 
 def fig2():
@@ -68,10 +66,8 @@ def fig2():
     ax.set_xlabel("irrelevance recovery (fraction of the lost 'no tool' behaviour won back)")
     ax.set_ylabel("call retention (points vs broken)")
     ax.legend(frameon=False, fontsize=8, loc="lower left")
-    ax.set_title("Figure 2. Ten weight-space repairs of the tool router (BFCL v4 test).\nMarker area ∝ good answers out of 240",
-                 fontsize=9.5, color=INK, loc="left")
     fig.tight_layout()
-    fig.savefig(OUT / "fig2_tradeoff.png", dpi=180)
+    fig.savefig(OUT / "fig2_tradeoff.png", dpi=220)
 
 
 def fig3():
@@ -93,9 +89,8 @@ def fig3():
     ax.set_xlim(0, 100)
     ax.set_xlabel("good answers (judge helpfulness ≥ 4) on 240 prompts where no tool fits")
     ax.xaxis.grid(True, color=GRID, lw=0.8); ax.set_axisbelow(True)
-    ax.set_title("Figure 3. What nobody trained for: answer quality at each step", fontsize=9.5, color=INK, loc="left")
     fig.tight_layout()
-    fig.savefig(OUT / "fig3_answers.png", dpi=180)
+    fig.savefig(OUT / "fig3_answers.png", dpi=220)
 
 
 if __name__ == "__main__":

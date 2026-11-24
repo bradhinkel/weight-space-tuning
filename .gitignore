@@ -10,3 +10,4 @@ artifacts/a/*
 Resources/
 .claude/
 papers/
+paper/weight_space_router.html

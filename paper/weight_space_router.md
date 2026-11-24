@@ -260,7 +260,7 @@ The router harness is the replicated Experiment 8 harness with the task swapped.
 ## Resource availability
 
 ### Lead contact
-Brad Hinkel. [Contact details to be added.]
+Brad Hinkel. Questions and comments are welcome as issues on the GitHub repository below.
 
 ### Materials availability
 This study did not generate new physical materials. The edited model tensors are in the repository.
