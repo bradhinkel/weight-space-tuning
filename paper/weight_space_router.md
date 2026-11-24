@@ -260,7 +260,7 @@ The router harness is the replicated Experiment 8 harness with the task swapped.
 ## Resource availability
 
 ### Lead contact
-Brad Hinkel. [brad@bradhinkel.com]
+Brad Hinkel, brad@bradhinkel.com
 
 ### Materials availability
 This study did not generate new physical materials. The edited model tensors are in the repository.
@@ -274,7 +274,7 @@ This study did not generate new physical materials. The edited model tensors are
 - **Live demo:** the base model, the fine-tuned router and Fable's fix running side by side (`exp_r/r4a/demo_web.py`).
 
 ## Acknowledgments
-Thanks to Takehi, Teoh, Zhang and Khattab for publishing their task texts, edits and per-problem outputs, which made an exact replication possible. Thanks also to the Hugging Face cookbook authors and to the BFCL and xLAM teams.
+Thanks to Rikiya Takehi, Jayden Teoh, Alex Zhang and Omar Khattab for publishing their task texts, edits and per-problem outputs, which made an exact replication possible. Thanks also to the Hugging Face cookbook authors and to the BFCL and xLAM teams.
 
 ## Author contributions
 B.H. conceived the study, set the experimental design and the gates between steps, made the predictions and interpreted the results. The harness, runs, analysis and draft text were produced with Claude Code (see below).
@@ -291,7 +291,7 @@ This work was carried out with AI as both subject and tool:
 The author reviewed and takes responsibility for the content.
 
 ## References
-1. Takehi, Teoh, Zhang, Khattab. Sparks of weight-space programming. MIT CSAIL, November 2026. https://rikiyat.github.io/blog/weight-space-programming/ (logs: https://github.com/RikiyaT/lm_understand-logs)
+1. Takehi R, Teoh J, Zhang A, Khattab O. Sparks of weight-space programming. MIT CSAIL, November 2026. https://rikiyat.github.io/blog/weight-space-programming/ (logs: https://github.com/RikiyaT/lm_understand-logs)
 2. Azarkhalili B. Fine-tuning LLMs for function calling with xLAM dataset. Hugging Face Cookbook. https://huggingface.co/learn/cookbook/function_calling_fine_tuning_llms_on_xlam
 3. Liu Z, et al. APIGen: automated pipeline for generating verifiable and diverse function-calling datasets. arXiv:2406.18518 (2024). Dataset: Salesforce/xlam-function-calling-60k.
 4. Patil SG, et al. The Berkeley Function Calling Leaderboard (BFCL). https://gorilla.cs.berkeley.edu/leaderboard.html

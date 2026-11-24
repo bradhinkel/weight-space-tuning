@@ -15,21 +15,31 @@ HERE = Path(__file__).resolve().parent
 SRC, HTML, PDF = HERE / "weight_space_router.md", HERE / "weight_space_router.html", HERE / "weight_space_router.pdf"
 
 CSS = r"""
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400&display=block');
+/* Static (non-variable) fonts: variable-font subsets kerned badly in Edge's PDF viewer. */
+@font-face { font-family: 'PT Serif'; font-weight: 400; font-style: normal; font-display: block; src: url('https://cdn.jsdelivr.net/npm/@fontsource/pt-serif@5.0.19/files/pt-serif-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'PT Serif'; font-weight: 400; font-style: italic; font-display: block; src: url('https://cdn.jsdelivr.net/npm/@fontsource/pt-serif@5.0.19/files/pt-serif-latin-400-italic.woff2') format('woff2'); }
+@font-face { font-family: 'PT Serif'; font-weight: 700; font-style: normal; font-display: block; src: url('https://cdn.jsdelivr.net/npm/@fontsource/pt-serif@5.0.19/files/pt-serif-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'PT Serif'; font-weight: 700; font-style: italic; font-display: block; src: url('https://cdn.jsdelivr.net/npm/@fontsource/pt-serif@5.0.19/files/pt-serif-latin-700-italic.woff2') format('woff2'); }
+@font-face { font-family: 'IBM Plex Sans'; font-weight: 400; font-style: normal; font-display: block; src: url('https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-sans@5.0.20/files/ibm-plex-sans-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'IBM Plex Sans'; font-weight: 500; font-style: normal; font-display: block; src: url('https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-sans@5.0.20/files/ibm-plex-sans-latin-500-normal.woff2') format('woff2'); }
+@font-face { font-family: 'IBM Plex Sans'; font-weight: 600; font-style: normal; font-display: block; src: url('https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-sans@5.0.20/files/ibm-plex-sans-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'IBM Plex Sans'; font-weight: 700; font-style: normal; font-display: block; src: url('https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-sans@5.0.20/files/ibm-plex-sans-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'IBM Plex Sans'; font-weight: 400; font-style: italic; font-display: block; src: url('https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-sans@5.0.20/files/ibm-plex-sans-latin-400-italic.woff2') format('woff2'); }
+@font-face { font-family: 'IBM Plex Mono'; font-weight: 400; font-style: normal; font-display: block; src: url('https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-mono@5.0.13/files/ibm-plex-mono-latin-400-normal.woff2') format('woff2'); }
 :root { --ink:#141413; --ink2:#55534e; --muted:#8a8984; --rule:#e4e3df; --accent:#2a78d6; --accent-dk:#1b4f91;
         --tint:#eef4fb; --warm:#fbf6ee; --warm-rule:#eb6834; }
 @page { size: Letter; margin: 0.85in 0.95in 0.9in 0.95in;
-  @bottom-left { content: "Claude, please fix my model · Hinkel · November 2026"; font: 500 7.8pt Inter, sans-serif; color: #8a8984; }
-  @bottom-right { content: counter(page) " / " counter(pages); font: 500 7.8pt Inter, sans-serif; color: #8a8984; } }
+  @bottom-left { content: "Claude, please fix my model · Hinkel · November 2026"; font: 500 7.8pt "IBM Plex Sans", sans-serif; color: #8a8984; }
+  @bottom-right { content: counter(page) " / " counter(pages); font: 500 7.8pt "IBM Plex Sans", sans-serif; color: #8a8984; } }
 @page :first { @bottom-left { content: none; } }
-html { font-size: 11.6pt; }
-body { font-family: "Source Serif 4", Georgia, serif; color: var(--ink); line-height: 1.52; margin: 0; background: #fff;
-       -webkit-print-color-adjust: exact; print-color-adjust: exact; hyphens: auto; font-optical-sizing: auto; }
+html { font-size: 11.4pt; }
+body { font-family: "PT Serif", Georgia, serif; color: var(--ink); line-height: 1.52; margin: 0; background: #fff;
+       -webkit-print-color-adjust: exact; print-color-adjust: exact; hyphens: auto; }
 p { margin: 0 0 0.62em; orphans: 3; widows: 3; }
 a { color: var(--accent-dk); text-decoration: none; word-break: break-word; }
-strong { font-weight: 600; }
-code { font-family: "JetBrains Mono", monospace; font-size: 0.84em; background: #f3f2ef; padding: 0.05em 0.3em; border-radius: 3px; }
-h1, h2, h3 { font-family: Inter, sans-serif; color: var(--ink); break-after: avoid; }
+strong { font-weight: 700; }
+code { font-family: "IBM Plex Mono", monospace; font-size: 0.84em; background: #f3f2ef; padding: 0.05em 0.3em; border-radius: 3px; }
+h1, h2, h3 { font-family: "IBM Plex Sans", sans-serif; color: var(--ink); break-after: avoid; }
 h2 { font-size: 15pt; font-weight: 700; margin: 1.5em 0 0.55em; padding-top: 0.5em; border-top: 2px solid var(--ink); letter-spacing: -0.01em; }
 h3 { font-size: 11.8pt; font-weight: 600; margin: 1.25em 0 0.4em; color: var(--accent-dk); }
 ul, ol { margin: 0 0 0.7em; padding-left: 1.35em; }
@@ -38,14 +48,14 @@ li > ul, li > ol { margin: 0.15em 0 0.2em; }
 hr { display: none; }
 
 /* cover */
-.kicker { font: 600 8.5pt Inter, sans-serif; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.9em; }
+.kicker { font: 600 8.5pt "IBM Plex Sans", sans-serif; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.9em; }
 h1 { font-size: 25pt; line-height: 1.12; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 0.45em; }
 h1 .sub { display: block; font-size: 15pt; font-weight: 500; color: var(--ink2); letter-spacing: -0.01em; margin-top: 0.35em; line-height: 1.25; }
-.byline { font: 600 11pt Inter, sans-serif; margin: 0 0 0.15em; }
-.status { font: 400 9pt Inter, sans-serif; color: var(--ink2); margin: 0 0 1.4em; padding-bottom: 1.1em; border-bottom: 1px solid var(--rule); }
+.byline { font: 600 11pt "IBM Plex Sans", sans-serif; margin: 0 0 0.15em; }
+.status { font: 400 9pt "IBM Plex Sans", sans-serif; color: var(--ink2); margin: 0 0 1.4em; padding-bottom: 1.1em; border-bottom: 1px solid var(--rule); }
 .status em { font-style: normal; }
 .highlights { background: var(--tint); border-radius: 6px; padding: 0.9em 1.2em 0.6em; margin: 0 0 1.1em; break-inside: avoid; }
-.highlights h3, .inbrief h3, .bigpic h3 { font: 700 8.5pt Inter, sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-dk); margin: 0 0 0.6em; }
+.highlights h3, .inbrief h3, .bigpic h3 { font: 700 8.5pt "IBM Plex Sans", sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-dk); margin: 0 0 0.6em; }
 .highlights ul { margin: 0; padding-left: 1.1em; }
 .highlights li { margin: 0 0 0.45em; font-size: 10.8pt; line-height: 1.45; }
 .highlights li::marker { color: var(--accent); }
@@ -59,9 +69,9 @@ h1 .sub { display: block; font-size: 15pt; font-weight: 500; color: var(--ink2);
 figure { margin: 1.3em 0 1.4em; break-inside: avoid; }
 figure img { width: 100%; display: block; }
 figure.narrow img { width: 82%; margin: 0 auto; }
-figcaption, .tcap { font-family: Inter, sans-serif; font-size: 8.9pt; line-height: 1.45; color: var(--ink2); margin-top: 0.55em; }
+figcaption, .tcap { font-family: "IBM Plex Sans", sans-serif; font-size: 8.9pt; line-height: 1.45; color: var(--ink2); margin-top: 0.55em; }
 figcaption strong, .tcap strong { color: var(--ink); }
-table { border-collapse: collapse; width: 100%; font-family: Inter, sans-serif; font-size: 8.8pt; margin: 1em 0 0.3em; break-inside: avoid; font-variant-numeric: tabular-nums; }
+table { border-collapse: collapse; width: 100%; font-family: "IBM Plex Sans", sans-serif; font-size: 8.8pt; margin: 1em 0 0.3em; break-inside: avoid; font-variant-numeric: tabular-nums; }
 th { text-align: left; font-weight: 600; border-bottom: 1.5px solid var(--ink); padding: 0.4em 0.5em; vertical-align: bottom; }
 td { border-bottom: 1px solid var(--rule); padding: 0.38em 0.5em; }
 tr:nth-child(n+4) td:first-child { font-weight: 500; }
