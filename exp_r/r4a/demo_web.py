@@ -18,6 +18,8 @@ from exp_r.r4a import demo_local as D
 
 REPO = "https://github.com/bradhinkel/weight-space-tuning"
 PAPER = "https://rikiyat.github.io/blog/weight-space-programming/"
+PDF = REPO + "/blob/main/paper/weight_space_router.pdf"
+WHERE = "on this laptop"      # --where overrides, e.g. "on a cloud GPU"
 
 # Prompts A-D are items of demo_items.json (1-based `case`); E is the visitor's own prompt.
 # `gold` grades the output: a list of expected calls, or strings one of which a correct text answer contains.
@@ -245,14 +247,15 @@ ul.lessons{font-size:20px;padding-left:24px;max-width:960px}ul.lessons li{margin
 </style></head><body><main>
 
 <header class="hero">
-<h1>Claude Fable can fix a broken tool router</h1>
-<p class="exp">Repeating the Weight-Space Programming experiment</p>
-<p class="cite"><a href="__PAPER__">&ldquo;LLMs can natively read &amp; write neural network weights&rdquo;</a> &mdash; Rikiya Takehi, et al.</p>
+<h1>Claude, please fix my model</h1>
+<p class="exp">Replicating weight-space programming, then using it to repair a broken tool router</p>
+<p class="cite">Builds on <a href="__PAPER__">&ldquo;LLMs can natively read &amp; write neural network weights&rdquo;</a> &mdash; Rikiya Takehi, Jayden Teoh, Alex Zhang and Omar Khattab (MIT CSAIL).
+Our write-up: <a href="__PDF__">the paper (PDF)</a>.</p>
 </header>
 
 <section class="section">
 <h2>Demo: Improving a tool router</h2>
-<p class="sub">Three versions of Qwen3.5-2B, running live on this laptop. Pick a prompt and press Go.</p>
+<p class="sub">Three versions of Qwen3.5-2B, running live __WHERE__. Pick a prompt and press Go.</p>
 <div class="row" id="pick"></div>
 <div class="prompt" id="prompt"></div>
 <button id="go">Go</button>
@@ -261,21 +264,23 @@ ul.lessons{font-size:20px;padding-left:24px;max-width:960px}ul.lessons li{margin
 
 <section class="section">
 <h2>Results</h2>
-<p class="lead">Training improved call accuracy, but broke the router's ability to answer without recommending a tool.</p>
+<p class="lead">Fine-tuning on 58,000 xLAM examples improved tool calling, but the router began calling a tool on 99% of requests where none fits. Fable's edit restored &ldquo;no tool&rdquo; without retraining.</p>
 <table class="res">
-<tr><th>BFCL test</th><th>Base model</th><th>Tuned model</th><th>Fixed by Fable</th></tr>
-<tr><td>Mean call accuracy</td><td>68%</td><td>85%</td><td>82%</td></tr>
-<tr><td>Declines when no tool fits</td><td>79%</td><td class="lo">1%</td><td class="hi">85%</td></tr>
+<tr><th>BFCL test</th><th>Base model</th><th>Tuned model</th><th>Fixed by Fable</th><th>Retrained with better data</th></tr>
+<tr><td>Mean call accuracy</td><td>68%</td><td>85%</td><td>82%</td><td>83%</td></tr>
+<tr><td>Declines when no tool fits</td><td>79%</td><td class="lo">1%</td><td class="hi">85%</td><td>83%</td></tr>
+<tr><td>Good answers (of 240)</td><td>81</td><td class="lo">0</td><td>43</td><td class="hi">75</td></tr>
 </table>
-<p class="small">BFCL test set, sealed: Fable never saw it. Practice came from BFCL's irrelevance set and held-out xLAM pairs.</p>
+<p class="small">BFCL v4 test set, sealed: Fable never saw it. &ldquo;Good answers&rdquo;: a blind judge (Claude Sonnet 5.5) rated each text reply to a request no tool fits; good = helpfulness 4 or 5 out of 5.
+&ldquo;Retrained&rdquo;: a second LoRA with 3,000 added &ldquo;no tool fits&rdquo; examples, trained with gradients. The fix shown here is one of ten Fable sessions; all ten found the same cause.</p>
 </section>
 
 <section class="section">
-<h2>Fable is able to inspect the LoRA</h2>
+<h2>What Fable found: a small fix for widespread damage</h2>
 <div class="cols">
 <div class="box"><span class="tag">STILL INTACT</span><h3>It still knows when a tool fits</h3><p>The trained model still tells fitting from non-fitting requests (0.96 separation).</p></div>
-<div class="box"><span class="tag">ADDED BY TRAINING</span><h3>A push toward a tool call</h3><p>A near-uniform push toward starting a tool call on every request, built up in the early layers.</p></div>
-<div class="box fix"><span class="tag">FABLE'S FIX</span><h3>A counter-push at the decision point</h3><p>Subtract the push in one layer just before the output, plus a small nudge toward starting a plain answer. Two columns, about 4,000 weights (out of 2.2 billion).</p></div>
+<div class="box"><span class="tag">ADDED BY TRAINING</span><h3>A push toward a tool call</h3><p>A near-constant push of about 10 logits toward a tool call on every request. The fine-tune changed 58% of the model's weights, and the push is spread across them.</p></div>
+<div class="box fix"><span class="tag">FABLE'S FIX</span><h3>A counter-push at the decision point</h3><p>Cancel the push in the last layer, where it becomes a decision, plus a small nudge toward starting a plain answer. Two columns, about 4,000 weights out of 2.2 billion. Fable compensated rather than removed the damage.</p></div>
 </div>
 <div class="figwrap">__FIG__</div>
 <p class="small">Tuned row: the measured mean ± spread on Fable's practice prompts. Fixed row: those numbers moved by the edit's designed effect, so an estimate. Dots show the spread, not individual prompts.</p>
@@ -283,15 +288,16 @@ ul.lessons{font-size:20px;padding-left:24px;max-width:960px}ul.lessons li{margin
 
 <section class="section">
 <h2>What to watch for</h2>
-<div class="warn"><h3>Warning: accuracy on real-user calls dropped</h3>
-<p>On requests from real users that need a tool, the fixed version is worse than both others: <b>Base 66% &middot; Tuned 70% &middot; Fixed 65%</b>. It skipped the call on 12.8% of them.</p>
-<p>These come from BFCL's &ldquo;live&rdquo; categories, which are requests real users contributed. Fable practiced on real-user requests where no tool fits, but every practice request that needed a tool was synthetic (xLAM). So the fix partly learned &ldquo;sounds like a real user: don't call.&rdquo;</p></div>
+<div class="warn"><h3>What nobody trained for: answer quality</h3>
+<p>The tuned model didn't just hide its ability to answer, it largely lost it: forced to reply in text, it gave only <b>11</b> good answers out of 240, mostly refusals of questions it knows. Fable's edit brings that to <b>43</b>, but a fix at the last layer can't restore what the fine-tune removed upstream. Some answers loop.</p>
+<p>A smaller cost: on real users' single-call requests the fixed router skipped the call 12.8% of the time (<b>Base 66% &middot; Tuned 70% &middot; Fixed 65%</b>). Fable's practice data had no requests like these, so it couldn't see the loss.</p></div>
 <ul class="lessons">
-<li>First step should be to replicate the original experiment.<span class="why">We matched MIT's math result within about 3 points before changing anything, so later differences come from our changes, not our setup.</span></li>
-<li>Write predictions and pass/fail gates for each step.<span class="why">Our gates stopped two follow-up runs before they spent money on a design that couldn't work.</span></li>
-<li>Put real user traffic in the practice set.<span class="why">The real-user side effect above never showed up in practice, so Fable couldn't see it.</span></li>
+<li>The model learns exactly what it is trained on.<span class="why">Every one of the 58,000 xLAM examples ends in a tool call, so the router learned to always call. Retraining with &ldquo;no tool fits&rdquo; examples is still the better fix (75 good answers). The same goes for the agent's data: when our practice set put real-user text only on the &ldquo;no tool&rdquo; side, Fable's edit learned the writing style and lost 19 points of call accuracy.</span></li>
+<li>Measure what you didn't train for.<span class="why">Answer quality was the most important measurement, and we added it late. Most of the failures here (refusals, loops, the style shortcut) were never anticipated.</span></li>
+<li>Replicate the original first, then change one thing at a time.<span class="why">We matched MIT's math result within about 3 points before changing anything. Each later step (base model, LoRA, new driver, new task, repeats) had a gate to pass.</span></li>
+<li>Write predictions down, and keep the test set out of the agent's reach.<span class="why">We expected a bigger budget to help. Across nine runs it made no measurable difference; writing the prediction first is what made that visible.</span></li>
 </ul>
-<div class="banner">The original MIT paper is about a month old. This is an experiment, not a method, but better processes will likely emerge.</div>
+<div class="banner">The original MIT paper is about a month old. These are experiments, not a method. Keep experimenting.</div>
 </section>
 
 <section class="section">
@@ -299,8 +305,8 @@ ul.lessons{font-size:20px;padding-left:24px;max-width:960px}ul.lessons li{margin
 <div class="repro"><div>
 <p class="lead">Simple: point your coding agent at the <a href="__PAPER__">MIT CSAIL paper</a> and ask it to reproduce the math improvement experiment.</p>
 <p class="lead">Here is the QR code for my repository:<br><a class="mono" href="__REPO__">github.com/bradhinkel/weight-space-tuning</a></p>
-<p class="lead"><b>Next steps:</b> loosen the restrictions on Claude for making improvements:</p>
-<ul class="lessons"><li>Give Fable more test runs</li><li>Give Fable access to both the original and the trained models</li><li>Allow Fable to run training experiments</li></ul>
+<p class="lead"><b>Next steps:</b></p>
+<ul class="lessons"><li>Smaller models, more runs: the same method on a ResNet-50 image classifier (Waterbirds) beat the published fix by about 0.7 points.</li><li>Bigger, better-matched practice sets, especially for judging answers.</li><li>Edits further upstream, where the fine-tune changed how the model responds, to restore answer quality.</li></ul>
 </div><div class="qrcard">__QR__</div></div>
 </section>
 </main>
@@ -344,7 +350,7 @@ function show(k,r){
   const v = r.ok===undefined ? '' : `<div class="verdict ${r.ok?'ok':'no'}">${r.ok?'✓':'✗'} ${esc(r.why)}</div>`;
   const [_,n,d]=MODELS.find(m=>m[0]===k);
   $('#c-'+k).innerHTML=`<div class="name">${n}</div><div class="note">${d}</div>${v}<span class="badge b-${r.verdict}">${lab}</span>${body}
-    <details><summary>Raw output</summary><pre>${esc(r.raw)}</pre></details><div class="secs">${r.seconds}s on this laptop</div>`;
+    <details><summary>Raw output</summary><pre>${esc(r.raw)}</pre></details><div class="secs">${r.seconds}s __WHERE__</div>`;
 }
 $('#go').onclick=async()=>{
   const q = cur<0 ? ($('#q').value||'').trim() : '';
@@ -367,7 +373,7 @@ fetch('/api/cases').then(r=>r.json()).then(j=>{data=j;render()});
 
 def page():
     return (PAGE.replace("__MODELS__", json.dumps(MODELS)).replace("__FIG__", figure()).replace("__QR__", qr_svg())
-            .replace("__REPO__", REPO).replace("__PAPER__", PAPER))
+            .replace("__REPO__", REPO).replace("__PAPER__", PAPER).replace("__PDF__", PDF).replace("__WHERE__", WHERE))
 
 
 def handler(app):
@@ -408,7 +414,9 @@ def main():
     ap.add_argument("--port", type=int, default=8765)
     ap.add_argument("--max-tokens", type=int, default=400)
     ap.add_argument("--html", help="write the page (no live models) to this file and exit")
+    ap.add_argument("--where", default=WHERE, help='where the models run, as shown on the page ("on this laptop")')
     a = ap.parse_args()
+    globals()["WHERE"] = a.where
     if a.html:
         Path(a.html).write_text(page())
         return print(f"wrote {a.html}")

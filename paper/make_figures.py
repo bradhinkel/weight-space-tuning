@@ -60,7 +60,8 @@ def fig2():
     ax.annotate("broken router", (0.0, 0.0), (0.04, 0.45), fontsize=8.5, color=INK2)
     ax.annotate("base model: recovery 1.0,\nretention −16.2 (off chart)", (1.0, -4.0), (0.52, -3.75), fontsize=8, color=INK2,
                 arrowprops=dict(arrowstyle="-|>", color=INK2, lw=0.8))
-    ax.annotate("b10 r2 (demo run)", (0.941, -1.84), (0.83, -1.45), fontsize=8, color=INK2)
+    ax.annotate("b10 r2 (all three targets)", (0.941, -1.84), (0.83, -1.45), fontsize=8, color=INK2)
+    ax.annotate("b25 r1 (live demo)", (1.086, -3.01), (1.19, -3.45), fontsize=8, color=INK2, ha="right")
     ax.text(1.19, 1.35, "meets both targets", ha="right", fontsize=8, color=INK2)
     ax.set_xlim(-0.05, 1.2); ax.set_ylim(-4.0, 1.6)
     ax.set_xlabel("irrelevance recovery (fraction of the lost 'no tool' behaviour won back)")

@@ -271,7 +271,7 @@ This study did not generate new physical materials. The edited model tensors are
   - per-session transcripts and notes, and the submitted edits;
   - all reports (`reports/`), and the scripts that produce this paper's figures.
 - **Public data:** BFCL v4, xLAM-60k, MATH-500, GSM8K and Waterbirds.
-- **Live demo:** the base model, the fine-tuned router and Fable's fix running side by side (`exp_r/r4a/demo_web.py`).
+- **Live demo:** the base model, the fine-tuned router and Fable's fix (the b25 r1 edit) running side by side (`exp_r/r4a/demo_web.py`).
 
 ## Acknowledgments
 Thanks to Rikiya Takehi, Jayden Teoh, Alex Zhang and Omar Khattab for publishing their task texts, edits and per-problem outputs, which made an exact replication possible. Thanks also to the Hugging Face cookbook authors and to the BFCL and xLAM teams.
