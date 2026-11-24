@@ -179,3 +179,87 @@ Probabilities are my own estimates. Each has a stated outcome that would count a
 - **Predictions revised** (the originals above stand for scoring; these are recorded in addition):
   - **6′.** Retention ≥ −3 with parallel and parallel_multiple within 5 points of broken: **P = 0.45** (was 0.65). parallel_multiple is the likelier miss.
   - **5′.** Practice predicts test within ±6 points for no-call, single-call, same-function multi-call and good answers: P = 0.7 (unchanged). For **different-function multi-call → test parallel_multiple**, expect a gap larger than 6 points if the edit touches multi-call behaviour: **P = 0.6**.
+
+## Amendment (2026-11-21): repeats, predictions before any repeat session
+Plan: `exp_r/R4a_repeats_brief.md`. Unchanged from R.4a: harness, rules, refusals, task text (only the budget number
+changes for b10 / b50), Fable 5.1 at effort max, practice_v2 (no `live_simple_style.jsonl`), eval. The existing b25
+session counts as b25 run 1. Each new session starts fresh. Probabilities are my own estimates.
+
+**R1. Spread of the three b25 runs** (run 1: irrelevance 85.4, retention −3.01, recovery 1.086, good 43):
+- irrelevance: range (max − min) of **5–20 points**, central 10; SD ≈ 6. P(all three ≥ 64.6, i.e. beat A.5 b25) = 0.6.
+- recovery: SD ≈ 0.08; P(all three ≥ 0.80) = 0.45.
+- retention: range **1–4 points**, central 2; P(at least one run ≥ −2) = 0.4; P(all three ≥ −5) = 0.75.
+- good answers: range **10–35**, central 20; P(at least one other run ≥ 40) = 0.35. I expect run 1 to be near the top
+  of the three on good answers (regression to the mean): P(run 1 is the best of three) = 0.45.
+- P(at least one repeat meets all three targets) = 0.15.
+- **Against:** a range under 5 points on irrelevance and under 10 on good answers would mean the session outcome is
+  mostly fixed by the task and harness, not the path.
+
+**R2. Same mechanism?** "Same" = the submitted edit's main component is a readout-level counter-offset of the
+`<tool_call>` logit at the answer start, in layer 23's MLP (down_proj column(s)), not a LoRA reversion.
+- P(each repeat finds a readout counter-offset somewhere in layers 20–23) = 0.55.
+- P(it uses layer 23 neuron 3776 specifically) = 0.3 per run (the neuron was found from activation contrasts;
+  other neurons with high answer-start activation could serve).
+- P(a repeat's submission is mainly a LoRA reversion/scaling) = 0.25 per run; the task text still points there and
+  run 1 only rejected it after 5+ passes.
+- P(both repeats submit an edit touching ≤ 3 tensors) = 0.5.
+
+**R3. Results against budget** (means over three runs per budget):
+- b10: irrelevance 55–80 (central 68), retention −2 to −8 (central −4), good 10–35 (central 20). Fewer passes leave
+  less room for judge passes, so answer quality is the first thing to drop.
+- b25: irrelevance 70–88 (central 78), retention −2 to −5 (central −3.5), good 25–45 (central 33).
+- b50 (if run): irrelevance 75–90 (central 82), retention −1.5 to −4 (central −2.5), good 30–55 (central 40).
+- Shape: gains from b10 → b25 larger than from b25 → b50 on all four quantities (diminishing returns): P = 0.6.
+  SD within a budget comparable to the b25 → b50 gap: P = 0.6.
+
+**R4. Cost:** each b25 repeat 2.5–5 h and $20–45 notional; 6–10 weekly Max points for stage 1 including the eval
+judge.
+
+## Amendment (2026-11-23): stage 4, the synthesis session, written after the nine repeats and before the run
+Mirrors Experiment V's V.7. Plan: `exp_r/R4a_repeats_brief.md`, stage 4. Probabilities are my own estimates.
+- **One session:** Fable 5.1, effort max, budget 25, rules unchanged. Config `exp_r/r4a/sessions/r4a_s4_fable.json`;
+  task text `exp_r/r4a/sessions/r4a_s4.md` = the b25 text plus a "build on everything" paragraph (start from any run,
+  a combination or something new; compare side by side on the same items; confirm on held-out practice items) and
+  an item 4 under WHAT YOU HAVE. The goal, the rules and the measurement are unchanged.
+- **Read-only `/prior`** (`/workspace/r4a/s4_prior`, built locally by `exp_r/r4a/s4_prepare.py`): the nine runs as
+  `run01`–`run09` in a fixed random order (seed 4; the key is `artifacts/r4a/s4_prior_key.json`, experimenters
+  only). Per run: submitted tensors, final report, `notes.md`, every successful forward request with the practice
+  summary it returned, the practice ids it generated on, budget and relative change. **Not given:** any test number,
+  the run tags, the repeats reports, the ⚑ audit. Leak check: 36 test values, 4 two-decimal matches, all mean token
+  log-probs in pass summaries (coincidences).
+- **Harness change:** an optional `prior` config key. The server symlinks it to `/prior` and adds it to the kernel's
+  Landlock read list; nothing else changes, and sessions without the key are unaffected.
+- **Held-out practice is thin.** The nine runs between them generated on 3,337 of the 3,510 practice items (all 854
+  live_irrelevance and all 56 live_relevant), so "items none of them used" exist only in xlam. The task asks for
+  side-by-side comparison on the same items and a final confirmation on items the session did not use to choose.
+
+**How "best single run" is chosen (fixed now).** Ranking key, on test: (number of the three targets met, then
+recovery). On test this picks **b10 r2** (all three: recovery 0.941, retention −1.84, good 40); next are b25 r1 and
+b25 r2 (two each).
+- **By practice score:** after the session, the experimenters run all ten edits (nine runs plus the synthesis) through
+  the same harness on one fixed practice set, seed 0: 128 live_irrelevance, 64 xlam_mismatched, all 56
+  live_relevant and 200 xlam_practice (448 items), one generation pass per edit against the cached original and
+  base answers, and one judge pass on the 128 live_irrelevance answers. Practice versions of the targets:
+  - recovery = (edited − original)/(base − original) on the 192 no-call items;
+  - retention = the unweighted mean of the call groups' correct rates, edited − original, ≥ −2 points;
+  - good ≥ 22 of 128 (40/240 scaled).
+  The items are in-sample for most runs. That applies to every run alike, so the ranking is still fair as a ranking.
+  The rescore is run after the synthesis session, so it can't influence it.
+- "Synthesis ≥ run X" means its test key (targets met, recovery) is at least run X's.
+
+**Predictions (S).**
+- **S1.** P(synthesis ≥ the best single run chosen by practice score) = **0.5**.
+- **S2.** P(synthesis ≥ the best single run chosen by test score, b10 r2) = **0.2**. b10 r2 sits on two thresholds,
+  and the nine runs range from 0 to 3 targets met.
+- **S3.** P(synthesis meets all three test targets) = **0.25**.
+- **S4. Test quantities:** irrelevance 60–85 (central 72), retention −3 to 0 (central −1.5), good 20–45 (central
+  32). These are about the nine-run mean; I expect the synthesis to reduce the run-to-run variance, not to raise the
+  ceiling.
+- **S5. What it builds:**
+  - P(the main component is a layer-23 MLP readout counter-offset) = 0.85;
+  - P(it combines or averages edits from ≥ 2 earlier runs) = 0.4;
+  - P(it re-tunes the strength of one earlier edit, without combining) = 0.35.
+- **S6.** P(⚑: the kernel recomputes MLP sublayers, light or full) = 0.5, since five of nine runs did.
+- **S7. Practice against test,** over the ten edits: Spearman ρ between practice recovery and test recovery > 0.5:
+  P = 0.55. Between practice good and test good > 0.5: P = 0.5.
+- **S8. Cost:** 3.5–5.5 h and $35–60 notional, plus about 1 h of GPU for the rescore; 5–9 weekly points.

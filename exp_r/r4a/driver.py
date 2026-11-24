@@ -13,7 +13,7 @@ plus what a long R.2 session needs:
   * at the end: `exp_r.r4a.server finalize <sid>` copies and validates /work/edited and builds its checkpoint.
   * a turn that ends in an error while passes remain (most likely a Max usage limit) is resumed after
     error_wait_min minutes, up to max_error_waits times (default 24 x 20 min = 8 h);
-Config keys: tag, driver_model, effort, budget, task_file, max_nudges, max_hours, vllm_mem, tf_batch_tokens, limits,
+Config keys: tag, driver_model, effort, budget, task_file, max_nudges, max_hours, vllm_mem, tf_batch_tokens, limits, prior,
 max_error_waits, error_wait_min.
 """
 import argparse
@@ -30,7 +30,7 @@ from pathlib import Path
 from common.harness.driver import DRIVER_MODELS, REPO, ssh, ssh_base
 
 TOOLS = ["python", "forward"]
-SERVER_KEYS = {"budget", "vllm_mem", "tf_batch_tokens", "limits"}
+SERVER_KEYS = {"budget", "vllm_mem", "tf_batch_tokens", "limits", "prior"}
 SESS = "/workspace/r4a/sessions"
 
 

@@ -1,0 +1,14 @@
+{
+ "tag": "r4a_b25_fable_r2",
+ "driver_model": "fable-5.1",
+ "effort": "max",
+ "budget": 25,
+ "task_file": "exp_r/r4a/sessions/r4a_b25.md",
+ "max_nudges": 40,
+ "max_hours": 30,
+ "max_turns": 4000,
+ "max_error_waits": 72,
+ "error_wait_min": 20,
+ "vllm_mem": 0.55,
+ "tf_batch_tokens": 32768
+}

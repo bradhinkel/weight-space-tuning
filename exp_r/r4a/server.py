@@ -111,6 +111,12 @@ class R4aHarness:
             tmp.unlink()
         tmp.symlink_to(self.work)
         os.replace(tmp, "/work")
+        if self.cfg.get("prior"):                       # stage 4 synthesis: earlier runs, read-only at /prior
+            tmp = Path("/prior.tmp")
+            if tmp.is_symlink() or tmp.exists():
+                tmp.unlink()
+            tmp.symlink_to(os.path.realpath(self.cfg["prior"]))
+            os.replace(tmp, "/prior")
 
     def _own(self, p):
         p = Path(p)
@@ -127,6 +133,8 @@ class R4aHarness:
         self.conn, child = ctx.Pipe()
         extra = [p for p in sys.path if p.startswith(sys.prefix)] + [os.path.realpath(MODEL_VIEW),
                                                                        os.path.realpath(PRACTICE)]
+        if self.cfg.get("prior"):
+            extra.append(os.path.realpath(self.cfg["prior"]))
         self.kproc = ctx.Process(target=kernel.main, daemon=True, args=(
             child, str(self.work), KUSER, extra, int(self.lim["kernel_mem_bytes"]), int(self.lim["max_output_chars"]),
             os.path.join(REPO, "exp_r", "r2", "common.py")))
