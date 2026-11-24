@@ -30,7 +30,7 @@ The method is about a month old. What we report here is a set of experiments, no
 ---
 
 ## Introduction
-In November 2026, Takehi, Teoh, Zhang and Khattab at MIT CSAIL described "Sparks of Weight-Space Programming" [1]. A frontier model, the *driver*, is given the weights of a smaller *target* model, a Python sandbox, and a small budget of forward passes on practice data. It must improve the target by editing its weights directly. Gradients, training and running the network inside the sandbox are not allowed. In their Experiment 8, the target is Qwen3.5-0.8B with thinking enabled. Its reasoning loops on "Wait" until it hits the 32k-token limit, so it scores 8% on MATH-500. GPT-6 Astra, given 50 forward passes, found a "loop direction" in two MLP layers. Subtracting it from 64 weight columns raised MATH-500 to 48%. No training data, gradients or labels were involved.
+In November 2026, Rikiya Takehi, Jayden Teoh, Alex Zhang and Omar Khattab at MIT CSAIL described "Sparks of Weight-Space Programming" [1]. A frontier model, the *driver*, is given the weights of a smaller *target* model, a Python sandbox, and a small budget of forward passes on practice data. It must improve the target by editing its weights directly. Gradients, training and running the network inside the sandbox are not allowed. In their Experiment 8, the target is Qwen3.5-0.8B with thinking enabled. Its reasoning loops on "Wait" until it hits the 32k-token limit, so it scores 8% on MATH-500. GPT-6 Astra, given 50 forward passes, found a "loop direction" in two MLP layers. Subtracting it from 64 weight columns raised MATH-500 to 48%. No training data, gradients or labels were involved.
 
 Could the same method repair a *defect introduced by fine-tuning*? Tool routing is a good test case. Small models make cheap, fast routers, and the standard way to improve them is LoRA fine-tuning on a function-calling dataset, as in the Hugging Face cookbook recipe on Salesforce's xLAM data [2, 3]. The resulting defect is well known: every one of the 60,000 xLAM examples ends in a tool call, so the model learns that the answer is always a tool call. Ask it for the freezing point of water and it calls a boiling-point tool.
 
@@ -260,7 +260,7 @@ The router harness is the replicated Experiment 8 harness with the task swapped.
 ## Resource availability
 
 ### Lead contact
-Brad Hinkel. Questions and comments are welcome as issues on the GitHub repository below.
+Brad Hinkel. [brad@bradhinkel.com]
 
 ### Materials availability
 This study did not generate new physical materials. The edited model tensors are in the repository.
