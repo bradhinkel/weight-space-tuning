@@ -1,4 +1,4 @@
-"""Render paper/weight_space_router.md to paper/weight_space_router.pdf.
+"""Render paper/weight_space_router.md to paper/Claude_please_fix_my_model_draft.pdf.
 
     ~/ai_to_ai_loops/.venv/bin/python -I paper/build_pdf.py        # needs markdown-it-py and a Chromium headless shell
 
@@ -12,7 +12,7 @@ from pathlib import Path
 from markdown_it import MarkdownIt
 
 HERE = Path(__file__).resolve().parent
-SRC, HTML, PDF = HERE / "weight_space_router.md", HERE / "weight_space_router.html", HERE / "weight_space_router.pdf"
+SRC, HTML, PDF = HERE / "weight_space_router.md", HERE / "weight_space_router.html", HERE / "Claude_please_fix_my_model_draft.pdf"
 
 CSS = r"""
 /* Static (non-variable) fonts: variable-font subsets kerned badly in Edge's PDF viewer. */

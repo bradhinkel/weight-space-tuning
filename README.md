@@ -2,7 +2,7 @@
 
 Repairing a fine-tuned LLM by editing its weights directly, with no gradients and no training data.
 
-**Live demo: [tool-router.bradhinkel.com](https://tool-router.bradhinkel.com)** — the base model, the tuned router and Fable's fix, side by side. Write-up: [Claude, please fix my model - draft (PDF)](paper/weight_space_router.pdf).
+**Live demo: [tool-router.bradhinkel.com](https://tool-router.bradhinkel.com)** — the base model, the tuned router and Fable's fix, side by side. Write-up: [Claude, please fix my model - draft (PDF)](paper/Claude_please_fix_my_model_draft.pdf).
 
 This is a quick, preliminary replication of "Sparks of Weight-Space Programming" (Takehi, Teoh, Zhang, Khattab, MIT CSAIL, Nov 2026, [blog](https://rikiyat.github.io/blog/weight-space-programming/)). It uses a small open model and a public benchmark.
 

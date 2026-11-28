@@ -20,7 +20,7 @@ from exp_r.r4a import demo_local as D
 
 REPO = "https://github.com/bradhinkel/weight-space-tuning"
 PAPER = "https://rikiyat.github.io/blog/weight-space-programming/"
-PDF = REPO + "/blob/main/paper/weight_space_router.pdf"
+PDF = REPO + "/blob/main/paper/Claude_please_fix_my_model_draft.pdf"
 SITE = "https://tool-router.bradhinkel.com"
 WHERE = "on this laptop"      # --where overrides, e.g. "on a cloud GPU"
 
