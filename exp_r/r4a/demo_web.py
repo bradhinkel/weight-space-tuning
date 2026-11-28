@@ -8,9 +8,11 @@ live on the local GPU through demo_local.Demo; nothing leaves the machine. Answe
 import argparse
 import json
 import math
+import os
 import re
 import threading
 import time
+import urllib.request
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
@@ -77,10 +79,40 @@ def grade(r, gold):
     return False, "Ran out of room before answering" if r["verdict"] in ("cut", "loop") else "Wrong answer"
 
 
+class Remote:
+    """The RunPod Serverless worker (exp_r/r4a/serverless/handler.py) in place of local models; key in RUNPOD_API_KEY."""
+    def __init__(self, endpoint, max_tokens):
+        self.base = f"https://api.runpod.ai/v2/{endpoint}"
+        self.key = os.environ["RUNPOD_API_KEY"]
+        self.max_tokens = max_tokens
+
+    def call(self, path, body=None):
+        req = urllib.request.Request(self.base + path, body, {"Content-Type": "application/json",
+                                                              "Authorization": f"Bearer {self.key}"})
+        with urllib.request.urlopen(req, timeout=120) as r:
+            return json.load(r)
+
+    def run(self, model, case, question):
+        body = json.dumps({"input": {"model": model, "case": case, "question": question,
+                                     "max_tokens": self.max_tokens}}).encode()
+        res = self.call("/runsync", body)
+        deadline = time.time() + 300  # a cold start (worker boot + weights from the volume) outlasts runsync's hold
+        while res.get("status") in ("IN_QUEUE", "IN_PROGRESS") and time.time() < deadline:
+            time.sleep(2)
+            res = self.call(f"/status/{res['id']}")
+        if res.get("status") != "COMPLETED":
+            raise RuntimeError(f"endpoint: {res.get('status')} {res.get('error', '')}".strip())
+        out = res["output"]
+        if "error" in out:
+            raise RuntimeError(out["error"])
+        return out["text"], out["hit_cap"], out["seconds"]
+
+
 class App:
-    def __init__(self, max_tokens):
+    def __init__(self, max_tokens, endpoint=None):
         self.items = json.load(open(D.ITEMS))
-        self.demo = D.Demo({"broken", "edited", "base"})
+        self.remote = Remote(endpoint, max_tokens) if endpoint else None
+        self.demo = None if endpoint else D.Demo({"broken", "edited", "base"})
         self.lock = threading.Lock()
         self.max_tokens = max_tokens
 
@@ -96,12 +128,16 @@ class App:
     def run(self, req):
         item = self.items[int(req["case"]) - 1]
         q = (req.get("question") or "").strip()
-        prompt = D.render_prompt(self.demo.tok, q, item["tools"]) if q else item["prompt"]
-        with self.lock:
-            self.demo.use(req["model"])
-            t0 = time.time()
-            text, cap = self.demo.generate(prompt, self.max_tokens)
-        out = {**parse(text, cap), "seconds": round(time.time() - t0, 1)}
+        if self.remote:
+            text, cap, secs = self.remote.run(req["model"], int(req["case"]), q)
+        else:
+            prompt = D.render_prompt(self.demo.tok, q, item["tools"]) if q else item["prompt"]
+            with self.lock:
+                self.demo.use(req["model"])
+                t0 = time.time()
+                text, cap = self.demo.generate(prompt, self.max_tokens)
+            secs = round(time.time() - t0, 1)
+        out = {**parse(text, cap), "seconds": secs}
         gold = next((d["gold"] for d in DEMO if d["case"] == int(req["case"])), None)
         if gold and not q:
             out["ok"], out["why"] = grade(out, gold)
@@ -405,7 +441,10 @@ def handler(app):
             req = json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0))) or b"{}")
             if req.get("model") not in {m for m, _, _ in MODELS}:
                 return self.send(400, "bad model", "text/plain")
-            self.send(200, json.dumps(app.run(req)), "application/json")
+            try:
+                self.send(200, json.dumps(app.run(req)), "application/json")
+            except Exception as e:  # endpoint down, cold-start timeout, ...
+                self.send(502, f"model call failed: {e}", "text/plain")
     return H
 
 
@@ -415,12 +454,13 @@ def main():
     ap.add_argument("--max-tokens", type=int, default=400)
     ap.add_argument("--html", help="write the page (no live models) to this file and exit")
     ap.add_argument("--where", default=WHERE, help='where the models run, as shown on the page ("on this laptop")')
+    ap.add_argument("--endpoint", help="RunPod Serverless endpoint id: run the models there (needs RUNPOD_API_KEY)")
     a = ap.parse_args()
     globals()["WHERE"] = a.where
     if a.html:
         Path(a.html).write_text(page())
         return print(f"wrote {a.html}")
-    app = App(a.max_tokens)
+    app = App(a.max_tokens, a.endpoint)
     srv = ThreadingHTTPServer(("127.0.0.1", a.port), handler(app))
     print(f"demo ready: http://localhost:{a.port}", flush=True)
     srv.serve_forever()
