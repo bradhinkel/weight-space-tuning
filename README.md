@@ -2,6 +2,8 @@
 
 Repairing a fine-tuned LLM by editing its weights directly, with no gradients and no training data.
 
+**Live demo: [tool-router.bradhinkel.com](https://tool-router.bradhinkel.com)** — the base model, the tuned router and Fable's fix, side by side. Write-up: [Claude, please fix my model - draft (PDF)](paper/weight_space_router.pdf).
+
 This is a quick, preliminary replication of "Sparks of Weight-Space Programming" (Takehi, Teoh, Zhang, Khattab, MIT CSAIL, Nov 2026, [blog](https://rikiyat.github.io/blog/weight-space-programming/)). It uses a small open model and a public benchmark.
 
 ## The experiment (Experiment A)
@@ -83,6 +85,6 @@ The "I" edit switches on a refusal template: two thirds of its text answers are 
 - **GPU:** one 48 GB GPU (an A40 on RunPod here). Environment setup is in `scripts/setup_pod.sh`, versions in `env/lock.md`.
 - **Driver sessions** run locally with Claude Code: `python3 -m common.harness.driver`.
   - Point it at your pod with `WST_POD_HOST`, `WST_POD_PORT` and `WST_POD_KEY`.
-- **Live demo:** to serve base, broken, repaired and LoRA side by side, see `exp_a/demo.md`.
+- **Live demo:** hosted at [tool-router.bradhinkel.com](https://tool-router.bradhinkel.com) (`exp_r/r4a/demo_web.py` on a DigitalOcean droplet, models on RunPod Serverless; `exp_r/r4a/deploy/`). To serve base, broken, repaired and LoRA side by side yourself, see `exp_a/demo.md`.
 
 Model checkpoints are not in the repo. They're about 4.3 GB each.

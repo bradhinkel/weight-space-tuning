@@ -1,0 +1,16 @@
+# /etc/systemd/system/tool-router.service on the DigitalOcean droplet.
+# The page (stdlib only) runs here; the models run on RunPod Serverless endpoint cuut0gzmptyrvc.
+# RUNPOD_API_KEY lives in /etc/tool-router.env (chmod 600, never committed).
+[Unit]
+Description=tool-router.bradhinkel.com (R.4a demo page)
+After=network-online.target
+
+[Service]
+WorkingDirectory=/opt/tool-router
+EnvironmentFile=/etc/tool-router.env
+ExecStart=/usr/bin/python3 -m exp_r.r4a.demo_web --endpoint cuut0gzmptyrvc --port 8010 --where "on a cloud GPU (the first run can take two minutes to wake it up)"
+Restart=on-failure
+DynamicUser=yes
+
+[Install]
+WantedBy=multi-user.target

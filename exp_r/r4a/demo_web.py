@@ -21,6 +21,7 @@ from exp_r.r4a import demo_local as D
 REPO = "https://github.com/bradhinkel/weight-space-tuning"
 PAPER = "https://rikiyat.github.io/blog/weight-space-programming/"
 PDF = REPO + "/blob/main/paper/weight_space_router.pdf"
+SITE = "https://tool-router.bradhinkel.com"
 WHERE = "on this laptop"      # --where overrides, e.g. "on a cloud GPU"
 
 # Prompts A-D are items of demo_items.json (1-based `case`); E is the visitor's own prompt.
@@ -286,7 +287,7 @@ ul.lessons{font-size:20px;padding-left:24px;max-width:960px}ul.lessons li{margin
 <h1>Claude, please fix my model</h1>
 <p class="exp">Replicating weight-space programming, then using it to repair a broken tool router</p>
 <p class="cite">Builds on <a href="__PAPER__">&ldquo;LLMs can natively read &amp; write neural network weights&rdquo;</a> &mdash; Rikiya Takehi, Jayden Teoh, Alex Zhang and Omar Khattab (MIT CSAIL).
-Our write-up: <a href="__PDF__">the paper (PDF)</a>.</p>
+Our write-up: <a href="__PDF__">Claude, please fix my model - draft (PDF)</a>.</p>
 </header>
 
 <section class="section">
@@ -341,6 +342,7 @@ Our write-up: <a href="__PDF__">the paper (PDF)</a>.</p>
 <div class="repro"><div>
 <p class="lead">Simple: point your coding agent at the <a href="__PAPER__">MIT CSAIL paper</a> and ask it to reproduce the math improvement experiment.</p>
 <p class="lead">Here is the QR code for my repository:<br><a class="mono" href="__REPO__">github.com/bradhinkel/weight-space-tuning</a></p>
+<p class="lead">This demo page is at <a class="mono" href="__SITE__">tool-router.bradhinkel.com</a></p>
 <p class="lead"><b>Next steps:</b></p>
 <ul class="lessons"><li>Smaller models, more runs: the same method on a ResNet-50 image classifier (Waterbirds) beat the published fix by about 0.7 points.</li><li>Bigger, better-matched practice sets, especially for judging answers.</li><li>Edits further upstream, where the fine-tune changed how the model responds, to restore answer quality.</li></ul>
 </div><div class="qrcard">__QR__</div></div>
@@ -409,7 +411,7 @@ fetch('/api/cases').then(r=>r.json()).then(j=>{data=j;render()});
 
 def page():
     return (PAGE.replace("__MODELS__", json.dumps(MODELS)).replace("__FIG__", figure()).replace("__QR__", qr_svg())
-            .replace("__REPO__", REPO).replace("__PAPER__", PAPER).replace("__PDF__", PDF).replace("__WHERE__", WHERE))
+            .replace("__REPO__", REPO).replace("__PAPER__", PAPER).replace("__PDF__", PDF).replace("__SITE__", SITE).replace("__WHERE__", WHERE))
 
 
 def handler(app):
